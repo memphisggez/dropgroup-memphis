@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +45,7 @@
             top: 0;
             display: flex;
             flex-direction: column;
+            z-index: 1000;
         }
         
         .sidebar-brand {
@@ -184,6 +184,110 @@
             border-radius: 50%;
         }
 
+        /* --- User Dropdown Menu Styles --- */
+        .user-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            gap: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .user-dropdown-toggle:hover {
+            color: var(--text-light);
+        }
+
+        .user-dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+        }
+
+        .custom-dropdown-menu {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            min-width: 250px;
+            padding: 15px 0 10px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            margin-top: 15px !important;
+        }
+
+        .avatar-gradient-ring {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d2ff 0%, #b224ef 100%);
+            padding: 3px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dropdown-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--bg-main);
+        }
+
+        .role-badge {
+            background-color: rgba(157, 78, 221, 0.15);
+            color: #b288ff;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .custom-dropdown-menu .dropdown-item {
+            color: var(--text-light);
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .custom-dropdown-menu .dropdown-item i {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            width: 30px;
+        }
+
+        .custom-dropdown-menu .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+
+        .sign-out-btn {
+            background-color: rgba(255, 118, 117, 0.1) !important;
+            color: #ff7675 !important;
+            border-radius: 10px;
+            margin: 10px 20px 0 20px;
+            justify-content: center;
+            width: calc(100% - 40px);
+            padding: 10px !important;
+        }
+
+        .sign-out-btn:hover {
+            background-color: rgba(255, 118, 117, 0.2) !important;
+        }
+
+        .sign-out-btn i {
+            color: #ff7675 !important;
+            width: auto !important;
+        }
+
         /* --- Dashboard Widgets --- */
         .banner-card {
             background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
@@ -287,7 +391,42 @@
                     <button class="btn-create"><i class="fa-solid fa-plus"></i> Create</button>
                     <button class="icon-btn"><i class="fa-regular fa-sun"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"><span class="badge-dot"></span></i></button>
-                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:35px; border-radius:50%; margin-left:10px;">
+                    
+                    <!-- ย้ายรูปโปรไฟล์มาใส่ในโครงสร้าง Dropdown -->
+                    <div class="dropdown">
+                        <div class="user-dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:35px; border-radius:50%;">
+                            <span class="d-none d-md-block fw-semibold">John Doe</span>
+                        </div>
+                        
+                        <!-- เมนู Dropdown -->
+                        <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu">
+                            <!-- ส่วนหัว (รูปโปรไฟล์ขนาดใหญ่ และรายละเอียด) -->
+                            <li class="text-center px-4 pt-3 pb-2">
+                                <div class="avatar-gradient-ring mb-3">
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" class="dropdown-avatar">
+                                </div>
+                                <h5 class="mb-1 text-white fw-semibold">John Doe</h5>
+                                <small class="text-muted d-block mb-3">john@trendyadmin.com</small>
+                                <span class="badge role-badge">ADMINISTRATOR</span>
+                            </li>
+                            
+                            <!-- เมนูตัวเลือก -->
+                            <li><hr class="dropdown-divider border-color mt-3 mb-2" style="border-color: var(--border-color);"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-line"></i> Activity Log</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i> Billing</a></li>
+                            
+                            <!-- ปุ่ม Sign Out -->
+                            <li>
+                                <a class="dropdown-item sign-out-btn" href="#">
+                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
 
