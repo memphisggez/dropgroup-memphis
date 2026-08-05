@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trendy Admin - Full Dashboard</title>
+    <title>Trendy Admin - Responsive Dashboard</title>
     
     <!-- โหลดชุดเครื่องมือ Bootstrap 5 และ Font Awesome สำหรับไอคอน -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
             --sidebar-width: 260px;
         }
 
-        /* --- โหมดสว่าง (Light Mode) จะทำงานเมื่อ <body> มีคลาส .light-mode --- */
+        /* --- โหมดสว่าง (Light Mode) --- */
         body.light-mode {
             --bg-main: #f4f6f9;     
             --bg-card: #ffffff;     
@@ -44,7 +44,7 @@
             transition: background-color 0.4s ease, color 0.4s ease; 
         }
 
-        #wrapper { display: flex; width: 100%; }
+        #wrapper { display: flex; width: 100%; position: relative; }
 
         /* =========================================
            2. แถบเมนูด้านซ้าย (Sidebar)
@@ -52,14 +52,14 @@
         #sidebar {
             width: var(--sidebar-width);
             background-color: var(--bg-sidebar);
-            min-height: 100vh;
+            height: 100vh;
             border-right: 1px solid var(--border-color);
             position: fixed; left: 0; top: 0;
             display: flex; flex-direction: column;
-            z-index: 1000; transition: all 0.3s ease;
+            z-index: 1040; transition: all 0.3s ease;
         }
         
-        /* เมื่อ Sidebar หดตัว */
+        /* เมื่อ Sidebar หดตัวบน PC */
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span,
         #sidebar.toggled .menu-title,
@@ -74,9 +74,7 @@
         }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
 
-        /* เมนูย่อย */
         .sidebar-menu { list-style: none; padding: 0 15px; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
-        /* ซ่อน Scrollbar ของเมนูซ้ายให้ดูคลีน */
         .sidebar-menu::-webkit-scrollbar { width: 4px; }
         .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
 
@@ -101,7 +99,7 @@
         ========================================= */
         #page-content {
             margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width));
-            padding: 20px; transition: all 0.3s ease;
+            padding: 20px; transition: all 0.3s ease; min-height: 100vh;
         }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
@@ -112,7 +110,7 @@
         }
         .search-bar {
             background-color: var(--bg-main); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 300px;
+            border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 250px;
         }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
@@ -121,15 +119,39 @@
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
-        .btn-create {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-            color: #ffffff; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; font-size: 0.9rem;
+        /* =========================================
+           4. การตั้งค่าแสดงผลบนหน้าจอมือถือ (Responsive Mobile)
+        ========================================= */
+        /* ฉากหลังสีดำโปร่งแสง (จะแสดงเฉพาะตอนเปิดเมนูบนมือถือ) */
+        .sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.active { display: block; }
+
+        /* เมื่อขนาดหน้าจอเล็กกว่า 992px (มือถือ / แท็บเล็ตแนวตั้ง) */
+        @media (max-width: 991.98px) {
+            /* ซ่อน Sidebar ไปทางซ้ายสุด */
+            #sidebar { left: calc(-1 * var(--sidebar-width)); box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+            /* เมื่อมีคลาส mobile-show ให้สไลด์ Sidebar ออกมา */
+            #sidebar.mobile-show { left: 0; }
+            
+            /* ขยายเนื้อหาหลักให้เต็มจอ */
+            #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; }
+            #page-content.toggled { margin-left: 0; width: 100%; }
+            
+            /* ซ่อนแถบค้นหาและข้อความชื่อผู้ใช้เพื่อให้ Topbar ไม่ล้นจอ */
+            .search-bar { display: none !important; }
+            .user-name-text { display: none !important; }
+            
+            /* ปรับขนาดตัวหนังสือในแบนเนอร์ให้เล็กลง */
+            .banner-card h2 { font-size: 1.5rem; }
+            .glass-stat { flex: 1 1 100%; text-align: center; } /* ให้กล่องสถิติเรียงลงมาแทนแนวนอน */
         }
 
         /* =========================================
-           4. การ์ดและคอมโพเนนต์ต่างๆ (Cards & Widgets)
+           5. การ์ดและคอมโพเนนต์ต่างๆ (Cards & Widgets)
         ========================================= */
-        /* แบนเนอร์สีม่วงแบบมีข้อมูลซ้อน */
         .banner-card {
             background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
             border-radius: 15px; padding: 30px; margin-bottom: 25px; color: #ffffff;
@@ -141,13 +163,11 @@
         }
         .banner-btn:hover { background: #f0f0f0; }
         
-        /* กล่องสถิติโปร่งใสในแบนเนอร์ */
         .glass-stat {
             background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
             border-radius: 12px; padding: 15px 20px; min-width: 130px; border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* การ์ดทั่วไป */
         .custom-card {
             background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px;
             border: 1px solid var(--border-color); transition: all 0.4s ease; height: calc(100% - 25px);
@@ -158,24 +178,17 @@
             align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 15px;
         }
 
-        /* สไตล์ตาราง */
         .table { color: var(--text-light); margin-bottom: 0; }
-        .table td, .table th { border-bottom: 1px solid var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; }
+        .table td, .table th { border-bottom: 1px solid var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; white-space: nowrap; }
         .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
         
-        /* ไอคอนวงกลมสำหรับ Transactions */
-        .icon-circle { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .icon-circle { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
 
-        /* สไตล์ Timeline (Live Activity) */
         .timeline { border-left: 2px solid var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot {
-            position: absolute; left: -27px; top: 5px; width: 12px; height: 12px;
-            border-radius: 50%; background: var(--bg-card); border: 2px solid;
-        }
+        .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
 
-        /* Custom Checkbox (Tasks) */
         .custom-checkbox { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border-color); cursor: pointer; accent-color: var(--primary-color); }
 
         /* สีตกแต่งเอนกประสงค์ */
@@ -189,12 +202,14 @@
         .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
         .bg-cancelled { background-color: rgba(255, 118, 117, 0.15); color: #ff7675; }
         .bg-processing { background-color: rgba(30, 144, 255, 0.15); color: #1e90ff; }
-
     </style>
 </head>
 <body>
 
     <div id="wrapper">
+        <!-- ฉากหลังสีดำโปร่งแสงสำหรับมือถือ -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
         <!-- =========================================
              Sidebar (เมนูด้านซ้าย)
         ========================================= -->
@@ -206,19 +221,16 @@
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span><i class="fa-solid fa-chevron-right ms-auto" style="font-size: 0.8rem; width:auto;"></i></a></li>
-                <li><a href="#"><i class="fa-solid fa-users"></i> <span>Users</span><i class="fa-solid fa-chevron-right ms-auto" style="font-size: 0.8rem; width:auto;"></i></a></li>
-                <li><a href="#"><i class="fa-solid fa-shield-halved"></i> <span>Authentication</span><i class="fa-solid fa-chevron-right ms-auto" style="font-size: 0.8rem; width:auto;"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-users"></i> <span>Users</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-shield-halved"></i> <span>Authentication</span></a></li>
 
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
                 <li><a href="#"><i class="fa-regular fa-comments"></i> <span>Chat</span></a></li>
                 <li><a href="#"><i class="fa-regular fa-address-book"></i> <span>Contacts</span></a></li>
-                <li><a href="#"><i class="fa-regular fa-folder-open"></i> <span>File Manager</span></a></li>
-                <li><a href="#"><i class="fa-regular fa-envelope"></i> <span>Email</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-list-check"></i> <span>Todo List</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-headset"></i> <span>Support Center</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
@@ -238,35 +250,34 @@
             <!-- Topbar (แถบด้านบน) -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
+                    <!-- ปุ่มแฮมเบอร์เกอร์ เปิด/ปิด เมนู -->
                     <i class="fa-solid fa-bars text-muted icon-btn" id="menu-toggle"></i>
-                    <div class="search-bar d-none d-md-flex">
+                    <!-- ช่องค้นหา (จะถูกซ่อนในมือถือ) -->
+                    <div class="search-bar">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
                         <input type="text" placeholder="Search anything...">
                     </div>
                 </div>
                 
                 <div class="topbar-actions">
-                    <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
-                    <!-- ปุ่มเปิดปิดโหมดสี -->
+                    <!-- ปุ่มสลับโหมดสี -->
                     <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี">
                         <i class="fa-regular fa-lightbulb" id="theme-icon"></i>
                     </button>
-                    <button class="icon-btn" title="ขยายเต็มจอ"><i class="fa-solid fa-expand"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
-                    <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;">
+                    <div class="d-flex align-items-center gap-2 ms-1 ms-md-2" style="cursor: pointer;">
                         <img src="https://ui-avatars.com/api/?name=Kanokwan+P&background=random" style="width:35px; border-radius:50%;">
-                        <span class="d-none d-md-block fw-semibold text-light" style="font-size: 0.95rem;">Kanokwan</span>
-                        <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
+                        <span class="user-name-text fw-semibold text-light" style="font-size: 0.95rem;">Kanokwan</span>
                     </div>
                 </div>
             </div>
 
-            <!-- คอนเทนเนอร์หลัก -->
+            <!-- คอนเทนเนอร์หลัก (รองรับมือถือและ PC) -->
             <div class="container-fluid p-0">
                 
-                <!-- แถวที่ 1: แบนเนอร์ต้อนรับ (แบบในคลิปมีกล่องสถิติข้างใน) -->
+                <!-- แบนเนอร์ต้อนรับ -->
                 <div class="banner-card">
                     <div>
                         <span class="badge bg-light text-dark mb-2 px-2 py-1">DASHBOARD</span>
@@ -275,28 +286,25 @@
                         <button class="banner-btn">View analytics &rarr;</button>
                     </div>
                     
-                    <div class="d-flex flex-wrap gap-3 mt-3 mt-md-0">
-                        <div class="glass-stat">
+                    <div class="d-flex flex-wrap gap-2 gap-md-3 mt-3 mt-md-0 w-100 w-md-auto">
+                        <div class="glass-stat flex-grow-1">
                             <h4 class="mb-1 fw-bold">$1,280</h4>
-                            <small style="color: rgba(255,255,255,0.7);">Today's Revenue</small><br>
-                            <span class="badge bg-white text-dark mt-2 rounded-pill"><i class="fa-solid fa-arrow-trend-up text-success"></i> 12%</span>
+                            <small style="color: rgba(255,255,255,0.7);">Today's Revenue</small>
                         </div>
-                        <div class="glass-stat">
+                        <div class="glass-stat flex-grow-1">
                             <h4 class="mb-1 fw-bold">46</h4>
-                            <small style="color: rgba(255,255,255,0.7);">New Orders</small><br>
-                            <span class="badge bg-white text-dark mt-2 rounded-pill"><i class="fa-solid fa-arrow-trend-down text-danger"></i> 8%</span>
+                            <small style="color: rgba(255,255,255,0.7);">New Orders</small>
                         </div>
-                        <div class="glass-stat">
+                        <div class="glass-stat flex-grow-1">
                             <h4 class="mb-1 fw-bold">2,341</h4>
-                            <small style="color: rgba(255,255,255,0.7);">Visitors</small><br>
-                            <span class="badge bg-white text-dark mt-2 rounded-pill"><i class="fa-solid fa-arrow-trend-up text-success"></i> 21%</span>
+                            <small style="color: rgba(255,255,255,0.7);">Visitors</small>
                         </div>
                     </div>
                 </div>
 
-                <!-- แถวที่ 2: การ์ด 4 กล่อง (Total Sales, Revenue, Orders, Customers) -->
+                <!-- การ์ด 4 กล่อง -->
                 <div class="row">
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between">
                                 <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
@@ -306,13 +314,11 @@
                             <small class="text-muted">Total Sales</small>
                             <div class="mt-3 d-flex gap-1">
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 6px;"></div>
                                 <div style="width: 30%; background: var(--primary-color); height: 6px; border-radius: 10px;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between">
                                 <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-dollar-sign"></i></div>
@@ -322,13 +328,11 @@
                             <small class="text-muted">Revenue</small>
                             <div class="mt-3 d-flex gap-1">
                                 <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 6px;"></div>
                                 <div style="width: 20%; background: #2ed573; height: 6px; border-radius: 10px;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between">
                                 <div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div>
@@ -338,13 +342,11 @@
                             <small class="text-muted">Orders</small>
                             <div class="mt-3 d-flex gap-1">
                                 <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 6px;"></div>
                                 <div style="width: 40%; background: #ffa502; height: 6px; border-radius: 10px;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between">
                                 <div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
@@ -354,181 +356,50 @@
                             <small class="text-muted">Customers</small>
                             <div class="mt-3 d-flex gap-1">
                                 <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 6px;"></div>
-                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 6px;"></div>
                                 <div style="width: 50%; background: #1e90ff; height: 6px; border-radius: 10px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- แถวที่ 3: กราฟขนาดใหญ่ (Revenue & Goal) -->
+                <!-- กราฟขนาดใหญ่ -->
                 <div class="row">
-                    <div class="col-xl-8">
+                    <div class="col-xl-8 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-2">
                                 <div>
                                     <h5 class="mb-0 fw-bold">Revenue Overview</h5>
                                     <small class="text-muted">Income vs expenses this year</small>
                                 </div>
-                                <div>
+                                <div class="mt-2 mt-sm-0">
                                     <span class="badge bg-purple-light text-purple p-2">Week</span>
                                     <span class="badge" style="background: var(--primary-color); color:#fff; padding: 0.5rem;">Month</span>
                                     <span class="badge bg-transparent text-muted p-2">Year</span>
                                 </div>
                             </div>
-                            <div id="revenueChart" style="height: 320px; margin-top: 10px;"></div>
+                            <div id="revenueChart" style="height: 320px; width: 100%;"></div>
                         </div>
                     </div>
                     
-                    <div class="col-xl-4">
+                    <div class="col-xl-4 col-12">
                         <div class="custom-card text-center d-flex flex-column justify-content-between">
                             <div>
                                 <h5 class="mb-0 text-start fw-bold">Sales Goal</h5>
                                 <small class="text-muted d-block text-start">Monthly target progress</small>
                             </div>
-                            <div id="goalChart" class="my-3 d-flex justify-content-center"></div>
+                            <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
                             <div class="d-flex justify-content-around mt-2">
                                 <div><small class="text-muted">Target</small><br><strong class="fs-5">$50,000</strong></div>
                                 <div><small class="text-muted">Earned</small><br><strong class="fs-5">$39,200</strong></div>
                             </div>
-                            <div class="mt-4 p-3 bg-purple-light text-purple rounded text-start" style="font-size: 0.85rem;">
-                                <i class="fa-solid fa-bolt me-2"></i> You're $10.8k away from your goal — keep pushing!
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- แถวที่ 4: แหล่งที่มา, ธุรกรรม, สิ่งที่ต้องทำ (Traffic, Transactions, Tasks) -->
+                <!-- ข้อมูลอื่นๆ -->
                 <div class="row">
-                    <!-- 1. Traffic Sources -->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="custom-card">
-                            <h5 class="fw-bold mb-1">Traffic Sources</h5>
-                            <small class="text-muted mb-4 d-block">Where your visitors come from</small>
-                            
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="d-flex align-items-center gap-2"><div class="icon-circle bg-purple-light text-purple" style="width:25px; height:25px;"><i class="fa-solid fa-globe" style="font-size: 0.7rem;"></i></div> Direct</span>
-                                    <small class="fw-bold">42%</small>
-                                </div>
-                                <div class="progress" style="height: 6px; background-color: var(--border-color);">
-                                    <div class="progress-bar" style="width: 42%; background-color: #9d4edd;"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="d-flex align-items-center gap-2"><div class="icon-circle bg-green-light text-green" style="width:25px; height:25px;"><i class="fa-solid fa-magnifying-glass" style="font-size: 0.7rem;"></i></div> Organic Search</span>
-                                    <small class="fw-bold">28%</small>
-                                </div>
-                                <div class="progress" style="height: 6px; background-color: var(--border-color);">
-                                    <div class="progress-bar" style="width: 28%; background-color: #2ed573;"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="d-flex align-items-center gap-2"><div class="icon-circle bg-blue-light text-blue" style="width:25px; height:25px;"><i class="fa-solid fa-share-nodes" style="font-size: 0.7rem;"></i></div> Social Media</span>
-                                    <small class="fw-bold">16%</small>
-                                </div>
-                                <div class="progress" style="height: 6px; background-color: var(--border-color);">
-                                    <div class="progress-bar" style="width: 16%; background-color: #1e90ff;"></div>
-                                </div>
-                            </div>
-                            <div class="mb-0">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="d-flex align-items-center gap-2"><div class="icon-circle bg-orange-light text-orange" style="width:25px; height:25px;"><i class="fa-solid fa-link" style="font-size: 0.7rem;"></i></div> Referrals</span>
-                                    <small class="fw-bold">9%</small>
-                                </div>
-                                <div class="progress" style="height: 6px; background-color: var(--border-color);">
-                                    <div class="progress-bar" style="width: 9%; background-color: #ffa502;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Recent Transactions -->
-                    <div class="col-xl-4 col-md-6">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                <div>
-                                    <h5 class="fw-bold mb-0">Recent Transactions</h5>
-                                    <small class="text-muted">Latest account movements</small>
-                                </div>
-                                <a href="#" class="text-purple" style="text-decoration: none; font-size: 0.85rem;">View all &rarr;</a>
-                            </div>
-                            
-                            <div class="mt-4">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon-circle bg-green-light text-green"><i class="fa-solid fa-arrow-down"></i></div>
-                                    <div class="ms-3 flex-grow-1"><h6 class="mb-0" style="font-size: 0.95rem;">Stripe Payout</h6><small class="text-muted">Today, 09:41</small></div>
-                                    <div class="text-green fw-bold">+$2,480.00</div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon-circle bg-pink-light text-pink"><i class="fa-solid fa-arrow-up"></i></div>
-                                    <div class="ms-3 flex-grow-1"><h6 class="mb-0" style="font-size: 0.95rem;">Figma Subscription</h6><small class="text-muted">Today, 08:12</small></div>
-                                    <div class="text-danger fw-bold">-$45.00</div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon-circle bg-green-light text-green"><i class="fa-solid fa-arrow-down"></i></div>
-                                    <div class="ms-3 flex-grow-1"><h6 class="mb-0" style="font-size: 0.95rem;">Invoice #INV-0092</h6><small class="text-muted">Yesterday, 16:30</small></div>
-                                    <div class="text-green fw-bold">+$890.00</div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon-circle bg-pink-light text-pink"><i class="fa-solid fa-arrow-up"></i></div>
-                                    <div class="ms-3 flex-grow-1"><h6 class="mb-0" style="font-size: 0.95rem;">AWS Hosting</h6><small class="text-muted">Yesterday, 11:05</small></div>
-                                    <div class="text-danger fw-bold">-$220.40</div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div class="icon-circle bg-green-light text-green"><i class="fa-solid fa-arrow-down"></i></div>
-                                    <div class="ms-3 flex-grow-1"><h6 class="mb-0" style="font-size: 0.95rem;">App Store Sales</h6><small class="text-muted">Jun 14, 19:22</small></div>
-                                    <div class="text-green fw-bold">+$1,132.60</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. Tasks Today -->
-                    <div class="col-xl-4 col-md-12">
-                        <div class="custom-card">
-                            <h5 class="fw-bold mb-1">Tasks Today</h5>
-                            <small class="text-muted mb-4 d-block">2 of 6 completed</small>
-                            
-                            <div class="d-flex align-items-center mb-3">
-                                <input type="checkbox" class="custom-checkbox me-3" checked>
-                                <span class="text-muted text-decoration-line-through flex-grow-1">Review Q2 sales report</span>
-                                <small class="text-muted">9:00</small>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <input type="checkbox" class="custom-checkbox me-3" checked>
-                                <span class="text-muted text-decoration-line-through flex-grow-1">Approve new user roles</span>
-                                <small class="text-muted">10:30</small>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <input type="checkbox" class="custom-checkbox me-3">
-                                <span class="flex-grow-1">Call with design team</span>
-                                <small class="text-muted">13:00</small>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <input type="checkbox" class="custom-checkbox me-3">
-                                <span class="flex-grow-1">Update pricing page copy</span>
-                                <small class="text-muted">15:00</small>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <input type="checkbox" class="custom-checkbox me-3">
-                                <span class="flex-grow-1">Prepare invoice batch</span>
-                                <small class="text-muted">16:30</small>
-                            </div>
-                            <div class="mt-3">
-                                <a href="#" class="text-purple" style="text-decoration: none; font-size: 0.9rem;"><i class="fa-solid fa-plus me-1"></i> Add task</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- แถวที่ 5: ตารางออเดอร์, สินค้าขายดี, และ Live Activity -->
-                <div class="row">
-                    <!-- ตารางออเดอร์ (Recent Orders) -->
-                    <div class="col-xl-8">
+                    <!-- ตารางออเดอร์ (ต้องครอบด้วย .table-responsive เพื่อให้เลื่อนซ้ายขวาในมือถือได้) -->
+                    <div class="col-xl-8 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
@@ -544,45 +415,21 @@
                                             <th class="text-muted" style="font-size: 0.8rem;">ORDER</th>
                                             <th class="text-muted" style="font-size: 0.8rem;">CUSTOMER</th>
                                             <th class="text-muted" style="font-size: 0.8rem;">PRODUCT</th>
-                                            <th class="text-muted" style="font-size: 0.8rem;">AMOUNT</th>
                                             <th class="text-muted" style="font-size: 0.8rem;">STATUS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="text-purple fw-semibold">#ORD-001</td>
-                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=John+Doe" width="35" class="rounded-circle me-3"> <div><span class="d-block">John Doe</span><small class="text-muted">john@example.com</small></div></div></td>
+                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=John+Doe" width="30" class="rounded-circle me-2"> John Doe</div></td>
                                             <td>Premium Plan</td>
-                                            <td class="fw-semibold">$299.00</td>
                                             <td><span class="badge-status bg-completed">Completed</span></td>
                                         </tr>
                                         <tr>
                                             <td class="text-purple fw-semibold">#ORD-002</td>
-                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=Jane+Smith" width="35" class="rounded-circle me-3"> <div><span class="d-block">Jane Smith</span><small class="text-muted">jane@example.com</small></div></div></td>
+                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=Jane+Smith" width="30" class="rounded-circle me-2"> Jane Smith</div></td>
                                             <td>Basic Plan</td>
-                                            <td class="fw-semibold">$99.00</td>
                                             <td><span class="badge-status bg-pending">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-purple fw-semibold">#ORD-003</td>
-                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=Mike+Johnson" width="35" class="rounded-circle me-3"> <div><span class="d-block">Mike Johnson</span><small class="text-muted">mike@example.com</small></div></div></td>
-                                            <td>Enterprise Plan</td>
-                                            <td class="fw-semibold">$999.00</td>
-                                            <td><span class="badge-status bg-completed">Completed</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-purple fw-semibold">#ORD-004</td>
-                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=Sarah+Wilson" width="35" class="rounded-circle me-3"> <div><span class="d-block">Sarah Wilson</span><small class="text-muted">sarah@example.com</small></div></div></td>
-                                            <td>Basic Plan</td>
-                                            <td class="fw-semibold">$99.00</td>
-                                            <td><span class="badge-status bg-cancelled">Cancelled</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-purple fw-semibold">#ORD-005</td>
-                                            <td><div class="d-flex align-items-center"><img src="https://ui-avatars.com/api/?name=Alex+Brown" width="35" class="rounded-circle me-3"> <div><span class="d-block">Alex Brown</span><small class="text-muted">alex@example.com</small></div></div></td>
-                                            <td>Premium Plan</td>
-                                            <td class="fw-semibold">$299.00</td>
-                                            <td><span class="badge-status bg-processing">Processing</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -590,123 +437,77 @@
                         </div>
                     </div>
 
-                    <!-- คอลัมน์ขวาสุด (Top Products & Live Activity) -->
-                    <div class="col-xl-4">
-                        <!-- Top Products -->
-                        <div class="custom-card mb-4">
-                            <h5 class="fw-bold mb-1">Top Products</h5>
-                            <small class="text-muted d-block mb-4">Best sellers this month</small>
-                            
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-card border rounded p-2 me-3"><i class="fa-solid fa-headphones text-muted"></i></div>
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between mb-1"><span class="fw-semibold">Wireless Headset</span><small class="text-muted">1,241 sold</small></div>
-                                    <div class="progress" style="height: 4px; background: var(--border-color);"><div class="progress-bar" style="width: 85%; background: #9d4edd;"></div></div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-card border rounded p-2 me-3"><i class="fa-solid fa-clock text-muted"></i></div>
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between mb-1"><span class="fw-semibold">Smart Watch Pro</span><small class="text-muted">986 sold</small></div>
-                                    <div class="progress" style="height: 4px; background: var(--border-color);"><div class="progress-bar" style="width: 70%; background: #9d4edd;"></div></div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-card border rounded p-2 me-3"><i class="fa-solid fa-camera text-muted"></i></div>
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between mb-1"><span class="fw-semibold">Studio Camera</span><small class="text-muted">742 sold</small></div>
-                                    <div class="progress" style="height: 4px; background: var(--border-color);"><div class="progress-bar" style="width: 55%; background: #9d4edd;"></div></div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-card border rounded p-2 me-3"><i class="fa-solid fa-keyboard text-muted"></i></div>
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between mb-1"><span class="fw-semibold">Gaming Keyboard</span><small class="text-muted">518 sold</small></div>
-                                    <div class="progress" style="height: 4px; background: var(--border-color);"><div class="progress-bar" style="width: 40%; background: #9d4edd;"></div></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Live Activity (Timeline) -->
+                    <!-- Live Activity -->
+                    <div class="col-xl-4 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <h5 class="fw-bold mb-0">Live Activity</h5>
-                                <div class="badge-dot position-relative" style="background:#2ed573;"></div>
-                            </div>
+                            <h5 class="fw-bold mb-1">Live Activity</h5>
                             <small class="text-muted d-block mb-3">What's happening right now</small>
-                            
                             <div class="timeline">
                                 <div class="timeline-item">
                                     <div class="timeline-dot" style="border-color: #2ed573;"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">New order received <span class="text-purple">#ORD-001</span></span>
+                                    <span class="d-block" style="font-size: 0.95rem;">New order received</span>
                                     <small class="text-muted">5 minutes ago</small>
                                 </div>
                                 <div class="timeline-item">
                                     <div class="timeline-dot" style="border-color: #9d4edd;"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">New user registered <span class="fw-bold">John Doe</span></span>
+                                    <span class="d-block" style="font-size: 0.95rem;">New user registered</span>
                                     <small class="text-muted">15 minutes ago</small>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="border-color: #ffa502;"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">Server CPU usage at 85%</span>
-                                    <small class="text-muted">1 hour ago</small>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="border-color: #1e90ff;"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">New comment on <span class="text-purple">blog post</span></span>
-                                    <small class="text-muted">2 hours ago</small>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="border-color: #ff7675;"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">Order <span class="text-purple">#ORD-004</span> cancelled</span>
-                                    <small class="text-muted">3 hours ago</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Footer (เครดิตด้านล่าง) -->
-                <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                    <small class="text-muted">&copy; 2026 TrendyAdmin. All Rights Reserved.</small>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-muted text-decoration-none"><small>About</small></a>
-                        <a href="#" class="text-muted text-decoration-none"><small>Privacy</small></a>
-                        <a href="#" class="text-muted text-decoration-none"><small>Terms</small></a>
-                        <a href="#" class="text-muted text-decoration-none"><small>Contact</small></a>
-                    </div>
-                    <small class="text-muted">Designed by <span class="text-purple">BootstrapMade</span></small>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- โหลดสคริปต์การทำงานของ Bootstrap -->
+    <!-- โหลดสคริปต์ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- โหลดไลบรารี ApexCharts สำหรับวาดกราฟแบบในคลิป -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 1. ฟังก์ชันสั่ง หด-ขยาย เมนูแถบ Sidebar ด้านซ้าย
+        /* =========================================
+           1. ระบบเมนู Responsive (มือถือ & PC)
+        ========================================= */
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const pageContent = document.getElementById('page-content');
+        const overlay = document.getElementById('sidebar-overlay');
 
+        // เมื่อกดปุ่มแฮมเบอร์เกอร์
         menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('toggled');      
-            pageContent.classList.toggle('toggled');   
+            // เช็คว่าขนาดหน้าจอเป็นมือถือ (น้อยกว่า 992px) หรือ PC
+            if (window.innerWidth <= 991.98) {
+                sidebar.classList.toggle('mobile-show'); // สไลด์เมนูออกมา
+                overlay.classList.toggle('active');      // เปิดฉากหลังดำ
+            } else {
+                sidebar.classList.toggle('toggled');     // หดเมนูบน PC
+                pageContent.classList.toggle('toggled'); // ขยายเนื้อหาหลัก
+            }
         });
 
-        // 2. ฟังก์ชันสลับโหมดสว่าง-มืด (Light/Dark Mode)
+        // เมื่อกดที่ฉากหลังดำในมือถือ ให้ปิดเมนู
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('mobile-show');
+            overlay.classList.remove('active');
+        });
+
+        // ถ้ามีการหมุนจอ หรือย่อขยายเบราว์เซอร์ ให้รีเซ็ตค่ามือถือออก
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 991.98) {
+                sidebar.classList.remove('mobile-show');
+                overlay.classList.remove('active');
+            }
+        });
+
+        /* =========================================
+           2. ระบบสลับโหมดสว่าง-มืด (Light/Dark Mode)
+        ========================================= */
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
-
         themeToggleBtn.addEventListener('click', function() {
             document.body.classList.toggle('light-mode');
-            
-            // สลับไอคอนหลอดไฟ
             if (document.body.classList.contains('light-mode')) {
                 themeIcon.classList.remove('fa-regular');
                 themeIcon.classList.add('fa-solid'); // สว่างทึบ
@@ -716,65 +517,49 @@
             }
         });
 
-        // 3. วาดกราฟเส้นแนวนอนแบบคลื่น (Revenue Chart)
+        /* =========================================
+           3. วาดกราฟเส้น (Revenue Chart)
+        ========================================= */
         var revenueOptions = {
             series: [{
-                name: 'Revenue',
-                data: [4200, 5800, 4800, 6100, 5200, 7900, 7000, 8500, 7500, 9500, 8500, 11000] // จำลองข้อมูลรายได้รายเดือน
+                name: 'Revenue', data: [4200, 5800, 4800, 6100, 5200, 7900]
             }, {
-                name: 'Expenses',
-                data: [3100, 2800, 3200, 2800, 3400, 3200, 3800, 3100, 3600, 3300, 4100, 3800] // จำลองข้อมูลรายจ่าย
+                name: 'Expenses', data: [3100, 2800, 3200, 2800, 3400, 3200]
             }],
             chart: {
-                height: 320,
-                type: 'area', // แบบ Area (มีสีใต้เส้นกราฟ)
-                toolbar: { show: false }, 
-                foreColor: '#8b8a9e', 
-                fontFamily: 'Segoe UI, sans-serif'
+                height: 320, width: "100%", type: 'area', toolbar: { show: false }, 
+                foreColor: '#8b8a9e', fontFamily: 'Segoe UI, sans-serif'
             },
-            colors: ['#9d4edd', '#ff7675'], // ม่วง กับ แดงอมชมพู
-            fill: {
-                type: 'gradient',
-                gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] }
-            },
-            dataLabels: { enabled: false }, // ซ่อนตัวเลขบนจุดกราฟ
-            stroke: { curve: 'smooth', width: 3 }, // ทำให้เส้นโค้งมน
-            xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                     axisBorder: { show: false }, axisTicks: { show: false } },
-            yaxis: { labels: { formatter: function (value) { return "$" + (value / 1000).toFixed(1) + "k"; } } },
-            grid: { borderColor: 'rgba(139, 138, 158, 0.1)', strokeDashArray: 4 }, // เส้นตารางแบบประ
-            legend: { position: 'top', horizontalAlign: 'right', offsetY: -20 },
-            tooltip: { theme: 'dark' } // ให้กล่องข้อมูลเวลาเอาเมาส์ชี้เป็นสีเข้ม
+            colors: ['#9d4edd', '#ff7675'],
+            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] } },
+            dataLabels: { enabled: false },
+            stroke: { curve: 'smooth', width: 3 },
+            xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], axisBorder: { show: false }, axisTicks: { show: false } },
+            grid: { borderColor: 'rgba(139, 138, 158, 0.1)', strokeDashArray: 4 },
+            legend: { position: 'top', horizontalAlign: 'right' },
+            tooltip: { theme: 'dark' }
         };
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), revenueOptions);
         revenueChart.render();
 
-        // 4. วาดกราฟเป้าหมายแบบโดนัทครึ่งวงกลม (Sales Goal)
+        /* =========================================
+           4. วาดกราฟเป้าหมาย (Sales Goal)
+        ========================================= */
         var goalOptions = {
-            series: [78], // เปอร์เซ็นต์เป้าหมายที่ทำได้
-            chart: {
-                height: 280,
-                type: 'radialBar', 
-                fontFamily: 'Segoe UI, sans-serif'
-            },
+            series: [78],
+            chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI, sans-serif' },
             plotOptions: {
                 radialBar: {
-                    startAngle: -120, // จุดเริ่มต้นฝั่งซ้าย
-                    endAngle: 120,    // จุดจบฝั่งขวา
-                    hollow: { size: '65%' }, // ขนาดรูกลาง
+                    startAngle: -120, endAngle: 120, hollow: { size: '65%' },
                     track: { background: 'rgba(139, 138, 158, 0.1)', strokeWidth: '100%' }, 
                     dataLabels: {
                         name: { show: true, color: '#8b8a9e', fontSize: '13px', offsetY: 25 },
-                        value: { offsetY: -10, fontSize: '38px', color: '#9d4edd', fontWeight: 'bold', formatter: function (val) { return val + "%"; } }
+                        value: { offsetY: -10, fontSize: '35px', color: '#9d4edd', fontWeight: 'bold', formatter: function (val) { return val + "%"; } }
                     }
                 }
             },
-            fill: {
-                type: 'gradient',
-                gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#ff7675' }, { offset: 100, color: '#9d4edd' }] } // ไล่สีจากชมพูไปม่วง
-            },
-            stroke: { lineCap: 'round' }, // ทำให้ปลายเส้นขอบโค้งมน
-            labels: ['of monthly goal'],
+            fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#ff7675' }, { offset: 100, color: '#9d4edd' }] } },
+            stroke: { lineCap: 'round' }, labels: ['of monthly goal'],
         };
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), goalOptions);
         goalChart.render();
