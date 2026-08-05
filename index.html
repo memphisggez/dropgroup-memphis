@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memphis Group - Full Dashboard</title>
     
+    <!-- โหลดชุดเครื่องมือ Bootstrap 5 และ Font Awesome สำหรับไอคอน -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -19,7 +20,8 @@
             --primary-color: #9d4edd;
             --primary-hover: #7b2cbf;
             --text-light: #ffffff; 
-            --text-muted: #b0b0c5; /* สีเทาสว่าง เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
+            /* 🌟 สีเทาสว่าง เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
+            --text-muted: #b0b0c5; 
             --border-color: #2a2940;
             --sidebar-width: 260px;
         }
@@ -30,7 +32,8 @@
             --bg-card: #ffffff;     
             --bg-sidebar: #ffffff;  
             --text-light: #2b2b36;  
-            --text-muted: #79788f;  /* สีเทาสำหรับโหมดสว่าง */
+            /* สีเทาสำหรับโหมดสว่าง */
+            --text-muted: #79788f;  
             --border-color: #eaeaea;
         }
 
@@ -45,6 +48,28 @@
         /* บังคับให้คลาสของ Bootstrap ใช้สีสว่างที่เราตั้งไว้ */
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
+
+        /* =========================================
+           🌟 หน้าจอล็อคอิน (Login Screen)
+        ========================================= */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-main); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .login-card {
+            background-color: var(--bg-card); padding: 40px; border-radius: 20px;
+            width: 90%; max-width: 400px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
+        }
+        .login-input {
+            width: 100%; padding: 12px 20px; margin: 20px 0; border-radius: 10px;
+            border: 1px solid var(--border-color); background: var(--bg-main);
+            color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem;
+        }
+        .login-input:focus { border-color: var(--primary-color); }
+        .btn-logout { background: transparent; border: none; color: #ff7675; cursor: pointer; transition: 0.3s; }
+        .btn-logout:hover { color: #d63031; }
 
         /* =========================================
            2. แถบเมนูด้านซ้าย (Sidebar)
@@ -106,7 +131,7 @@
         }
         .sidebar-submenu li a:hover { color: var(--text-light); background: transparent !important; }
 
-        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
+        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .user-profile-bottom img { width: 40px; border-radius: 50%; }
 
         /* =========================================
@@ -206,14 +231,34 @@
 </head>
 <body>
 
+    <!-- 🌟 หน้าจอล็อคอิน (จะแสดงผลทับทุกสิ่งจนกว่าจะล็อคอินผ่าน) -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="stat-icon bg-purple-light text-purple mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.8rem;">
+                <i class="fa-solid fa-user-lock"></i>
+            </div>
+            <h3 class="fw-bold text-light">Memphis Group</h3>
+            <p class="text-muted">กรุณาเข้าสู่ระบบสำหรับตัวแทน</p>
+            
+            <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
+            <button id="btn-login" class="banner-btn w-100 mt-2" style="background: var(--primary-color); color: #fff;">เข้าสู่ระบบ</button>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทนไม่ถูกต้อง</p>
+        </div>
+    </div>
+
+    <!-- แดชบอร์ดหลัก (ซ่อนอยู่ด้านหลัง) -->
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
+        <!-- Sidebar -->
         <nav id="sidebar">
             <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
+            
+            <!-- 🌟 คืนค่าเมนูด้านข้างทั้งหมดให้ครบถ้วน -->
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                
                 <li>
                     <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
@@ -222,44 +267,86 @@
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
                         <li><a href="#">Sales</a></li>
                         <li><a href="#">Analytics</a></li>
+                        <li><a href="#">CRM</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Finance</a></li>
                     </ul>
                 </li>
+                
+                <li>
+                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-users"></i> <span>Users</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
+                        <li><a href="#">User List</a></li>
+                        <li><a href="#">Add New User</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-shield-halved"></i> <span>Authentication</span></a></li>
+
+                <div class="menu-title">Apps</div>
+                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
+                <li><a href="#"><i class="fa-regular fa-comments"></i> <span>Chat</span></a></li>
+                <li><a href="#"><i class="fa-regular fa-address-book"></i> <span>Contacts</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-list-check"></i> <span>Todo List</span></a></li>
             </ul>
+
             <div class="user-profile-bottom" id="sidebar-user-zone">
-                <img src="https://ui-avatars.com/api/?name=Kanokwan+P&background=random" alt="User">
-                <div class="user-info">
-                    <h6 class="mb-0 text-light" style="font-size: 0.9rem;">Kanokwan P.</h6>
-                    <small class="text-muted" style="font-size: 0.7rem;">ADMINISTRATOR</small>
+                <div class="d-flex align-items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" id="sidebar-avatar" alt="User">
+                    <div class="user-info">
+                        <h6 class="mb-0 text-light" id="sidebar-name" style="font-size: 0.9rem;">Loading...</h6>
+                        <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนขาย</small>
+                    </div>
                 </div>
+                <!-- ปุ่มออกจากระบบ (Logout) -->
+                <button class="btn-logout" id="btn-logout" title="ออกจากระบบ"><i class="fa-solid fa-right-from-bracket"></i></button>
             </div>
         </nav>
 
+        <!-- Main Content -->
         <div id="page-content">
+            <!-- Topbar -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
+                    <div class="search-bar d-none d-md-flex">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        <input type="text" placeholder="Search anything...">
+                    </div>
                 </div>
                 <div class="topbar-actions">
                     <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
+                    <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
+                    <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
+                    
                     <div class="d-flex align-items-center gap-2 ms-1 ms-md-2" style="cursor: pointer;">
-                        <img src="https://ui-avatars.com/api/?name=Kanokwan+P&background=random" style="width:35px; border-radius:50%;">
-                        <span class="user-name-text fw-semibold text-light" style="font-size: 0.95rem;">Kanokwan</span>
+                        <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
+                        <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
+                        <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                     </div>
                 </div>
             </div>
 
             <div class="container-fluid p-0">
                 
+                <!-- แบนเนอร์ -->
                 <div class="banner-card p-4 p-md-5">
                     <div class="banner-circle banner-circle-1"></div>
                     <div class="banner-circle banner-circle-2"></div>
                     <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
                         <div>
                             <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem; letter-spacing: 1px;">DASHBOARD</span>
-                            <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning, Kanokwan 👋</h2>
+                            <!-- ชื่อตรงนี้จะเปลี่ยนอัตโนมัติตามล็อคอิน -->
+                            <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
                             <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
+                            <button class="banner-btn">View analytics &rarr;</button>
                         </div>
                         
+                        <!-- โซนกล่องในแบนเนอร์ ผูก ID เพื่อรับข้อมูลรายวันจาก API -->
                         <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold" id="banner-today-revenue">Loading...</h3>
@@ -277,6 +364,7 @@
                     </div>
                 </div>
 
+                <!-- การ์ด 4 กล่อง (KPI หลัก) ผูก ID รับข้อมูลรวมจาก API -->
                 <div class="row">
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
@@ -343,6 +431,7 @@
                     </div>
                 </div>
 
+                <!-- กราฟรายเดือน และ กราฟเป้าหมาย -->
                 <div class="row">
                     <div class="col-xl-8 col-12">
                         <div class="custom-card">
@@ -371,6 +460,7 @@
                     </div>
                 </div>
 
+                <!-- ออเดอร์ล่าสุด และ กิจกรรมล่าสุด -->
                 <div class="row">
                     <div class="col-xl-8 col-12">
                         <div class="custom-card">
@@ -379,6 +469,7 @@
                                     <h5 class="mb-0 fw-bold">Recent Orders</h5>
                                     <small class="text-muted">Latest transactions from your store</small>
                                 </div>
+                                <a href="#" class="text-purple" style="text-decoration: none; font-size: 0.85rem;">View all &rarr;</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-borderless mb-0 align-middle">
@@ -390,6 +481,7 @@
                                             <th class="text-muted" style="font-size: 0.8rem;">STATUS</th>
                                         </tr>
                                     </thead>
+                                    <!-- 🌟 เตรียม ID ไว้ให้ Javascript ส่งข้อมูลตารางมาวางตรงนี้ -->
                                     <tbody id="recent-orders-table">
                                         <tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr>
                                     </tbody>
@@ -402,6 +494,7 @@
                         <div class="custom-card">
                             <h5 class="fw-bold mb-1">Live Activity</h5>
                             <small class="text-muted d-block mb-3">What's happening right now</small>
+                            <!-- 🌟 เตรียม ID ไว้ให้ Javascript ส่งข้อมูลไทม์ไลน์มาวางตรงนี้ -->
                             <div class="timeline" id="live-activity-timeline">
                                 <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
                             </div>
@@ -413,10 +506,14 @@
         </div>
     </div>
 
+    <!-- โหลดสคริปต์ต่างๆ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        // 🚨 วาง URL ของ Google Apps Script ที่นี่ตามเดิม
+        const apiURL = "https://script.google.com/macros/s/AKfycbwb3E2l-QfYDibg8r_AZ3rfKDAI4TMbGOohxv80ZLyNMrZgzFxUjeQcx-pzBhsQVJseyQ/exec"; 
+
         /* =========================================
            1. ระบบเมนู Responsive & Dark Mode
         ========================================= */
@@ -440,7 +537,7 @@
         /* =========================================
            2. สร้างโครงกราฟไว้รอรับข้อมูล (ApexCharts)
         ========================================= */
-        // โครงสร้างของกราฟเส้นรายเดือน (ตอนแรกปล่อยข้อมูลว่างเปล่าไว้ก่อน)
+        // โครงสร้างของกราฟเส้นรายเดือน
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Expenses', data: [] }],
             chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
@@ -453,7 +550,7 @@
         });
         revenueChart.render();
 
-        // โครงสร้างของกราฟวงกลมเป้าหมาย (ตอนแรกเป็น 0%)
+        // โครงสร้างของกราฟวงกลมเป้าหมาย
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), {
             series: [0], 
             chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
@@ -473,41 +570,106 @@
         goalChart.render();
 
         /* =========================================
-           🌟 3. ฟังก์ชันดึงข้อมูลจาก Google Sheets (API)
+           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน
+        ========================================= */
+        const loginScreen = document.getElementById('login-screen');
+        const loginBtn = document.getElementById('btn-login');
+        const agentInput = document.getElementById('agent-input');
+        const loginError = document.getElementById('login-error');
+        const logoutBtn = document.getElementById('btn-logout');
+        
+        let currentAgent = null;
+
+        // ฟังก์ชันอัปเดตหน้าจอให้แสดงชื่อของตัวแทนที่ล็อคอินเข้ามา
+        function updateUIWithAgent(agent) {
+            document.getElementById('sidebar-name').innerText = agent.name;
+            document.getElementById('topbar-name').innerText = agent.name;
+            document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
+            
+            // สุ่มรูปอวาตาร์โดยใช้ชื่อตัวแทนเพื่อให้ดูสวยงาม
+            let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
+            document.getElementById('sidebar-avatar').src = avatarUrl;
+            document.getElementById('topbar-avatar').src = avatarUrl;
+        }
+
+        // เช็คว่าเคยล็อคอินทิ้งไว้ในเครื่องนี้ไหม? (Local Storage)
+        const savedAgent = localStorage.getItem('memphis_agent');
+        if (savedAgent) {
+            currentAgent = JSON.parse(savedAgent);
+            loginScreen.style.display = 'none'; // ซ่อนหน้าล็อคอิน
+            updateUIWithAgent(currentAgent);    // เปลี่ยนชื่อบนเว็บ
+            loadDataFromGoogleSheet();          // ดึงข้อมูลกราฟมาแสดง
+        }
+
+        // เมื่อกดปุ่ม "เข้าสู่ระบบ"
+        loginBtn.addEventListener('click', function() {
+            const agentId = agentInput.value.trim();
+            if(!agentId) return;
+
+            loginBtn.innerText = "กำลังตรวจสอบ...";
+            loginError.style.display = 'none';
+
+            // ส่งรหัสตัวแทนไปตรวจสอบกับ Google Sheet API
+            fetch(apiURL + "?action=login&agentId=" + agentId)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        currentAgent = data;
+                        localStorage.setItem('memphis_agent', JSON.stringify(data)); // จำการล็อคอินไว้ในเครื่อง
+                        loginScreen.style.display = 'none';
+                        updateUIWithAgent(currentAgent);
+                        loadDataFromGoogleSheet(); // โหลดข้อมูลมาแสดง
+                    } else {
+                        loginError.innerText = data.message || "รหัสตัวแทนไม่ถูกต้อง";
+                        loginError.style.display = 'block';
+                        loginBtn.innerText = "เข้าสู่ระบบ";
+                    }
+                })
+                .catch(err => {
+                    loginError.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย";
+                    loginError.style.display = 'block';
+                    loginBtn.innerText = "เข้าสู่ระบบ";
+                });
+        });
+
+        // เมื่อกดปุ่มออกจากระบบ
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('memphis_agent'); // ลบข้อมูลในเครื่องทิ้ง
+            location.reload(); // รีเฟรชหน้าเว็บเพื่อให้กลับไปแสดงหน้าล็อคอิน
+        });
+
+        /* =========================================
+           🌟 4. ฟังก์ชันดึงข้อมูลจาก Google Sheets (API) และอัปเดตทุกส่วนของหน้าจอ
         ========================================= */
         function loadDataFromGoogleSheet() {
-            // 🚨 ลิงก์ API ของคุณ
-            const apiURL = "https://script.google.com/macros/s/AKfycbwb3E2l-QfYDibg8r_AZ3rfKDAI4TMbGOohxv80ZLyNMrZgzFxUjeQcx-pzBhsQVJseyQ/exec"; 
+            if(!currentAgent) return; // ถ้ายังไม่ล็อคอิน จะไม่โหลดข้อมูล
 
-            // วิ่งไปขอข้อมูลจาก Google Sheet
             fetch(apiURL)
-                .then(response => response.json()) // แปลงข้อมูลให้กลายเป็น JSON เพื่อให้อ่านง่าย
+                .then(response => response.json())
                 .then(data => {
-                    // ตรวจสอบว่ามีข้อมูล KPI หลักส่งมาหรือไม่ (เพื่อป้องกันระบบพังถ้าใช้ API เวอร์ชันเก่า)
+                    // ตรวจสอบข้อมูล KPI และอัปเดตกล่องตัวเลข 4 กล่อง
                     if(data.kpi) {
-                        // 1. อัปเดตกล่องตัวเลข KPI หลัก 4 กล่อง
                         document.getElementById('data-sales').innerText = "$" + Number(data.kpi.sales).toLocaleString();
                         document.getElementById('data-revenue').innerText = "$" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
                         document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
                     }
 
-                    // 2. อัปเดตกล่อง 3 กล่องในแบนเนอร์ด้านบนสุด
+                    // ตรวจสอบและอัปเดตกล่องสถิติในแบนเนอร์
                     if(data.banner) {
                         document.getElementById('banner-today-revenue').innerText = "$" + Number(data.banner.todayRevenue).toLocaleString();
                         document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
 
-                    // 3. อัปเดตตัวเลขเป้าหมาย (Sales Goal) ใต้กราฟวงกลม
+                    // ตรวจสอบและอัปเดตกราฟเป้าหมาย
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "$" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "$" + Number(data.goal.earned).toLocaleString();
-                        // สั่งอัปเดตกราฟวงกลมให้เปอร์เซ็นต์วิ่งขึ้นตามจริง
                         goalChart.updateSeries([data.goal.percent]); 
                     }
 
-                    // 4. อัปเดตเส้นกราฟรายเดือน (Revenue Overview)
+                    // ตรวจสอบและอัปเดตเส้นกราฟรายเดือน
                     if(data.charts) {
                         revenueChart.updateSeries([
                             { name: 'Revenue', data: data.charts.revenue },
@@ -516,23 +678,20 @@
                         revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
                     }
 
-                    // 5. สร้างโค้ดตาราง (Recent Orders) และไทม์ไลน์กิจกรรม (Live Activity)
+                    // ตรวจสอบและสร้างรายการออเดอร์ล่าสุด รวมถึงไทม์ไลน์กิจกรรม
                     if(data.recentOrders) {
                         let tableHTML = "";
                         let timelineHTML = "";
                         
-                        // ถ้ายังไม่มีรายการสั่งซื้อใดๆ ในระบบ
                         if (data.recentOrders.length === 0) {
                             tableHTML = `<tr><td colspan="4" class="text-center text-muted">ยังไม่มีรายการสั่งซื้อ</td></tr>`;
                             timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
                         } else {
-                            // วนลูปอ่านข้อมูลทีละรายการเพื่อสร้างตาราง
                             data.recentOrders.forEach((order, index) => {
-                                // สุ่มสีให้กล่องตัวอักษรชื่อลูกค้า (Avatar) เพื่อความสวยงาม
+                                // สุ่มสีให้ไอคอนวงกลม
                                 let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
                                 let avatarBg = bgColors[index % bgColors.length];
                                 
-                                // โค้ดสร้างตาราง
                                 tableHTML += `
                                     <tr>
                                         <td class="text-purple fw-semibold">${order.id}</td>
@@ -542,7 +701,6 @@
                                     </tr>
                                 `;
                                 
-                                // โค้ดสร้างไทม์ไลน์ฝั่งขวา
                                 let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
                                 let dotColor = dotColors[index % dotColors.length];
                                 timelineHTML += `
@@ -555,21 +713,15 @@
                             });
                         }
                         
-                        // ยัดโค้ดตารางและไทม์ไลน์ที่สร้างเสร็จแล้ว กลับเข้าไปแสดงบนหน้าเว็บ
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                         document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
 
                 })
                 .catch(error => {
-                    // หากเกิดข้อผิดพลาดในการดึงข้อมูล
                     console.error('Error fetching data:', error);
                 });
         }
-
-        // สั่งให้ระบบวิ่งไปดึงข้อมูลทันทีที่เปิดหน้าเว็บเสร็จ
-        window.onload = loadDataFromGoogleSheet;
-
     </script>
 </body>
 </html>
