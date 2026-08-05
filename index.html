@@ -9,17 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- ตัวแปรสีและขนาดคงเดิมตามธีมเดิิม --- */
+        /* --- ตัวแปรชุดสีเริ่มต้น (Dark Mode) --- */
         :root {
             --bg-main: #131224;
             --bg-card: #1c1b2f;
             --bg-sidebar: #151426;
             --primary-color: #9d4edd;
             --primary-hover: #7b2cbf;
-            --text-light: #ffffff;
+            --text-light: #ffffff; /* สีข้อความหลักเป็นสีขาว */
             --text-muted: #8b8a9e;
             --border-color: #2a2940;
             --sidebar-width: 260px;
+        }
+
+        /* --- ตัวแปรชุดสีโหมดสว่าง (Light Mode) จะทำงานก็ต่อเมื่อ <body> มีคลาส .light-mode --- */
+        body.light-mode {
+            --bg-main: #f4f6f9;     /* พื้นหลังหลักสีเทาอ่อน */
+            --bg-card: #ffffff;     /* พื้นหลังการ์ดสีขาว */
+            --bg-sidebar: #ffffff;  /* พื้นหลังเมนูซ้ายสีขาว */
+            --text-light: #2b2b36;  /* เปลี่ยนสีข้อความหลักให้เป็นสีดำเข้ม */
+            --text-muted: #79788f;  /* สีข้อความรองเป็นสีเทา */
+            --border-color: #eaeaea;/* สีขอบบางๆ */
         }
 
         body {
@@ -27,6 +37,7 @@
             color: var(--text-light);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease; /* ทำให้การเปลี่ยนสีสมูทขึ้น */
         }
 
         #wrapper {
@@ -34,7 +45,7 @@
             width: 100%;
         }
 
-        /* --- สไตล์ของ Sidebar ด้านซ้าย (เพิ่มอนิเมชันตอนพับเก็บ) --- */
+        /* --- สไตล์ของ Sidebar ด้านซ้าย --- */
         #sidebar {
             width: var(--sidebar-width);
             background-color: var(--bg-sidebar);
@@ -46,10 +57,9 @@
             display: flex;
             flex-direction: column;
             z-index: 1000;
-            transition: all 0.3s ease; /* ทำให้ Sidebar ยืดหดแบบนุ่มนวล */
+            transition: all 0.3s ease;
         }
         
-        /* คลาสพิเศษที่จะถูกใส่ด้วย JavaScript เวลาสั่งให้ Sidebar หดตัว */
         #sidebar.toggled {
             width: 70px;
         }
@@ -58,7 +68,7 @@
         #sidebar.toggled .menu-title,
         #sidebar.toggled .sidebar-menu li a span,
         #sidebar.toggled .user-info {
-            display: none !important; /* ซ่อนข้อความต่างๆ เหลือไว้เฉพาะไอคอนเวลาหดแถบ */
+            display: none !important;
         }
         
         #sidebar.toggled .sidebar-menu li a {
@@ -114,8 +124,8 @@
         }
 
         .sidebar-menu li a:hover, .sidebar-menu li a.active {
-            background: linear-gradient(90deg, #9d4edd 0%, #7b2cbf 100%);
-            color: var(--text-light);
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+            color: #ffffff; /* อันนี้บังคับขาวเสมอแม้ในโหมดสว่าง เพราะพื้นหลังเป็นสีม่วง */
         }
 
         .user-profile-bottom {
@@ -136,12 +146,12 @@
             justify-content: center;
         }
 
-        /* --- พื้นที่เนื้อหาหลักด้านขวา (ปรับให้ขยายตาม Sidebar ได้) --- */
+        /* --- พื้นที่เนื้อหาหลักด้านขวา --- */
         #page-content {
             margin-left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
             padding: 20px;
-            transition: all 0.3s ease; /* ขยายพื้นที่ตามการหดของ Sidebar */
+            transition: all 0.3s ease;
         }
         
         #page-content.toggled {
@@ -158,6 +168,7 @@
             background-color: var(--bg-card);
             border-radius: 12px;
             margin-bottom: 25px;
+            transition: background-color 0.4s ease;
         }
 
         .search-bar {
@@ -168,6 +179,7 @@
             display: flex;
             align-items: center;
             width: 300px;
+            transition: all 0.4s ease;
         }
 
         .search-bar input {
@@ -191,6 +203,7 @@
             color: var(--text-muted);
             font-size: 1.2rem;
             position: relative;
+            cursor: pointer;
         }
         
         .badge-dot {
@@ -203,10 +216,9 @@
             border-radius: 50%;
         }
 
-        /* ปุ่มเข้าสู่ระบบ */
         .btn-login {
             background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-            color: var(--text-light);
+            color: #ffffff;
             border: none;
             padding: 8px 24px;
             border-radius: 25px;
@@ -217,24 +229,22 @@
             gap: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.2);
-            margin-left: 10px;
             cursor: pointer;
         }
 
         .btn-login:hover {
-            color: var(--text-light);
+            color: #ffffff;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(157, 78, 221, 0.4);
         }
 
-        /* --- สไตล์กล่อง Dropdown เมนูของโปรไฟล์ผู้ใช้งาน --- */
+        /* --- Dropdown เมนู --- */
         .user-dropdown-toggle {
             display: flex;
             align-items: center;
             color: var(--text-light);
             text-decoration: none;
             gap: 10px;
-            margin-left: 10px;
             cursor: pointer;
         }
 
@@ -250,12 +260,12 @@
         }
 
         .custom-dropdown-menu {
-            background-color: var(--bg-main);
+            background-color: var(--bg-card); /* ผูกกับสีพื้นหลังการ์ด เพื่อให้เปลี่ยนตามโหมด */
             border: 1px solid var(--border-color);
             border-radius: 16px;
             min-width: 250px;
             padding: 15px 0 10px 0;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .avatar-gradient-ring {
@@ -274,12 +284,12 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 3px solid var(--bg-main);
+            border: 3px solid var(--bg-card); /* ขอบตามสีกล่อง Dropdown */
         }
 
         .role-badge {
             background-color: rgba(157, 78, 221, 0.15);
-            color: #b288ff;
+            color: var(--primary-color);
             border-radius: 20px;
             padding: 6px 16px;
             font-size: 0.65rem;
@@ -302,18 +312,8 @@
         }
 
         .custom-dropdown-menu .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-        }
-
-        .sign-out-btn {
-            background-color: rgba(255, 118, 117, 0.1) !important;
-            color: #ff7675 !important;
-            border-radius: 10px;
-            margin: 10px 20px 0 20px;
-            justify-content: center;
-            width: calc(100% - 40px);
-            padding: 10px !important;
+            background-color: rgba(157, 78, 221, 0.1); /* สีม่วงอ่อนเวลาเอาเมาส์ชี้ */
+            color: var(--primary-color);
         }
 
         /* --- สไตล์กล่องแดชบอร์ดด้านล่าง --- */
@@ -322,6 +322,7 @@
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 25px;
+            color: #ffffff; /* ป้ายนี้บังคับข้อความสีขาวเสมอ */
         }
         
         .custom-card {
@@ -330,7 +331,7 @@
             padding: 20px;
             margin-bottom: 25px;
             border: 1px solid var(--border-color);
-            transition: opacity 0.4s ease;
+            transition: all 0.4s ease;
         }
 
         .stat-icon {
@@ -397,26 +398,16 @@
                     </div>
                 </div>
                 
-                <div class="topbar-actions" id="topbar-auth-zone">
-                    
-                    <div class="dropdown">
-                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
-                        <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;">
-                            <small class="text-muted">ไม่มีข้อความใหม่</small>
-                        </div>
-                    </div>
-                    
-                    <div class="dropdown">
-                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
-                        <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;">
-                            <small class="text-muted">ไม่มีการแจ้งเตือนใหม่</small>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-login" onclick="simulateLogin()">
-                        <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
+                <div class="topbar-actions">
+                    <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี">
+                        <i class="fa-regular fa-sun" id="theme-icon"></i>
                     </button>
                     
+                    <div id="topbar-auth-zone" class="d-flex align-items-center gap-3">
+                        <button class="btn-login" onclick="simulateLogin()">
+                            <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -481,26 +472,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // 1. ฟังก์ชันสั่ง หด-ขยาย เมนูแถบ Sidebar ด้านซ้ายมือเมื่อกดปุ่มขีดสามขีด
+        // 1. ฟังก์ชันสั่ง หด-ขยาย เมนูแถบ Sidebar 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const pageContent = document.getElementById('page-content');
 
         menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('toggled');      // ใส่/ถอดคลาสพับแถบเมนูซ้าย
-            pageContent.classList.toggle('toggled');   // ใส่/ถอดคลาสขยายเนื้อหาขวา
+            sidebar.classList.toggle('toggled');      
+            pageContent.classList.toggle('toggled');   
         });
 
-        // 2. ฟังก์ชันจำลองเมื่อผู้ใช้กดคลิกปุ่ม "เข้าสู่ระบบ" (Simulate Login)
+        // 🌟 2. ฟังก์ชันสลับโหมดสว่าง-มืด (Light/Dark Mode)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeToggleBtn.addEventListener('click', function() {
+            // สั่งเปิด-ปิดคลาส 'light-mode' ที่ตัว <body>
+            document.body.classList.toggle('light-mode');
+            
+            // เช็คว่าถ้าเป็น light-mode อยู่ ให้เปลี่ยนไอคอนเป็นรูปพระจันทร์
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                // ถ้าเป็นโหมดมืดปกติ ให้ใช้ไอคอนพระอาทิตย์
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        // 3. ฟังก์ชันจำลองเมื่อผู้ใช้กดคลิกปุ่ม "เข้าสู่ระบบ"
         function simulateLogin() {
-            // อัปเดตข้อมูลบนป้ายแบนเนอร์ใหญ่ตรงกลาง
             document.getElementById('welcome-heading').innerText = "Good morning, John 👋";
             document.getElementById('welcome-text').innerText = "Here's what's happening with your store today.";
             
-            // เปลี่ยนเมนูด้านขวาบนสุด จากปุ่มล็อกอิน ให้กลายเป็นรูปโปรไฟล์พร้อมเมนูดรอปดาวน์ตามในคลิป
             const authZone = document.getElementById('topbar-auth-zone');
             authZone.innerHTML = `
-                <button class="icon-btn"><i class="fa-regular fa-sun"></i></button>
                 <div class="dropdown">
                     <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;"><small class="text-muted">ไม่มีข้อความใหม่</small></div>
@@ -512,14 +519,14 @@
                 <div class="dropdown">
                     <div class="user-dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:35px; border-radius:50%;">
-                        <span class="d-none d-md-block fw-semibold">John Doe</span>
+                        <span class="d-none d-md-block fw-semibold" style="color: var(--text-light);">John Doe</span>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu">
                         <li class="text-center px-4 pt-3 pb-2">
                             <div class="avatar-gradient-ring mb-3">
                                 <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" class="dropdown-avatar">
                             </div>
-                            <h5 class="mb-1 text-white fw-semibold">John Doe</h5>
+                            <h5 class="mb-1 fw-semibold" style="color: var(--text-light);">John Doe</h5>
                             <small class="text-muted d-block mb-3">john@trendyadmin.com</small>
                             <span class="badge role-badge">ADMINISTRATOR</span>
                         </li>
@@ -531,30 +538,28 @@
                 </div>
             `;
 
-            // ปรับแถบโปรไฟล์ด้านซ้ายของ Sidebar ให้กลายเป็นชื่อผู้ใช้ที่เข้าระบบแล้ว
             const sidebarUserZone = document.getElementById('sidebar-user-zone');
             sidebarUserZone.innerHTML = `
                 <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:40px; border-radius:50%;">
                 <div class="user-info">
-                    <h6 class="mb-0" style="font-size: 0.9rem;">John Doe</h6>
+                    <h6 class="mb-0" style="color: var(--text-light); font-size: 0.9rem;">John Doe</h6>
                     <small class="text-muted" style="font-size: 0.7rem;">ADMINISTRATOR</small>
                 </div>
             `;
 
-            // ปลดล็อกการ์ดข้อมูลสถิติ ปรับค่าสีให้ชัดเจน และแสดงตัวเลขรวมถึงเส้นแนวโน้มการเติบโตยอดขาย
             const cards = document.querySelectorAll('.custom-card');
             const values = ["$12,426", "$8,234", "1,248", "5,432"];
             
             cards.forEach((card, index) => {
-                card.style.opacity = "1"; // ทำการเปิดความชัดเจน 100%
-                card.querySelector('.stat-value').innerText = values[index]; // ใส่ข้อมูลตัวเลข
-                card.querySelector('.trend-label').classList.remove('d-none'); // แสดงเปอร์เซ็นต์กำไร
+                card.style.opacity = "1";
+                card.querySelector('.stat-value').innerText = values[index];
+                card.querySelector('.trend-label').classList.remove('d-none');
             });
         }
 
-        // 3. ฟังก์ชันจำลองการกดออกจากระบบ (Sign Out) เพื่อย้อนกลับไปจุดเริ่มต้นแบบในวิดีโอ
+        // 4. ฟังก์ชันจำลองการกดออกจากระบบ (Sign Out)
         function simulateLogout() {
-            location.reload(); // ใช้วิธีสั่งให้เว็บทำการโหลดหน้าใหม่ (Reload) เพื่อล้างค่าให้กลับไปเป็น Guest เริ่มต้นครับ
+            location.reload(); 
         }
     </script>
 </body>
