@@ -63,7 +63,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
         }
         .login-input {
-            width: 100%; padding: 12px 20px; margin: 20px 0; border-radius: 10px;
+            width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px;
             border: 1px solid var(--border-color); background: var(--bg-main);
             color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem;
         }
@@ -212,21 +212,18 @@
         .table { color: var(--text-light); margin-bottom: 0; }
         .table td, .table th { border-bottom: 1px solid var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; white-space: nowrap; }
         .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
-        .icon-circle { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
-
+        
         .timeline { border-left: 2px solid var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item:last-child { margin-bottom: 0; }
         .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
 
-        /* สีตกแต่งเอนกประสงค์ */
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-orange { color: #ffa502; } .bg-orange-light { background-color: rgba(255, 165, 2, 0.1); }
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
         .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
-        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
@@ -241,8 +238,11 @@
             <p class="text-muted">กรุณาเข้าสู่ระบบสำหรับตัวแทน</p>
             
             <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
+            <!-- 🌟 เพิ่มช่องกรอกรหัสผ่าน -->
+            <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
+            
             <button id="btn-login" class="banner-btn w-100 mt-2" style="background: var(--primary-color); color: #fff;">เข้าสู่ระบบ</button>
-            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทนไม่ถูกต้อง</p>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง</p>
         </div>
     </div>
 
@@ -254,7 +254,6 @@
         <nav id="sidebar">
             <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             
-            <!-- 🌟 คืนค่าเมนูด้านข้างทั้งหมดให้ครบถ้วน -->
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
@@ -343,7 +342,6 @@
                             <!-- ชื่อตรงนี้จะเปลี่ยนอัตโนมัติตามล็อคอิน -->
                             <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
                             <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
-                            <button class="banner-btn">View analytics &rarr;</button>
                         </div>
                         
                         <!-- โซนกล่องในแบนเนอร์ ผูก ID เพื่อรับข้อมูลรายวันจาก API -->
@@ -469,7 +467,6 @@
                                     <h5 class="mb-0 fw-bold">Recent Orders</h5>
                                     <small class="text-muted">Latest transactions from your store</small>
                                 </div>
-                                <a href="#" class="text-purple" style="text-decoration: none; font-size: 0.85rem;">View all &rarr;</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-borderless mb-0 align-middle">
@@ -511,8 +508,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 🚨 วาง URL ของ Google Apps Script ที่นี่ตามเดิม
-        const apiURL = "https://script.google.com/macros/s/AKfycbwb3E2l-QfYDibg8r_AZ3rfKDAI4TMbGOohxv80ZLyNMrZgzFxUjeQcx-pzBhsQVJseyQ/exec"; 
+        // 🚨 วาง URL ของ Google Apps Script ที่นี่ (ใช้ URL เดิมที่คุณให้มา)
+        const apiURL = "https://script.google.com/macros/s/AKfycbxRpUwpLIBLhbd9sW4PVJGhsbpkjNHEuUqqXKKKHDKXl3271d3oL4C8VUNMrLiHgG2ZqQ/exec"; 
 
         /* =========================================
            1. ระบบเมนู Responsive & Dark Mode
@@ -570,11 +567,12 @@
         goalChart.render();
 
         /* =========================================
-           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน
+           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน (เพิ่มรหัสผ่าน)
         ========================================= */
         const loginScreen = document.getElementById('login-screen');
         const loginBtn = document.getElementById('btn-login');
         const agentInput = document.getElementById('agent-input');
+        const passwordInput = document.getElementById('password-input'); // ดึงค่าจากช่องรหัสผ่าน
         const loginError = document.getElementById('login-error');
         const logoutBtn = document.getElementById('btn-logout');
         
@@ -604,13 +602,20 @@
         // เมื่อกดปุ่ม "เข้าสู่ระบบ"
         loginBtn.addEventListener('click', function() {
             const agentId = agentInput.value.trim();
-            if(!agentId) return;
+            const password = passwordInput.value.trim();
+            
+            // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
+            if(!agentId || !password) {
+                loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่านให้ครบถ้วน";
+                loginError.style.display = 'block';
+                return;
+            }
 
             loginBtn.innerText = "กำลังตรวจสอบ...";
             loginError.style.display = 'none';
 
-            // ส่งรหัสตัวแทนไปตรวจสอบกับ Google Sheet API
-            fetch(apiURL + "?action=login&agentId=" + agentId)
+            // ส่งรหัสตัวแทนและรหัสผ่านไปตรวจสอบกับ Google Sheet API
+            fetch(apiURL + "?action=login&agentId=" + agentId + "&password=" + password)
                 .then(res => res.json())
                 .then(data => {
                     if(data.success) {
@@ -620,7 +625,7 @@
                         updateUIWithAgent(currentAgent);
                         loadDataFromGoogleSheet(); // โหลดข้อมูลมาแสดง
                     } else {
-                        loginError.innerText = data.message || "รหัสตัวแทนไม่ถูกต้อง";
+                        loginError.innerText = data.message || "รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง";
                         loginError.style.display = 'block';
                         loginBtn.innerText = "เข้าสู่ระบบ";
                     }
