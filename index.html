@@ -20,7 +20,8 @@
             --primary-color: #9d4edd;
             --primary-hover: #7b2cbf;
             --text-light: #ffffff; 
-            --text-muted: #8b8a9e;
+            /* 🌟 ปรับสีเทาตรงนี้ให้สว่างขึ้น เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
+            --text-muted: #b0b0c5; 
             --border-color: #2a2940;
             --sidebar-width: 260px;
         }
@@ -31,6 +32,7 @@
             --bg-card: #ffffff;     
             --bg-sidebar: #ffffff;  
             --text-light: #2b2b36;  
+            /* สีเทาสำหรับโหมดสว่าง */
             --text-muted: #79788f;  
             --border-color: #eaeaea;
         }
@@ -41,6 +43,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
             transition: background-color 0.4s ease, color 0.4s ease; 
+        }
+
+        /* 🌟 บังคับให้คลาสของ Bootstrap ใช้สีสว่างที่เราตั้งไว้ จะได้ไม่มืดกลืนไปกับฉากหลัง */
+        .text-muted {
+            color: var(--text-muted) !important;
         }
 
         #wrapper { display: flex; width: 100%; position: relative; }
@@ -173,7 +180,7 @@
         }
 
         /* =========================================
-           🌟 5. การ์ดต่างๆ และเอฟเฟกต์ลอย (Hover Lift)
+           5. การ์ดต่างๆ และเอฟเฟกต์ลอย (Hover Lift)
         ========================================= */
         .custom-card {
             background-color: var(--bg-card); 
@@ -181,24 +188,21 @@
             padding: 20px; 
             margin-bottom: 25px;
             border: 1px solid var(--border-color); 
-            /* เพิ่ม Transition เพื่อให้การเคลื่อนไหวเวลาเอาเมาส์ชี้สมูทขึ้น */
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
             height: calc(100% - 25px);
         }
         
-        /* 🌟 เอฟเฟกต์ยกการ์ดลอยขึ้นเวลาเอาเมาส์ชี้ */
+        /* เอฟเฟกต์ยกการ์ดลอยขึ้นเวลาเอาเมาส์ชี้ */
         .custom-card:hover {
-            transform: translateY(-5px); /* เลื่อนขึ้น 5px */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* เพิ่มเงาให้ดูมีมิติ */
-            border-color: rgba(157, 78, 221, 0.3); /* ขอบเป็นสีม่วงอ่อนๆ */
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            border-color: rgba(157, 78, 221, 0.3); 
         }
         
-        /* ปรับเงาให้ดูอ่อนลงถ้าอยู่ในโหมดสว่าง */
         body.light-mode .custom-card:hover {
             box-shadow: 0 10px 20px rgba(0,0,0,0.08); 
         }
 
-        /* 🌟 เอา Margin ออกจากไอคอน เพื่อให้จัดเรียงแนวนอนคู่กับข้อความได้สวยขึ้น */
         .stat-icon {
             width: 45px; height: 45px; border-radius: 12px; display: flex;
             align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 0;
@@ -347,13 +351,12 @@
                     </div>
                 </div>
 
-                <!-- 🌟 การ์ด 4 กล่อง (เพิ่มข้อความข้างไอคอนตามภาพที่ 2) -->
+                <!-- การ์ด 4 กล่อง (ตัวหนังสือสีสว่างขึ้น) -->
                 <div class="row">
                     <!-- การ์ดที่ 1 (สีม่วง) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
-                                <!-- 🌟 จับไอคอนและข้อความรวมไว้ในกล่องแนวนอน (d-flex) -->
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
                                     <div>
@@ -363,7 +366,6 @@
                                 </div>
                                 <span class="badge bg-purple-light text-purple rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span>
                             </div>
-                            <!-- ย้ายระยะห่างลงมาไว้ที่ตัวเลขแทนไอคอน -->
                             <h3 class="mb-0 fw-bold mt-3">$12,426</h3>
                             <small class="text-muted">Total Sales</small>
                             
