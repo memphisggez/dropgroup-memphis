@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trendy Admin - Interactive Signage Portal</title>
     
+    <!-- โหลดชุดคำสั่งจัดหน้าตาเว็บ (Bootstrap 5) และชุดไอคอน (Font Awesome) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -125,7 +126,7 @@
 
         .sidebar-menu li a:hover, .sidebar-menu li a.active {
             background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-            color: #ffffff; /* อันนี้บังคับขาวเสมอแม้ในโหมดสว่าง เพราะพื้นหลังเป็นสีม่วง */
+            color: #ffffff; /* บังคับขาวเสมอแม้ในโหมดสว่าง เพราะพื้นหลังปุ่มเป็นสีม่วง */
         }
 
         .user-profile-bottom {
@@ -204,6 +205,11 @@
             font-size: 1.2rem;
             position: relative;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .icon-btn:hover {
+            color: var(--primary-color);
         }
         
         .badge-dot {
@@ -238,7 +244,7 @@
             box-shadow: 0 6px 20px rgba(157, 78, 221, 0.4);
         }
 
-        /* --- Dropdown เมนู --- */
+        /* --- Dropdown เมนูของโปรไฟล์และแจ้งเตือน --- */
         .user-dropdown-toggle {
             display: flex;
             align-items: center;
@@ -284,7 +290,7 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 3px solid var(--bg-card); /* ขอบตามสีกล่อง Dropdown */
+            border: 3px solid var(--bg-card);
         }
 
         .role-badge {
@@ -359,6 +365,7 @@
 <body>
 
     <div id="wrapper">
+        <!-- เมนูด้านซ้าย (Sidebar) -->
         <nav id="sidebar">
             <a href="#" class="sidebar-brand">
                 <i class="fa-solid fa-bolt"></i> <span>TrendyAdmin</span>
@@ -378,6 +385,7 @@
                 <li><a href="#"><i class="fa-regular fa-comments"></i> <span>Chat</span></a></li>
             </ul>
 
+            <!-- โซนโปรไฟล์ด้านล่างสุดของเมนู -->
             <div class="user-profile-bottom" id="sidebar-user-zone">
                 <div class="guest-avatar"><i class="fa-solid fa-user text-muted"></i></div>
                 <div class="user-info">
@@ -387,10 +395,13 @@
             </div>
         </nav>
 
+        <!-- พื้นที่เนื้อหาหลักด้านขวา -->
         <div id="page-content">
             
+            <!-- แถบเมนูด้านบน (Topbar) -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
+                    <!-- ปุ่มเปิด-ปิด Sidebar ยืดหด -->
                     <i class="fa-solid fa-bars text-muted" id="menu-toggle" style="cursor: pointer;"></i>
                     <div class="search-bar">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
@@ -398,19 +409,40 @@
                     </div>
                 </div>
                 
-                <div class="topbar-actions">
+                <div class="topbar-actions d-flex align-items-center gap-3">
+                    
+                    <!-- 🌟 ปุ่มแชทข้อความ (แสดงไว้ตลอด) -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;">
+                            <small class="text-muted">ไม่มีข้อความใหม่</small>
+                        </div>
+                    </div>
+                    
+                    <!-- 🌟 ปุ่มแจ้งเตือนกระดิ่ง (แสดงไว้ตลอด) -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;">
+                            <small class="text-muted">ไม่มีการแจ้งเตือนใหม่</small>
+                        </div>
+                    </div>
+
+                    <!-- 🌟 ปุ่มเปลี่ยนโหมดสว่าง-มืด (ใช้รูปหลอดไฟ) -->
                     <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี">
-                        <i class="fa-regular fa-sun" id="theme-icon"></i>
+                        <i class="fa-regular fa-lightbulb" id="theme-icon"></i>
                     </button>
                     
-                    <div id="topbar-auth-zone" class="d-flex align-items-center gap-3">
+                    <!-- 🌟 โซนปุ่มเข้าสู่ระบบ / เมื่อล็อกอินจะถูกแทนที่ด้วยรูปโปรไฟล์ -->
+                    <div id="auth-zone">
                         <button class="btn-login" onclick="simulateLogin()">
                             <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
                         </button>
                     </div>
+
                 </div>
             </div>
 
+            <!-- ส่วนของเนื้อหา Dashboard -->
             <div class="container-fluid p-0">
                 
                 <div class="banner-card">
@@ -419,6 +451,7 @@
                     <p id="welcome-text">กรุณาเข้าสู่ระบบเพื่อดูยอดขายและทำรายการสั่งซื้อกลุ่มงานป้ายต่างๆ</p>
                 </div>
 
+                <!-- การ์ดตัวเลขสถิติต่างๆ -->
                 <div class="row">
                     <div class="col-md-3">
                         <div class="custom-card card-locked" style="opacity: 0.5;">
@@ -469,10 +502,11 @@
         </div>
     </div>
 
+    <!-- โหลดสคริปต์การทำงานของ Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // 1. ฟังก์ชันสั่ง หด-ขยาย เมนูแถบ Sidebar 
+        // 1. ฟังก์ชันสั่ง หด-ขยาย เมนูแถบ Sidebar ด้านซ้าย
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const pageContent = document.getElementById('page-content');
@@ -482,7 +516,7 @@
             pageContent.classList.toggle('toggled');   
         });
 
-        // 🌟 2. ฟังก์ชันสลับโหมดสว่าง-มืด (Light/Dark Mode)
+        // 🌟 2. ฟังก์ชันสลับโหมดสว่าง-มืด (ใช้ไอคอนรูปหลอดไฟ)
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
 
@@ -490,36 +524,30 @@
             // สั่งเปิด-ปิดคลาส 'light-mode' ที่ตัว <body>
             document.body.classList.toggle('light-mode');
             
-            // เช็คว่าถ้าเป็น light-mode อยู่ ให้เปลี่ยนไอคอนเป็นรูปพระจันทร์
+            // เช็คว่าถ้าเป็น light-mode อยู่ ให้เปลี่ยนไอคอนหลอดไฟเป็นแบบทึบ (Solid)
             if (document.body.classList.contains('light-mode')) {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+                themeIcon.classList.remove('fa-regular');
+                themeIcon.classList.add('fa-solid'); // หลอดไฟสว่าง
             } else {
-                // ถ้าเป็นโหมดมืดปกติ ให้ใช้ไอคอนพระอาทิตย์
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+                // ถ้าเป็นโหมดมืดปกติ ให้ใช้ไอคอนหลอดไฟแบบโปร่งเส้นขอบ (Regular)
+                themeIcon.classList.remove('fa-solid');
+                themeIcon.classList.add('fa-regular'); // หลอดไฟมืด
             }
         });
 
         // 3. ฟังก์ชันจำลองเมื่อผู้ใช้กดคลิกปุ่ม "เข้าสู่ระบบ"
         function simulateLogin() {
+            // เปลี่ยนคำทักทายตรงกลาง
             document.getElementById('welcome-heading').innerText = "Good morning, John 👋";
             document.getElementById('welcome-text').innerText = "Here's what's happening with your store today.";
             
-            const authZone = document.getElementById('topbar-auth-zone');
+            // 🌟 นำปุ่มล็อกอินออก และใส่ "รูปโปรไฟล์พร้อมเมนูดรอปดาวน์" เข้าไปแทนที่
+            const authZone = document.getElementById('auth-zone');
             authZone.innerHTML = `
-                <div class="dropdown">
-                    <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;"><small class="text-muted">ไม่มีข้อความใหม่</small></div>
-                </div>
-                <div class="dropdown">
-                    <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 text-center" style="min-width: 200px;"><small class="text-muted">ไม่มีการแจ้งเตือนใหม่</small></div>
-                </div>
                 <div class="dropdown">
                     <div class="user-dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:35px; border-radius:50%;">
-                        <span class="d-none d-md-block fw-semibold" style="color: var(--text-light);">John Doe</span>
+                        <span class="d-none d-md-block fw-semibold" style="color: var(--text-light); margin-left: 8px;">John Doe</span>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu">
                         <li class="text-center px-4 pt-3 pb-2">
@@ -538,6 +566,7 @@
                 </div>
             `;
 
+            // ปรับแถบสถานะด้านล่างซ้ายให้แสดงข้อมูลชื่อผู้ใช้
             const sidebarUserZone = document.getElementById('sidebar-user-zone');
             sidebarUserZone.innerHTML = `
                 <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" style="width:40px; border-radius:50%;">
@@ -547,6 +576,7 @@
                 </div>
             `;
 
+            // เปิดเผยข้อมูลตัวเลขยอดขายในกล่อง 4 ใบ
             const cards = document.querySelectorAll('.custom-card');
             const values = ["$12,426", "$8,234", "1,248", "5,432"];
             
