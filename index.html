@@ -149,32 +149,16 @@
         }
 
         /* =========================================
-           🌟 4. สไตล์แบนเนอร์ใหม่ (ตามรูปที่ 2)
+           4. แบนเนอร์ (Banner)
         ========================================= */
         .banner-card {
             background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
-            border-radius: 20px; /* มุมโค้งขึ้น */
-            margin-bottom: 25px; 
-            color: #ffffff;
-            position: relative; /* สำคัญ: เพื่อให่วงกลมตกแต่งอยู่ข้างในกล่องนี้เท่านั้น */
-            overflow: hidden;   /* ตัดส่วนที่ล้นออกไป */
+            border-radius: 20px; margin-bottom: 25px; color: #ffffff;
+            position: relative; overflow: hidden;
         }
-        
-        /* วงกลมตกแต่งฉากหลังแบนเนอร์ */
-        .banner-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.06); /* สีขาวโปร่งแสงบางๆ */
-            z-index: 0; /* ให้อยู่ด้านหลังข้อความ */
-        }
-        .banner-circle-1 {
-            width: 450px; height: 450px;
-            top: -150px; right: -50px;
-        }
-        .banner-circle-2 {
-            width: 250px; height: 250px;
-            bottom: -80px; right: 300px;
-        }
+        .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); z-index: 0; }
+        .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
+        .banner-circle-2 { width: 250px; height: 250px; bottom: -80px; right: 300px; }
 
         .banner-btn {
             background: #ffffff; color: var(--primary-color); border: none; padding: 10px 24px;
@@ -182,28 +166,41 @@
         }
         .banner-btn:hover { background: #f0f0f0; }
         
-        /* 🌟 กล่องสถิติสี่เหลี่ยมจัตุรัสฝั่งขวา */
         .glass-stat-box {
-            background: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(10px);
-            border-radius: 16px; 
-            padding: 20px 15px; 
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; flex-direction: column; justify-content: center;
         }
 
         /* =========================================
-           5. การ์ดและคอมโพเนนต์อื่นๆ 
+           🌟 5. การ์ดต่างๆ และเอฟเฟกต์ลอย (Hover Lift)
         ========================================= */
         .custom-card {
-            background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px;
-            border: 1px solid var(--border-color); transition: all 0.4s ease; height: calc(100% - 25px);
+            background-color: var(--bg-card); 
+            border-radius: 15px; 
+            padding: 20px; 
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color); 
+            /* เพิ่ม Transition เพื่อให้การเคลื่อนไหวสมูท */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
+            height: calc(100% - 25px);
         }
+        
+        /* 🌟 เอฟเฟกต์เวลาเอาเมาส์ชี้ (Hover) ให้ยกลอยขึ้น 5px พร้อมมีเงา */
+        .custom-card:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            border-color: rgba(157, 78, 221, 0.3); /* แอบเปลี่ยนสีขอบนิดนึงให้ดูเรืองแสง */
+        }
+        
+        /* ปรับเงาให้ดูอ่อนลงถ้าอยู่ในโหมดสว่าง */
+        body.light-mode .custom-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08); 
+        }
+
         .stat-icon {
             width: 45px; height: 45px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 15px;
+            align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 10px;
         }
 
         .table { color: var(--text-light); margin-bottom: 0; }
@@ -216,6 +213,7 @@
         .timeline-item:last-child { margin-bottom: 0; }
         .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
 
+        /* สีตกแต่งเอนกประสงค์ */
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-orange { color: #ffa502; } .bg-orange-light { background-color: rgba(255, 165, 2, 0.1); }
@@ -316,16 +314,12 @@
             <!-- คอนเทนเนอร์หลัก -->
             <div class="container-fluid p-0">
                 
-                <!-- 🌟 แบนเนอร์ดีไซน์ใหม่ (แบบรูปที่ 2) -->
+                <!-- แบนเนอร์ต้อนรับ -->
                 <div class="banner-card p-4 p-md-5">
-                    <!-- วงกลมตกแต่ง 2 วง -->
                     <div class="banner-circle banner-circle-1"></div>
                     <div class="banner-circle banner-circle-2"></div>
                     
-                    <!-- โครงสร้างแบ่งซ้ายขวา (z-index 1 เพื่อให้อยู่เหนือวงกลม) -->
                     <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
-                        
-                        <!-- ฝั่งซ้าย: ข้อความและปุ่ม -->
                         <div>
                             <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem; letter-spacing: 1px;">DASHBOARD</span>
                             <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning, Kanokwan 👋</h2>
@@ -333,90 +327,116 @@
                             <button class="banner-btn">View analytics &rarr;</button>
                         </div>
                         
-                        <!-- ฝั่งขวา: กล่องสถิติสี่เหลี่ยม 3 กล่อง -->
-                        <!-- ใช้ d-flex และ flex-fill เพื่อให้กล่องแบ่งความกว้างเท่ากัน -->
                         <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold">$1,280</h3>
                                 <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Today's Revenue</small>
-                                <div class="mt-3">
-                                    <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 12%</span>
-                                </div>
+                                <div class="mt-3"><span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 12%</span></div>
                             </div>
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold">46</h3>
                                 <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">New Orders</small>
-                                <div class="mt-3">
-                                    <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 8%</span>
-                                </div>
+                                <div class="mt-3"><span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 8%</span></div>
                             </div>
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold">2,341</h3>
                                 <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Visitors</small>
-                                <div class="mt-3">
-                                    <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 21%</span>
-                                </div>
+                                <div class="mt-3"><span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 21%</span></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- การ์ด 4 กล่อง -->
+                <!-- 🌟 การ์ด 4 กล่อง (ดีไซน์กราฟแบบเม็ดยา ตามรูปที่ 2) -->
                 <div class="row">
+                    <!-- การ์ดที่ 1 (สีม่วง) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
                                 <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
-                                <span class="text-green fw-semibold"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span>
+                                <!-- ป้ายเปอร์เซ็นต์ใส่พื้นหลังแบบเม็ดยา -->
+                                <span class="badge bg-purple-light text-purple rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold">$12,426</h3>
+                            <h3 class="mb-0 fw-bold mt-2">$12,426</h3>
                             <small class="text-muted">Total Sales</small>
-                            <div class="mt-3 d-flex gap-1">
-                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 6px;"></div>
-                                <div style="width: 30%; background: var(--primary-color); height: 6px; border-radius: 10px;"></div>
+                            
+                            <!-- กราฟแบบจุด/เม็ดยา (ใช้ flex จัดให้อยู่ชิดล่างเหมือนกราฟแท่ง) -->
+                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
+                                <!-- ปรับ height สลับไปมาให้ดูเหมือนกราฟคลื่น -->
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 30%;"></div>
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 40%;"></div>
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 35%;"></div>
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 50%;"></div>
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 45%;"></div>
+                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 60%;"></div>
+                                <!-- จุดสุดท้ายเป็นวงกลมสีเข้ม -->
+                                <div class="rounded-circle" style="width: 25px; height: 25px; background: #a55eea; flex-shrink: 0;"></div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- การ์ดที่ 2 (สีเขียว) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
                                 <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-dollar-sign"></i></div>
-                                <span class="text-green fw-semibold"><i class="fa-solid fa-arrow-trend-up"></i> 8.2%</span>
+                                <span class="badge bg-green-light text-green rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 8.2%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold">$8,234</h3>
+                            <h3 class="mb-0 fw-bold mt-2">$8,234</h3>
                             <small class="text-muted">Revenue</small>
-                            <div class="mt-3 d-flex gap-1">
-                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 6px;"></div>
-                                <div style="width: 20%; background: #2ed573; height: 6px; border-radius: 10px;"></div>
+                            
+                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 20%;"></div>
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 30%;"></div>
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 25%;"></div>
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 40%;"></div>
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 50%;"></div>
+                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 70%;"></div>
+                                <div class="rounded-circle" style="width: 25px; height: 25px; background: #2ed573; flex-shrink: 0;"></div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- การ์ดที่ 3 (สีส้ม) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
                                 <div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div>
-                                <span class="text-danger fw-semibold"><i class="fa-solid fa-arrow-trend-down"></i> 3.1%</span>
+                                <span class="badge bg-pink-light text-pink rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-down"></i> 3.1%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold">1,248</h3>
+                            <h3 class="mb-0 fw-bold mt-2">1,248</h3>
                             <small class="text-muted">Orders</small>
-                            <div class="mt-3 d-flex gap-1">
-                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 6px;"></div>
-                                <div style="width: 40%; background: #ffa502; height: 6px; border-radius: 10px;"></div>
+                            
+                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 60%;"></div>
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 80%;"></div>
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 65%;"></div>
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 50%;"></div>
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 40%;"></div>
+                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 30%;"></div>
+                                <div class="rounded-pill" style="width: 25px; height: 12px; background: #ffa502; flex-shrink: 0;"></div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- การ์ดที่ 4 (สีฟ้า) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
                                 <div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
-                                <span class="text-green fw-semibold"><i class="fa-solid fa-arrow-trend-up"></i> 5.8%</span>
+                                <span class="badge bg-green-light text-green rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 5.8%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold">5,432</h3>
+                            <h3 class="mb-0 fw-bold mt-2">5,432</h3>
                             <small class="text-muted">Customers</small>
-                            <div class="mt-3 d-flex gap-1">
-                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 6px;"></div>
-                                <div style="width: 50%; background: #1e90ff; height: 6px; border-radius: 10px;"></div>
+                            
+                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 25%;"></div>
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 35%;"></div>
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 30%;"></div>
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 45%;"></div>
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 60%;"></div>
+                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 75%;"></div>
+                                <div class="rounded-circle" style="width: 25px; height: 25px; background: #1e90ff; flex-shrink: 0;"></div>
                             </div>
                         </div>
                     </div>
