@@ -96,7 +96,7 @@
             color: #ffffff;
         }
 
-        /* 🌟 ลูกศรชี้ลงสำหรับเมนูที่มี Submenu (หมุนเมื่อถูกกางออก) */
+        /* ลูกศรชี้ลงสำหรับเมนูที่มี Submenu (หมุนเมื่อถูกกางออก) */
         .toggle-arrow {
             transition: transform 0.3s ease;
         }
@@ -104,17 +104,17 @@
             transform: rotate(180deg); /* หมุน 180 องศาเมื่อเปิดเมนูย่อย */
         }
 
-        /* 🌟 สไตล์ของเมนูย่อย (Submenu) และเส้นเชื่อม */
+        /* สไตล์ของเมนูย่อย (Submenu) และเส้นเชื่อม */
         .sidebar-submenu {
             list-style: none;
             padding: 5px 0 5px 0;
-            margin: 0 0 5px 30px; /* ขยับเส้นให้ตรงกับกึ่งกลางไอคอนหลัก */
-            border-left: 1px solid var(--border-color); /* สร้างเส้นแนวตั้ง */
+            margin: 0 0 5px 30px; 
+            border-left: 1px solid var(--border-color); 
         }
         
         .sidebar-submenu li a {
             display: block;
-            padding: 8px 15px 8px 20px; /* ดันข้อความออกห่างจากเส้น */
+            padding: 8px 15px 8px 20px; 
             font-size: 0.9rem;
             color: var(--text-muted);
             text-decoration: none;
@@ -122,8 +122,8 @@
         }
         
         .sidebar-submenu li a:hover {
-            color: var(--text-light); /* สว่างขึ้นเมื่อเอาเมาส์ชี้ */
-            background: transparent !important; /* ไม่เอาพื้นหลังสีม่วง */
+            color: var(--text-light); 
+            background: transparent !important; 
         }
 
         .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
@@ -150,8 +150,8 @@
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         
-        /* 🌟 ปุ่มไอคอน (ตั้งค่าสีให้เปลี่ยนตามโหมดหน้าจอ) */
-        .icon-btn { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; position: relative;}
+        /* 🌟 ปุ่มไอคอน (แก้ไขให้สว่างมองเห็นชัดเจนแล้ว โดยใช้ตัวแปร var(--text-light)) */
+        .icon-btn { background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
@@ -215,8 +215,6 @@
         .timeline-item:last-child { margin-bottom: 0; }
         .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
 
-        .custom-checkbox { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border-color); cursor: pointer; accent-color: var(--primary-color); }
-
         /* สีตกแต่งเอนกประสงค์ */
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
@@ -249,14 +247,12 @@
                 <!-- เมนูที่กำลังใช้งานอยู่ (Home) -->
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
                 
-                <!-- 🌟 เมนู Dashboards แบบมีเมนูย่อย (Submenu) -->
+                <!-- เมนู Dashboards แบบมีเมนูย่อย (Submenu) -->
                 <li>
-                    <!-- เพิ่ม data-bs-toggle="collapse" เพื่อให้กดแล้วกางออกได้ -->
                     <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
-                    <!-- กล่องใส่เมนูย่อย (ul) ซ่อนไว้ตอนเริ่มต้น -->
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
                         <li><a href="#">Sales</a></li>
                         <li><a href="#">Analytics</a></li>
@@ -305,8 +301,8 @@
             <!-- Topbar (แถบด้านบน) -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
-                    <!-- 🌟 ปุ่มเปิด/ปิด เมนู (Hamburger) ปรับสีผูกกับ var(--text-light) ให้สว่างขึ้นแล้ว -->
-                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle" style="color: var(--text-light);"></i>
+                    <!-- ปุ่มเปิด/ปิด เมนู (Hamburger) -->
+                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
                     <!-- ช่องค้นหา -->
                     <div class="search-bar d-none d-md-flex">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
@@ -315,13 +311,12 @@
                 </div>
                 
                 <div class="topbar-actions">
-                    <!-- ปุ่มสลับโหมดสี -->
-                    <button class="icon-btn text-muted" id="theme-toggle" title="สลับโหมดสี">
+                    <!-- 🌟 ไอคอนโซนขวาบน (สีถูกปรับแก้ให้มองเห็นชัดเจนในโหมดมืดแล้ว) -->
+                    <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี">
                         <i class="fa-regular fa-lightbulb" id="theme-icon"></i>
                     </button>
-                    <!-- ปุ่มแชท และ แจ้งเตือน -->
-                    <button class="icon-btn text-muted"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
-                    <button class="icon-btn text-muted"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
+                    <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
+                    <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
                     <div class="d-flex align-items-center gap-2 ms-1 ms-md-2" style="cursor: pointer;">
                         <img src="https://ui-avatars.com/api/?name=Kanokwan+P&background=random" style="width:35px; border-radius:50%;">
@@ -331,7 +326,7 @@
                 </div>
             </div>
 
-            <!-- คอนเทนเนอร์หลัก (รองรับมือถือและ PC) -->
+            <!-- คอนเทนเนอร์หลัก -->
             <div class="container-fluid p-0">
                 
                 <!-- แบนเนอร์ต้อนรับ -->
