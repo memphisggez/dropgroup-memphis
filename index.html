@@ -19,8 +19,7 @@
             --primary-color: #9d4edd;
             --primary-hover: #7b2cbf;
             --text-light: #ffffff; 
-            /* 🌟 สีเทาสว่าง เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
-            --text-muted: #b0b0c5; 
+            --text-muted: #b0b0c5; /* สีเทาสว่าง เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
             --border-color: #2a2940;
             --sidebar-width: 260px;
         }
@@ -31,8 +30,7 @@
             --bg-card: #ffffff;     
             --bg-sidebar: #ffffff;  
             --text-light: #2b2b36;  
-            /* สีเทาสำหรับโหมดสว่าง */
-            --text-muted: #79788f;  
+            --text-muted: #79788f;  /* สีเทาสำหรับโหมดสว่าง */
             --border-color: #eaeaea;
         }
 
@@ -189,18 +187,21 @@
         .table { color: var(--text-light); margin-bottom: 0; }
         .table td, .table th { border-bottom: 1px solid var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; white-space: nowrap; }
         .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
-        
+        .icon-circle { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+
         .timeline { border-left: 2px solid var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item:last-child { margin-bottom: 0; }
         .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
 
+        /* สีตกแต่งเอนกประสงค์ */
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-orange { color: #ffa502; } .bg-orange-light { background-color: rgba(255, 165, 2, 0.1); }
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
         .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
+        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
@@ -378,7 +379,6 @@
                                     <h5 class="mb-0 fw-bold">Recent Orders</h5>
                                     <small class="text-muted">Latest transactions from your store</small>
                                 </div>
-                                <a href="#" class="text-purple" style="text-decoration: none; font-size: 0.85rem;">View all &rarr;</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-borderless mb-0 align-middle">
@@ -418,7 +418,7 @@
 
     <script>
         /* =========================================
-           1. ระบบเมนู Responsive & Dark Mode (ย่อโค้ดเพื่อความกระชับ)
+           1. ระบบเมนู Responsive & Dark Mode
         ========================================= */
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -473,89 +473,97 @@
         goalChart.render();
 
         /* =========================================
-           3. ฟังก์ชันดึงข้อมูลจาก Google Sheets (API) และอัปเดตทุกส่วนของหน้าจอ
+           🌟 3. ฟังก์ชันดึงข้อมูลจาก Google Sheets (API)
         ========================================= */
         function loadDataFromGoogleSheet() {
-            // 🚨 นำลิงก์ Web App ที่ได้จาก Google Apps Script สเต็ปที่ 1 มาวางตรงนี้
+            // 🚨 ลิงก์ API ของคุณ
             const apiURL = "https://script.google.com/macros/s/AKfycbx_URxsMApT3GaA4Dn4IGnNb3Bs6hJAxxunKcpJv9xtjvpge9ydBGfxg0bl9yZrcjSDaQ/exec"; 
 
             // วิ่งไปขอข้อมูลจาก Google Sheet
             fetch(apiURL)
                 .then(response => response.json()) // แปลงข้อมูลให้กลายเป็น JSON เพื่อให้อ่านง่าย
                 .then(data => {
-                    // 1. อัปเดตกล่องตัวเลข KPI หลัก 4 กล่อง
-                    // ฟังก์ชัน toLocaleString() จะช่วยเติมลูกน้ำหลักพันให้สวยงาม
-                    document.getElementById('data-sales').innerText = "$" + Number(data.kpi.sales).toLocaleString();
-                    document.getElementById('data-revenue').innerText = "$" + Number(data.kpi.revenue).toLocaleString();
-                    document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
-                    document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
-                    
+                    // ตรวจสอบว่ามีข้อมูล KPI หลักส่งมาหรือไม่ (เพื่อป้องกันระบบพังถ้าใช้ API เวอร์ชันเก่า)
+                    if(data.kpi) {
+                        // 1. อัปเดตกล่องตัวเลข KPI หลัก 4 กล่อง
+                        document.getElementById('data-sales').innerText = "$" + Number(data.kpi.sales).toLocaleString();
+                        document.getElementById('data-revenue').innerText = "$" + Number(data.kpi.revenue).toLocaleString();
+                        document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
+                        document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
+                    }
+
                     // 2. อัปเดตกล่อง 3 กล่องในแบนเนอร์ด้านบนสุด
-                    document.getElementById('banner-today-revenue').innerText = "$" + Number(data.banner.todayRevenue).toLocaleString();
-                    document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
-                    document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
+                    if(data.banner) {
+                        document.getElementById('banner-today-revenue').innerText = "$" + Number(data.banner.todayRevenue).toLocaleString();
+                        document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
+                        document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
+                    }
 
                     // 3. อัปเดตตัวเลขเป้าหมาย (Sales Goal) ใต้กราฟวงกลม
-                    document.getElementById('data-target').innerText = "$" + Number(data.goal.target).toLocaleString();
-                    document.getElementById('data-earned').innerText = "$" + Number(data.goal.earned).toLocaleString();
-                    // สั่งอัปเดตกราฟวงกลมให้เปอร์เซ็นต์วิ่งขึ้นตามจริง
-                    goalChart.updateSeries([data.goal.percent]); 
+                    if(data.goal) {
+                        document.getElementById('data-target').innerText = "$" + Number(data.goal.target).toLocaleString();
+                        document.getElementById('data-earned').innerText = "$" + Number(data.goal.earned).toLocaleString();
+                        // สั่งอัปเดตกราฟวงกลมให้เปอร์เซ็นต์วิ่งขึ้นตามจริง
+                        goalChart.updateSeries([data.goal.percent]); 
+                    }
 
                     // 4. อัปเดตเส้นกราฟรายเดือน (Revenue Overview)
-                    revenueChart.updateSeries([
-                        { name: 'Revenue', data: data.charts.revenue },
-                        { name: 'Expenses', data: data.charts.expenses }
-                    ]);
-                    revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
+                    if(data.charts) {
+                        revenueChart.updateSeries([
+                            { name: 'Revenue', data: data.charts.revenue },
+                            { name: 'Expenses', data: data.charts.expenses }
+                        ]);
+                        revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
+                    }
 
                     // 5. สร้างโค้ดตาราง (Recent Orders) และไทม์ไลน์กิจกรรม (Live Activity)
-                    let tableHTML = "";
-                    let timelineHTML = "";
-                    
-                    // ถ้ายังไม่มีรายการสั่งซื้อใดๆ ในระบบ
-                    if (data.recentOrders.length === 0) {
-                        tableHTML = `<tr><td colspan="4" class="text-center text-muted">ยังไม่มีรายการสั่งซื้อ</td></tr>`;
-                        timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
-                    } else {
-                        // วนลูปอ่านข้อมูลทีละรายการเพื่อสร้างตาราง
-                        data.recentOrders.forEach((order, index) => {
-                            // สุ่มสีให้กล่องตัวอักษรชื่อลูกค้า (Avatar) เพื่อความสวยงาม
-                            let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
-                            let avatarBg = bgColors[index % bgColors.length];
-                            
-                            // โค้ดสร้างตาราง
-                            tableHTML += `
-                                <tr>
-                                    <td class="text-purple fw-semibold">${order.id}</td>
-                                    <td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0)}</div> ${order.customer}</div></td>
-                                    <td><span class="text-muted">${order.product}</span></td>
-                                    <td><span class="badge-status bg-completed">${order.status}</span></td>
-                                </tr>
-                            `;
-                            
-                            // โค้ดสร้างไทม์ไลน์ฝั่งขวา
-                            let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
-                            let dotColor = dotColors[index % dotColors.length];
-                            timelineHTML += `
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="border-color: ${dotColor};"></div>
-                                    <span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span>
-                                    <small class="text-muted">${order.time}</small>
-                                </div>
-                            `;
-                        });
+                    if(data.recentOrders) {
+                        let tableHTML = "";
+                        let timelineHTML = "";
+                        
+                        // ถ้ายังไม่มีรายการสั่งซื้อใดๆ ในระบบ
+                        if (data.recentOrders.length === 0) {
+                            tableHTML = `<tr><td colspan="4" class="text-center text-muted">ยังไม่มีรายการสั่งซื้อ</td></tr>`;
+                            timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
+                        } else {
+                            // วนลูปอ่านข้อมูลทีละรายการเพื่อสร้างตาราง
+                            data.recentOrders.forEach((order, index) => {
+                                // สุ่มสีให้กล่องตัวอักษรชื่อลูกค้า (Avatar) เพื่อความสวยงาม
+                                let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
+                                let avatarBg = bgColors[index % bgColors.length];
+                                
+                                // โค้ดสร้างตาราง
+                                tableHTML += `
+                                    <tr>
+                                        <td class="text-purple fw-semibold">${order.id}</td>
+                                        <td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0)}</div> ${order.customer}</div></td>
+                                        <td><span class="text-muted">${order.product}</span></td>
+                                        <td><span class="badge-status bg-completed">${order.status}</span></td>
+                                    </tr>
+                                `;
+                                
+                                // โค้ดสร้างไทม์ไลน์ฝั่งขวา
+                                let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
+                                let dotColor = dotColors[index % dotColors.length];
+                                timelineHTML += `
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot" style="border-color: ${dotColor};"></div>
+                                        <span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span>
+                                        <small class="text-muted">${order.time}</small>
+                                    </div>
+                                `;
+                            });
+                        }
+                        
+                        // ยัดโค้ดตารางและไทม์ไลน์ที่สร้างเสร็จแล้ว กลับเข้าไปแสดงบนหน้าเว็บ
+                        document.getElementById('recent-orders-table').innerHTML = tableHTML;
+                        document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
-                    
-                    // ยัดโค้ดตารางและไทม์ไลน์ที่สร้างเสร็จแล้ว กลับเข้าไปแสดงบนหน้าเว็บ
-                    document.getElementById('recent-orders-table').innerHTML = tableHTML;
-                    document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
 
                 })
                 .catch(error => {
                     // หากเกิดข้อผิดพลาดในการดึงข้อมูล
                     console.error('Error fetching data:', error);
-                    document.getElementById('data-sales').innerText = "Error";
-                    document.getElementById('data-revenue').innerText = "Error";
                 });
         }
 
