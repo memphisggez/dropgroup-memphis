@@ -181,16 +181,16 @@
             padding: 20px; 
             margin-bottom: 25px;
             border: 1px solid var(--border-color); 
-            /* เพิ่ม Transition เพื่อให้การเคลื่อนไหวสมูท */
+            /* เพิ่ม Transition เพื่อให้การเคลื่อนไหวเวลาเอาเมาส์ชี้สมูทขึ้น */
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
             height: calc(100% - 25px);
         }
         
-        /* 🌟 เอฟเฟกต์เวลาเอาเมาส์ชี้ (Hover) ให้ยกลอยขึ้น 5px พร้อมมีเงา */
+        /* 🌟 เอฟเฟกต์ยกการ์ดลอยขึ้นเวลาเอาเมาส์ชี้ */
         .custom-card:hover {
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-            border-color: rgba(157, 78, 221, 0.3); /* แอบเปลี่ยนสีขอบนิดนึงให้ดูเรืองแสง */
+            transform: translateY(-5px); /* เลื่อนขึ้น 5px */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* เพิ่มเงาให้ดูมีมิติ */
+            border-color: rgba(157, 78, 221, 0.3); /* ขอบเป็นสีม่วงอ่อนๆ */
         }
         
         /* ปรับเงาให้ดูอ่อนลงถ้าอยู่ในโหมดสว่าง */
@@ -198,9 +198,10 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.08); 
         }
 
+        /* 🌟 เอา Margin ออกจากไอคอน เพื่อให้จัดเรียงแนวนอนคู่กับข้อความได้สวยขึ้น */
         .stat-icon {
             width: 45px; height: 45px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 10px;
+            align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 0;
         }
 
         .table { color: var(--text-light); margin-bottom: 0; }
@@ -314,7 +315,6 @@
             <!-- คอนเทนเนอร์หลัก -->
             <div class="container-fluid p-0">
                 
-                <!-- แบนเนอร์ต้อนรับ -->
                 <div class="banner-card p-4 p-md-5">
                     <div class="banner-circle banner-circle-1"></div>
                     <div class="banner-circle banner-circle-2"></div>
@@ -347,29 +347,33 @@
                     </div>
                 </div>
 
-                <!-- 🌟 การ์ด 4 กล่อง (ดีไซน์กราฟแบบเม็ดยา ตามรูปที่ 2) -->
+                <!-- 🌟 การ์ด 4 กล่อง (เพิ่มข้อความข้างไอคอนตามภาพที่ 2) -->
                 <div class="row">
                     <!-- การ์ดที่ 1 (สีม่วง) -->
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
-                                <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
-                                <!-- ป้ายเปอร์เซ็นต์ใส่พื้นหลังแบบเม็ดยา -->
+                                <!-- 🌟 จับไอคอนและข้อความรวมไว้ในกล่องแนวนอน (d-flex) -->
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold" style="color: var(--text-light);">Sales Goal</h6>
+                                        <small class="text-muted" style="font-size: 0.75rem;">Monthly target progress</small>
+                                    </div>
+                                </div>
                                 <span class="badge bg-purple-light text-purple rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold mt-2">$12,426</h3>
+                            <!-- ย้ายระยะห่างลงมาไว้ที่ตัวเลขแทนไอคอน -->
+                            <h3 class="mb-0 fw-bold mt-3">$12,426</h3>
                             <small class="text-muted">Total Sales</small>
                             
-                            <!-- กราฟแบบจุด/เม็ดยา (ใช้ flex จัดให้อยู่ชิดล่างเหมือนกราฟแท่ง) -->
                             <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
-                                <!-- ปรับ height สลับไปมาให้ดูเหมือนกราฟคลื่น -->
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 30%;"></div>
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 40%;"></div>
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 35%;"></div>
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 50%;"></div>
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 45%;"></div>
                                 <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 60%;"></div>
-                                <!-- จุดสุดท้ายเป็นวงกลมสีเข้ม -->
                                 <div class="rounded-circle" style="width: 25px; height: 25px; background: #a55eea; flex-shrink: 0;"></div>
                             </div>
                         </div>
@@ -379,11 +383,17 @@
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
-                                <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-dollar-sign"></i></div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-dollar-sign"></i></div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold" style="color: var(--text-light);">Revenue</h6>
+                                        <small class="text-muted" style="font-size: 0.75rem;">Income vs Expenses</small>
+                                    </div>
+                                </div>
                                 <span class="badge bg-green-light text-green rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 8.2%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold mt-2">$8,234</h3>
-                            <small class="text-muted">Revenue</small>
+                            <h3 class="mb-0 fw-bold mt-3">$8,234</h3>
+                            <small class="text-muted">Net Revenue</small>
                             
                             <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
                                 <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 20%;"></div>
@@ -401,11 +411,17 @@
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
-                                <div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold" style="color: var(--text-light);">Active Orders</h6>
+                                        <small class="text-muted" style="font-size: 0.75rem;">Pending & Delivered</small>
+                                    </div>
+                                </div>
                                 <span class="badge bg-pink-light text-pink rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-down"></i> 3.1%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold mt-2">1,248</h3>
-                            <small class="text-muted">Orders</small>
+                            <h3 class="mb-0 fw-bold mt-3">1,248</h3>
+                            <small class="text-muted">Total Orders</small>
                             
                             <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
                                 <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 60%;"></div>
@@ -423,11 +439,17 @@
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
-                                <div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold" style="color: var(--text-light);">User Base</h6>
+                                        <small class="text-muted" style="font-size: 0.75rem;">Active subscriptions</small>
+                                    </div>
+                                </div>
                                 <span class="badge bg-green-light text-green rounded-pill px-2 py-1"><i class="fa-solid fa-arrow-trend-up"></i> 5.8%</span>
                             </div>
-                            <h3 class="mb-0 fw-bold mt-2">5,432</h3>
-                            <small class="text-muted">Customers</small>
+                            <h3 class="mb-0 fw-bold mt-3">5,432</h3>
+                            <small class="text-muted">Total Customers</small>
                             
                             <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
                                 <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 25%;"></div>
