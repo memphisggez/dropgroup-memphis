@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เลือกสินค้าให้ลูกค้า - Memphis Group</title>
     
-    <!-- โหลดชุดเครื่องมือ Bootstrap 5 และ Font Awesome สำหรับไอคอน -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* =========================================
-           1. ตั้งค่าตัวแปรสี (Color Variables)
+           1. ตั้งค่าตัวแปรสีหลัก (Color Variables)
         ========================================= */
         :root {
             --bg-main: #131224;
@@ -39,61 +38,35 @@
            2. แถบเมนูด้านซ้าย (Sidebar)
         ========================================= */
         #sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-sidebar);
-            height: 100vh;
-            border-right: 1px solid var(--border-color);
-            position: fixed; left: 0; top: 0;
-            display: flex; flex-direction: column;
-            z-index: 1040; transition: all 0.3s ease; /* เพิ่ม transition ให้เมนูเลื่อนนุ่มนวล */
+            width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh;
+            border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0;
+            display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease;
         }
         
         #sidebar.toggled { width: 70px; }
-        #sidebar.toggled .sidebar-brand span,
-        #sidebar.toggled .menu-title,
-        #sidebar.toggled .sidebar-menu li a span,
-        #sidebar.toggled .user-profile-bottom,
-        #sidebar.toggled .toggle-arrow,
-        #sidebar.toggled .sidebar-submenu { display: none !important; } 
+        #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
 
-        .sidebar-brand {
-            padding: 20px 25px; font-size: 1.25rem; font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
-            color: var(--text-light); text-decoration: none;
-        }
+        .sidebar-brand { padding: 20px 25px; font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
-
         .sidebar-menu { list-style: none; padding: 0 15px; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
-        
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; }
         
         .sidebar-menu > li > a {
             display: flex; align-items: center; padding: 12px 15px;
-            color: var(--text-muted); text-decoration: none; border-radius: 8px;
-            margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem;
+            color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem;
         }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
-        
-        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-            color: #ffffff;
-        }
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); color: #ffffff; }
 
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
 
-        .sidebar-submenu {
-            list-style: none; padding: 5px 0 5px 0; margin: 0 0 5px 30px; 
-            border-left: 1px solid var(--border-color); 
-        }
-        .sidebar-submenu li a {
-            display: block; padding: 8px 15px 8px 20px; font-size: 0.9rem;
-            color: var(--text-muted); text-decoration: none; transition: 0.3s;
-        }
+        .sidebar-submenu { list-style: none; padding: 5px 0 5px 0; margin: 0 0 5px 30px; border-left: 1px solid var(--border-color); }
+        .sidebar-submenu li a { display: block; padding: 8px 15px 8px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none; transition: 0.3s; }
         .sidebar-submenu li a:hover { color: var(--text-light); background: transparent !important; }
 
-        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
         .user-profile-bottom img { width: 40px; border-radius: 50%; }
 
         /* =========================================
@@ -105,52 +78,30 @@
         }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
-        .topbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px;
-        }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px; }
 
-        /* 🌟 สไตล์ปุ่มแฮมเบอร์เกอร์ */
         .icon-btn { background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
-
-        /* 🌟 สไตล์ฉากกั้นสีดำเวลากดเปิดเมนูในมือถือ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
 
-        /* 🌟 การแสดงผลบนจอมือถือ (Mobile Responsive) */
         @media (max-width: 991.98px) {
             #sidebar { left: calc(-1 * var(--sidebar-width)); box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
             #sidebar.mobile-show { left: 0; }
             #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; }
             #page-content.toggled { margin-left: 0; width: 100%; }
-            .user-name-text { display: none !important; } /* ซ่อนชื่อผู้ใช้เหลือแต่รูปเวลามือถือแนวตั้ง */
+            .user-name-text { display: none !important; } 
         }
 
-        /* สไตล์สำหรับ Dropdown Profile Menu */
-        .profile-dropdown-menu {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 15px 0; min-width: 250px; margin-top: 15px !important;
-        }
-        .profile-dropdown-menu::before {
-            content: ''; position: absolute; top: -8px; right: 20px;
-            width: 15px; height: 15px; background-color: var(--bg-card);
-            transform: rotate(45deg); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color);
-        }
-        .profile-dropdown-menu .dropdown-item {
-            color: var(--text-light); padding: 12px 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease;
-        }
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 15px 0; min-width: 250px; margin-top: 15px !important; }
+        .profile-dropdown-menu::before { content: ''; position: absolute; top: -8px; right: 20px; width: 15px; height: 15px; background-color: var(--bg-card); transform: rotate(45deg); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color); }
+        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 12px 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; }
         .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
         .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
         .profile-dropdown-menu .dropdown-item:hover i { color: var(--primary-color); }
 
         .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
-        .signout-btn {
-            display: block; width: 100%; padding: 10px; text-align: center;
-            background-color: rgba(255, 118, 117, 0.1); color: #ff7675;
-            border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s;
-        }
+        .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
         /* =========================================
@@ -159,18 +110,24 @@
         .product-card {
             background-color: var(--bg-card); border-radius: 15px; padding: 15px; margin-bottom: 25px;
             border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%; display: flex; flex-direction: column;
+            height: 100%; display: flex; flex-direction: column; position: relative;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        .product-img { width: 100%; height: 200px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; background: rgba(255,255,255,0.05); }
+        /* การทำรูปลิงก์ให้มี Hover Effect (แสดงคำว่าดูตัวอย่าง) */
+        .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
+        .product-img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s ease; }
+        .product-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; color: #fff; font-weight: bold; font-size: 1.1rem;}
+        .product-img-wrapper:hover .product-img { transform: scale(1.05); }
+        .product-img-wrapper:hover .product-img-overlay { opacity: 1; }
+
         .product-title { font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
-        .product-sku { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
-        .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin-top: auto; }
+        .product-sku { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
+        .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.3rem; margin-top: auto; }
         
         .select-btn {
             background: var(--primary-color); color: #fff; border: none; padding: 10px;
-            border-radius: 10px; font-weight: 600; width: 100%; margin-top: 15px; transition: 0.3s;
+            border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s;
         }
         .select-btn:hover { background: var(--primary-hover); }
 
@@ -190,15 +147,14 @@
             margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
         
-        /* ตกแต่งปุ่มและข้อความเอนกประสงค์ */
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
+        .text-primary-custom { color: #1e90ff; }
     </style>
 </head>
 <body>
 
     <div id="wrapper">
-        <!-- 🌟 ฉากกั้นสีดำเวลากดเมนูในมือถือ -->
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
         <!-- Sidebar -->
@@ -231,7 +187,7 @@
                     </ul>
                 </li>
                 
-                <!-- เมนู "สินค้า" จะเป็น active ในหน้านี้ -->
+                <!-- เมนู สินค้า -->
                 <li>
                     <a href="product.html" class="active">
                         <i class="fa-solid fa-cart-flatbed"></i> 
@@ -244,7 +200,6 @@
                 <div class="d-flex align-items-center gap-2">
                     <img src="https://ui-avatars.com/api/?name=User&background=random" id="sidebar-avatar" alt="User">
                     <div class="user-info">
-                        <!-- รอรับชื่อตัวแทนจากการล็อคอิน -->
                         <h6 class="mb-0 text-light" id="sidebar-name" style="font-size: 0.9rem;">Loading...</h6>
                         <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนจำหน่าย</small>
                     </div>
@@ -256,15 +211,13 @@
         <div id="page-content">
             <!-- Topbar -->
             <div class="topbar">
-                <!-- 🌟 เพิ่มปุ่มแฮมเบอร์เกอร์กลับมาให้เหมือนหน้าหลัก -->
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
-                    <!-- ซ่อนข้อความในมือถือ เพื่อไม่ให้เบียดกับชื่อโปรไฟล์ -->
                     <h5 class="mb-0 fw-bold d-none d-sm-block">เลือกสินค้าให้ลูกค้า</h5>
                 </div>
                 
                 <div class="topbar-actions">
-                    <!-- ส่วนโปรไฟล์มุมขวาบน (เชื่อมต่อกับระบบล็อคอิน) -->
+                    <!-- Dropdown โปรไฟล์ -->
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
@@ -272,7 +225,6 @@
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
                         
-                        <!-- กล่องเมนู Dropdown -->
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
                                 <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
@@ -280,10 +232,8 @@
                                 <small class="text-muted d-block mb-2">ตัวแทนจำหน่าย</small>
                                 <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
                             </div>
-                            
                             <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                            
                             <div class="signout-btn-wrap">
                                 <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
                             </div>
@@ -294,99 +244,49 @@
 
             <div class="container-fluid p-0">
                 
-                <!-- ส่วนค้นหาลูกค้า (Email และ Line ID) -->
+                <!-- ส่วนค้นหาลูกค้า -->
                 <div class="search-filter-card">
                     <h6 class="fw-bold mb-3"><i class="fa-solid fa-user-plus me-2 text-purple"></i>ค้นหา/เลือกลูกค้าก่อน</h6>
                     <input type="text" class="custom-input" placeholder="ค้นหาด้วย อีเมล หรือ ไอดีไลน์...">
                     
                     <div class="customer-list">
-                        <!-- ตัวอย่างรายชื่อลูกค้าที่ค้นเจอ -->
                         <div class="customer-item">
                             <div>
+                                <!-- 🌟 แสดงอีเมลเป็นหลัก และตามด้วยไอดีไลน์ -->
                                 <strong style="font-size: 1.05rem;">customer_one@email.com</strong><br>
                                 <small class="text-muted">Line ID: cust_one_01</small>
                             </div>
                             <button class="badge bg-green-light text-green px-3 py-2 rounded-pill" style="border:none;">เลือก</button>
                         </div>
-                        <div class="customer-item">
-                            <div>
-                                <strong>customer_two@email.com</strong><br>
-                                <small class="text-muted">Line ID: cust_two_02</small>
-                            </div>
-                            <!-- เมื่อเลือกแล้ว เปลี่ยนสีปุ่ม -->
-                            <button class="badge bg-purple-light text-purple px-3 py-2 rounded-pill" style="border:none;">เลือกแล้ว</button>
-                        </div>
                     </div>
                 </div>
 
-                <!-- หัวข้อรายการสินค้า และ ตัวเลือกประเภทสินค้าแบบ 2 ชั้น -->
+                <!-- หัวข้อรายการสินค้า และ ตัวเลือกประเภทสินค้า -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
                     
-                    <!-- กล่อง Dropdown หมวดหมู่สินค้า -->
                     <div class="d-flex flex-column flex-sm-row gap-2">
-                        <!-- Dropdown ชั้นที่ 1: เลือกประเภทหลัก -->
+                        <!-- 🌟 Dropdown ประเภทหลัก -->
                         <select id="main-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem;">
                             <option value="">-- เลือกประเภทสินค้า --</option>
-                            <option value="group">กลุ่ม</option>
-                            <option value="f_work">งานปล่อยเอฟ</option>
+                            <option value="กลุ่ม">กลุ่ม</option>
+                            <option value="งานปล่อยเอฟ">งานปล่อยเอฟ</option>
                         </select>
                         
-                        <!-- Dropdown ชั้นที่ 2: เลือกประเภทย่อย (จะซ่อนไว้ก่อนจนกว่าจะเลือกหมวดหมู่หลัก) -->
+                        <!-- 🌟 Dropdown ประเภทย่อย (เชื่อมต่ออัตโนมัติ) -->
                         <select id="sub-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem; display: none;">
                             <option value="">-- เลือกประเภทย่อย --</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- รายการสินค้า (Grid) -->
-                <div class="row">
-                    
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <div class="product-card">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" class="product-img" alt="กลุ่มสอนวาดตูน">
-                            <span class="badge bg-purple-light text-purple mb-2" style="width: fit-content;">กลุ่มสอน</span>
-                            <div class="product-title">คอร์สสอนวาดตูนพื้นฐาน</div>
-                            <div class="product-sku">รหัส: GRP-TUT-01</div>
-                            <div class="product-price">$120</div>
-                            <button class="select-btn">เพิ่มลงตะกร้า</button>
-                        </div>
+                <!-- 🌟 พื้นที่สำหรับวางการ์ดสินค้าที่จะโหลดมาจาก Google Sheet -->
+                <div class="row" id="product-grid">
+                    <div class="col-12 text-center text-muted py-5">
+                        <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3"></i>
+                        <p>กำลังโหลดรายการสินค้า...</p>
                     </div>
-
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <div class="product-card">
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600" class="product-img" alt="งานเอฟบล็อก">
-                            <span class="badge bg-green-light text-green mb-2" style="width: fit-content;">งานปล่อยเอฟ / บล็อก</span>
-                            <div class="product-title">เทมเพลตบล็อกเว็บ V1</div>
-                            <div class="product-sku">รหัส: FWORK-BLK-02</div>
-                            <div class="product-price">$199</div>
-                            <button class="select-btn">เพิ่มลงตะกร้า</button>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <div class="product-card">
-                            <img src="https://images.unsplash.com/photo-1511385348-a52b4a160dc2?q=80&w=600" class="product-img" alt="กลุ่มของตกแต่ง">
-                            <span class="badge bg-purple-light text-purple mb-2" style="width: fit-content;">กลุ่มของตกแต่ง</span>
-                            <div class="product-title">รวมไฟล์ PNG งานป้าย</div>
-                            <div class="product-sku">รหัส: GRP-DEC-03</div>
-                            <div class="product-price">$89</div>
-                            <button class="select-btn">เพิ่มลงตะกร้า</button>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <div class="product-card">
-                            <img src="https://images.unsplash.com/photo-1583394828319-68069bf2351c?q=80&w=600" class="product-img" alt="คลิปสอน">
-                            <span class="badge bg-green-light text-green mb-2" style="width: fit-content;">งานปล่อยเอฟ / คลิปสอน</span>
-                            <div class="product-title">คลิปสอนไดคัทรูปภาพ</div>
-                            <div class="product-sku">รหัส: FWORK-VID-04</div>
-                            <div class="product-price">$80</div>
-                            <button class="select-btn">เพิ่มลงตะกร้า</button>
-                        </div>
-                    </div>
-                    
-                </div> <!-- End Product Grid -->
+                </div> 
 
             </div>
         </div>
@@ -396,106 +296,175 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // 🚨 URL API Google Sheets (เอาลิงก์ของคุณมาวางตรงนี้)
+        const apiURL = "https://script.google.com/macros/s/AKfycbzZrTa7g1qMgfGpl0azETtuc0yOI8D_lhdYS1usU8wU79_e9u4mOtId7s15rM4tT5oR/exec";
+
         /* =========================================
-           🌟 0. ระบบเปิด/ปิดเมนูบนมือถือ (Hamburger Menu)
+           1. ระบบเมนู Responsive
         ========================================= */
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const pageContent = document.getElementById('page-content');
         const overlay = document.getElementById('sidebar-overlay');
         
-        // เวลากดปุ่ม ☰
         menuToggle.addEventListener('click', function() {
-            if (window.innerWidth <= 991.98) { 
-                sidebar.classList.toggle('mobile-show'); // ดันแถบเมนูออกมา
-                overlay.classList.toggle('active');      // แสดงฉากกั้นสีดำ
-            } else { 
-                sidebar.classList.toggle('toggled'); 
-                pageContent.classList.toggle('toggled'); 
-            }
+            if (window.innerWidth <= 991.98) { sidebar.classList.toggle('mobile-show'); overlay.classList.toggle('active'); } 
+            else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
         });
-
-        // เวลากดที่ฉากกั้นสีดำ ให้ปิดเมนู
-        overlay.addEventListener('click', function() { 
-            sidebar.classList.remove('mobile-show'); 
-            overlay.classList.remove('active'); 
-        });
+        overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
 
         /* =========================================
-           🌟 1. ระบบจัดการการล็อคอิน (ดึงข้อมูลจาก localStorage)
+           2. ระบบล็อคอิน
         ========================================= */
         const savedAgent = localStorage.getItem('memphis_agent');
         
-        // ถ้าไม่พบข้อมูลล็อคอิน (ยังไม่ได้ล็อคอิน) ให้เด้งกลับไปหน้าหลักทันที
         if (!savedAgent) {
             alert("กรุณาเข้าสู่ระบบก่อนใช้งานหน้าสินค้านะครับ");
             window.location.href = "index.html"; 
         } else {
-            // ถ้าล็อคอินแล้ว ให้นำข้อมูลชื่อมาแสดงที่มุมขวาบน และแถบซ้าย
             const currentAgent = JSON.parse(savedAgent);
-            
             document.getElementById('sidebar-name').innerText = currentAgent.name;
             document.getElementById('topbar-name').innerText = currentAgent.name;
             document.getElementById('dropdown-name').innerText = currentAgent.name; 
             
-            // สุ่มอวาตาร์
             let avatarUrl = `https://ui-avatars.com/api/?name=${currentAgent.name.replace(/ /g, '+')}&background=random`;
             document.getElementById('sidebar-avatar').src = avatarUrl;
             document.getElementById('topbar-avatar').src = avatarUrl;
             document.getElementById('dropdown-avatar').src = avatarUrl; 
         }
 
-        // เมื่อกดปุ่ม "ออกจากระบบ" ในเมนู Dropdown
         document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) {
-            e.preventDefault(); 
-            localStorage.removeItem('memphis_agent'); // ล้างประวัติล็อคอิน
-            window.location.href = "index.html"; // เด้งกลับไปหน้าล็อคอิน
+            e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; 
         });
 
+
         /* =========================================
-           🌟 2. ระบบหมวดหมู่สินค้า 2 ชั้น (Dynamic Dropdown)
+           3. ระบบดึงข้อมูลสินค้า (Products)
+        ========================================= */
+        let allProducts = []; // เก็บข้อมูลสินค้าทั้งหมดไว้ในนี้
+
+        // ฟังก์ชันดึงข้อมูลจาก API
+        function fetchProducts() {
+            fetch(apiURL + "?action=getProducts")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        allProducts = data.products; // เก็บใส่ตัวแปร
+                        renderProducts(allProducts); // ส่งไปวาดบนหน้าจอ
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('product-grid').innerHTML = '<div class="col-12 text-center text-danger">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</div>';
+                });
+        }
+
+        // ฟังก์ชันวาดการ์ดสินค้าลงบนหน้าเว็บ
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ""; // ล้างหน้าจอเก่าออก
+
+            if (productsToRender.length === 0) {
+                grid.innerHTML = '<div class="col-12 text-center text-muted py-5">ไม่พบสินค้าในหมวดหมู่นี้</div>';
+                return;
+            }
+
+            productsToRender.forEach(p => {
+                // เลือกสี Tag หมวดหมู่
+                let badgeClass = p.mainCat === 'กลุ่ม' ? 'bg-purple-light text-purple' : 'bg-green-light text-green';
+
+                const cardHTML = `
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
+                        <div class="product-card">
+                            <!-- 🌟 กดที่รูปจะพาไปดูตัวอย่างที่ Google Drive (เป้าหมายแท็บใหม่) -->
+                            <a href="${p.driveUrl}" target="_blank" class="product-img-wrapper" title="คลิกเพื่อดูตัวอย่างงานใน Google Drive">
+                                <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
+                                <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
+                            </a>
+                            
+                            <span class="badge ${badgeClass} mb-2" style="width: fit-content;">${p.subCat}</span>
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-sku">รหัส: ${p.sku}</div>
+                            
+                            <!-- 🌟 แสดงข้อมูลยอดเงินแบบละเอียด -->
+                            <div class="d-flex justify-content-between align-items-end mt-2 mb-3">
+                                <div>
+                                    <div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
+                                    <div style="font-size: 0.8rem;" class="text-muted">ส่งร้าน: <span class="text-primary-custom fw-bold">฿${p.netRevenue}</span></div>
+                                </div>
+                                <div class="product-price">฿${p.fullPrice}</div>
+                            </div>
+                            
+                            <!-- 🌟 ปุ่มกดสั่งซื้อ (สั่งได้ทีละ 1 ออเดอร์) -->
+                            <button class="select-btn mt-auto" onclick="buySingleProduct('${p.sku}', '${p.name}')">สั่งซื้อสินค้านี้</button>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        // โหลดสินค้าทันทีที่เปิดหน้าเว็บ
+        fetchProducts();
+
+
+        /* =========================================
+           4. ระบบหมวดหมู่สินค้า 2 ชั้น (กรองสินค้า)
         ========================================= */
         const mainCategory = document.getElementById('main-category');
         const subCategory = document.getElementById('sub-category');
 
-        // สร้างฐานข้อมูลจำลองว่า แต่ละหมวดหมู่หลัก มีหมวดหมู่ย่อยอะไรบ้าง
+        // รายชื่อหมวดหมู่ย่อย
         const categoryOptions = {
-            "group": ["กลุ่มตูน", "กลุ่มบล็อก", "กลุ่มรวม", "กลุ่มสอน", "กลุ่มของตกแต่ง"],
-            "f_work": ["บล็อก", "คลิปสอน", "ตูน", "ของตกแต่ง"]
+            "กลุ่ม": ["กลุ่มตูน", "กลุ่มบล็อก", "กลุ่มรวม", "กลุ่มสอน", "กลุ่มของตกแต่ง"],
+            "งานปล่อยเอฟ": ["บล็อก", "คลิปสอน", "ตูน", "ของตกแต่ง"]
         };
 
-        // เมื่อมีการเลือกหมวดหมู่หลัก (Level 1)
+        // เมื่อเปลี่ยนหมวดหมู่หลัก
         mainCategory.addEventListener('change', function() {
-            const selected = this.value; // เอาค่าที่เลือกมา
-            
-            // ล้างข้อมูลหมวดหมู่ย่อยอันเก่าทิ้งก่อน
+            const selected = this.value;
             subCategory.innerHTML = '<option value="">-- เลือกประเภทย่อย --</option>';
 
             if (selected && categoryOptions[selected]) {
-                // วนลูปนำประเภทย่อยมาใส่ใน Dropdown ตัวที่ 2
                 categoryOptions[selected].forEach(function(opt) {
                     const optionElement = document.createElement('option');
-                    optionElement.value = opt;
-                    optionElement.textContent = opt;
+                    optionElement.value = opt; optionElement.textContent = opt;
                     subCategory.appendChild(optionElement);
                 });
-                
-                // เปิดให้แสดง Dropdown ตัวที่ 2
                 subCategory.style.display = 'block'; 
             } else {
-                // ถ้าเลือก "-- เลือกประเภท --" ให้ซ่อน Dropdown ตัวที่ 2 ไว้
                 subCategory.style.display = 'none'; 
             }
+            
+            filterProducts(); // สั่งให้กรองสินค้าใหม่ทุกครั้งที่หมวดหมู่เปลี่ยน
         });
 
-        /* =========================================
-           3. ฟังก์ชันปุ่มเพิ่มลงตะกร้า (ตัวอย่าง)
-        ========================================= */
-        document.querySelectorAll('.select-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('ฟังก์ชันการเลือกสินค้าและส่งยอดเข้า Google Sheets กำลังพัฒนาครับ...');
+        // เมื่อเปลี่ยนหมวดหมู่ย่อย
+        subCategory.addEventListener('change', filterProducts);
+
+        // ฟังก์ชันกรองสินค้าจากฐานข้อมูลทั้งหมด
+        function filterProducts() {
+            const mainCatFilter = mainCategory.value;
+            const subCatFilter = subCategory.value;
+
+            // คัดกรองตัวที่มีค่าตรงกับที่เลือก
+            const filtered = allProducts.filter(p => {
+                let matchMain = mainCatFilter === "" || p.mainCat === mainCatFilter;
+                let matchSub = subCatFilter === "" || p.subCat === subCatFilter;
+                return matchMain && matchSub;
             });
-        });
+
+            renderProducts(filtered); // ส่งตัวที่ผ่านการกรองไปวาดใหม่
+        }
+
+
+        /* =========================================
+           5. ฟังก์ชันสั่งซื้อสินค้า (ทีละออเดอร์)
+        ========================================= */
+        function buySingleProduct(sku, productName) {
+            // โค้ดส่วนนี้เตรียมไว้สำหรับทำการส่งยอดไปยัง Google Sheet
+            // ตอนนี้ให้ขึ้นแจ้งเตือนก่อนว่ากดสำเร็จ
+            alert(`ดำเนินการสั่งซื้อสำเร็จ!\nรหัส: ${sku}\nชื่อสินค้า: ${productName}\n\n(ระบบส่งยอดเข้าตารางกำลังจะมาในสเต็ปถัดไปครับ)`);
+        }
     </script>
 </body>
 </html>
