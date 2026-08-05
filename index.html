@@ -247,7 +247,6 @@
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
         .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
-        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
@@ -321,7 +320,7 @@
                     <img src="https://ui-avatars.com/api/?name=User&background=random" id="sidebar-avatar" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light" id="sidebar-name" style="font-size: 0.9rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนขาย</small>
+                        <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนจำหน่าย</small>
                     </div>
                 </div>
             </div>
@@ -343,11 +342,13 @@
                     <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
-                    <!-- 🌟 ส่วนโปรไฟล์มุมขวาบน (เพิ่มระบบ Dropdown Menu) -->
+                    <!-- 🌟 ส่วนโปรไฟล์มุมขวาบน (เพิ่มระบบ Dropdown Menu และเอาลูกศรซ้ำซ้อนออก) -->
                     <div class="dropdown">
-                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3 dropdown-toggle" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- ลบคลาส dropdown-toggle ออก เพื่อไม่ให้ Bootstrap ใส่ลูกศรสามเหลี่ยมอัตโนมัติมาชนกับไอคอนของเรา -->
+                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
                             <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
+                            <!-- ไอคอนลูกศรจาก FontAwesome -->
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
                         
@@ -365,7 +366,7 @@
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-line"></i> Activity Log</a></li>
                             
                             <div class="signout-btn-wrap">
-                                <!-- ปุ่มออกจากระบบ (ย้ายมาไว้ตรงนี้) -->
+                                <!-- ปุ่มออกจากระบบ -->
                                 <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
                             </div>
                         </ul>
@@ -613,22 +614,22 @@
         const agentInput = document.getElementById('agent-input');
         const passwordInput = document.getElementById('password-input');
         const loginError = document.getElementById('login-error');
-        const logoutBtnDropdown = document.getElementById('btn-logout-dropdown'); // ปุ่มออกระบบใน Dropdown
+        const logoutBtnDropdown = document.getElementById('btn-logout-dropdown'); 
         
         let currentAgent = null;
 
-        // อัปเดตข้อมูลผู้ใช้บนหน้าเว็บ (รวมถึงในกล่อง Dropdown)
+        // อัปเดตข้อมูลผู้ใช้บนหน้าเว็บ
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
-            document.getElementById('dropdown-name').innerText = agent.name; // ชื่อในกล่องเมนู
+            document.getElementById('dropdown-name').innerText = agent.name; 
             document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
             
             // สุ่มอวาตาร์
             let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
             document.getElementById('sidebar-avatar').src = avatarUrl;
             document.getElementById('topbar-avatar').src = avatarUrl;
-            document.getElementById('dropdown-avatar').src = avatarUrl; // รูปในกล่องเมนู
+            document.getElementById('dropdown-avatar').src = avatarUrl; 
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -676,13 +677,13 @@
 
         // กดออกจากระบบ (ผ่านปุ่มใน Dropdown Menu)
         logoutBtnDropdown.addEventListener('click', function(e) {
-            e.preventDefault(); // ป้องกันการเด้งไปหน้าอื่น
+            e.preventDefault(); 
             localStorage.removeItem('memphis_agent'); 
             location.reload(); 
         });
 
         /* =========================================
-           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง (เหมือนเดิม)
+           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง
         ========================================= */
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
