@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trendy Admin - Responsive Dashboard</title>
+    <title>Trendy Admin - Full Dashboard</title>
     
     <!-- โหลดชุดเครื่องมือ Bootstrap 5 และ Font Awesome สำหรับไอคอน -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +13,6 @@
         /* =========================================
            1. ตั้งค่าตัวแปรสี (Color Variables)
         ========================================= */
-        /* --- โหมดมืด (Dark Mode - ค่าเริ่มต้น) --- */
         :root {
             --bg-main: #131224;
             --bg-card: #1c1b2f;
@@ -64,8 +63,11 @@
         #sidebar.toggled .sidebar-brand span,
         #sidebar.toggled .menu-title,
         #sidebar.toggled .sidebar-menu li a span,
-        #sidebar.toggled .user-profile-bottom { display: none !important; }
-        #sidebar.toggled .sidebar-menu li a { justify-content: center; padding: 12px 0; }
+        #sidebar.toggled .user-profile-bottom,
+        #sidebar.toggled .toggle-arrow,
+        #sidebar.toggled .sidebar-submenu { display: none !important; } /* ซ่อนเมนูย่อยและลูกศรเมื่อหดแถบ */
+        
+        #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
 
         .sidebar-brand {
             padding: 20px 25px; font-size: 1.25rem; font-weight: bold;
@@ -80,15 +82,48 @@
 
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; }
         
-        .sidebar-menu li a {
+        /* เมนูหลัก (Main Menu) */
+        .sidebar-menu > li > a {
             display: flex; align-items: center; padding: 12px 15px;
             color: var(--text-muted); text-decoration: none; border-radius: 8px;
             margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem;
         }
-        .sidebar-menu li a i { width: 30px; font-size: 1.1rem; }
-        .sidebar-menu li a:hover, .sidebar-menu li a.active {
+        .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
+        
+        /* แถบสีเวลาเอาเมาส์ชี้เมนูหลัก */
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active {
             background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
             color: #ffffff;
+        }
+
+        /* 🌟 ลูกศรชี้ลงสำหรับเมนูที่มี Submenu (หมุนเมื่อถูกกางออก) */
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+        }
+        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow {
+            transform: rotate(180deg); /* หมุน 180 องศาเมื่อเปิดเมนูย่อย */
+        }
+
+        /* 🌟 สไตล์ของเมนูย่อย (Submenu) และเส้นเชื่อม */
+        .sidebar-submenu {
+            list-style: none;
+            padding: 5px 0 5px 0;
+            margin: 0 0 5px 30px; /* ขยับเส้นให้ตรงกับกึ่งกลางไอคอนหลัก */
+            border-left: 1px solid var(--border-color); /* สร้างเส้นแนวตั้ง */
+        }
+        
+        .sidebar-submenu li a {
+            display: block;
+            padding: 8px 15px 8px 20px; /* ดันข้อความออกห่างจากเส้น */
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .sidebar-submenu li a:hover {
+            color: var(--text-light); /* สว่างขึ้นเมื่อเอาเมาส์ชี้ */
+            background: transparent !important; /* ไม่เอาพื้นหลังสีม่วง */
         }
 
         .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
@@ -115,38 +150,29 @@
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         
-        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative;}
+        /* 🌟 ปุ่มไอคอน (ตั้งค่าสีให้เปลี่ยนตามโหมดหน้าจอ) */
+        .icon-btn { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; position: relative;}
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
         /* =========================================
            4. การตั้งค่าแสดงผลบนหน้าจอมือถือ (Responsive Mobile)
         ========================================= */
-        /* ฉากหลังสีดำโปร่งแสง (จะแสดงเฉพาะตอนเปิดเมนูบนมือถือ) */
         .sidebar-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px);
         }
         .sidebar-overlay.active { display: block; }
 
-        /* เมื่อขนาดหน้าจอเล็กกว่า 992px (มือถือ / แท็บเล็ตแนวตั้ง) */
         @media (max-width: 991.98px) {
-            /* ซ่อน Sidebar ไปทางซ้ายสุด */
             #sidebar { left: calc(-1 * var(--sidebar-width)); box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
-            /* เมื่อมีคลาส mobile-show ให้สไลด์ Sidebar ออกมา */
             #sidebar.mobile-show { left: 0; }
-            
-            /* ขยายเนื้อหาหลักให้เต็มจอ */
             #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; }
             #page-content.toggled { margin-left: 0; width: 100%; }
-            
-            /* ซ่อนแถบค้นหาและข้อความชื่อผู้ใช้เพื่อให้ Topbar ไม่ล้นจอ */
             .search-bar { display: none !important; }
             .user-name-text { display: none !important; }
-            
-            /* ปรับขนาดตัวหนังสือในแบนเนอร์ให้เล็กลง */
             .banner-card h2 { font-size: 1.5rem; }
-            .glass-stat { flex: 1 1 100%; text-align: center; } /* ให้กล่องสถิติเรียงลงมาแทนแนวนอน */
+            .glass-stat { flex: 1 1 100%; text-align: center; } 
         }
 
         /* =========================================
@@ -220,9 +246,38 @@
             
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
+                <!-- เมนูที่กำลังใช้งานอยู่ (Home) -->
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-users"></i> <span>Users</span></a></li>
+                
+                <!-- 🌟 เมนู Dashboards แบบมีเมนูย่อย (Submenu) -->
+                <li>
+                    <!-- เพิ่ม data-bs-toggle="collapse" เพื่อให้กดแล้วกางออกได้ -->
+                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <!-- กล่องใส่เมนูย่อย (ul) ซ่อนไว้ตอนเริ่มต้น -->
+                    <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
+                        <li><a href="#">Sales</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">CRM</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Finance</a></li>
+                    </ul>
+                </li>
+                
+                <!-- เมนู Users แบบมีเมนูย่อย -->
+                <li>
+                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-users"></i> <span>Users</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
+                        <li><a href="#">User List</a></li>
+                        <li><a href="#">Add New User</a></li>
+                    </ul>
+                </li>
                 <li><a href="#"><i class="fa-solid fa-shield-halved"></i> <span>Authentication</span></a></li>
 
                 <div class="menu-title">Apps</div>
@@ -250,10 +305,10 @@
             <!-- Topbar (แถบด้านบน) -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
-                    <!-- ปุ่มแฮมเบอร์เกอร์ เปิด/ปิด เมนู -->
-                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle" style="color: ##9d4edd;"></i>
-                    <!-- ช่องค้นหา (จะถูกซ่อนในมือถือ) -->
-                    <div class="search-bar">
+                    <!-- 🌟 ปุ่มเปิด/ปิด เมนู (Hamburger) ปรับสีผูกกับ var(--text-light) ให้สว่างขึ้นแล้ว -->
+                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle" style="color: var(--text-light);"></i>
+                    <!-- ช่องค้นหา -->
+                    <div class="search-bar d-none d-md-flex">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
                         <input type="text" placeholder="Search anything...">
                     </div>
@@ -261,15 +316,17 @@
                 
                 <div class="topbar-actions">
                     <!-- ปุ่มสลับโหมดสี -->
-                    <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี">
+                    <button class="icon-btn text-muted" id="theme-toggle" title="สลับโหมดสี">
                         <i class="fa-regular fa-lightbulb" id="theme-icon"></i>
                     </button>
-                    <button class="icon-btn"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
+                    <!-- ปุ่มแชท และ แจ้งเตือน -->
+                    <button class="icon-btn text-muted"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
+                    <button class="icon-btn text-muted"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
                     <div class="d-flex align-items-center gap-2 ms-1 ms-md-2" style="cursor: pointer;">
                         <img src="https://ui-avatars.com/api/?name=Kanokwan+P&background=random" style="width:35px; border-radius:50%;">
                         <span class="user-name-text fw-semibold text-light" style="font-size: 0.95rem;">Kanokwan</span>
+                        <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                     </div>
                 </div>
             </div>
@@ -396,9 +453,8 @@
                     </div>
                 </div>
 
-                <!-- ข้อมูลอื่นๆ -->
+                <!-- ข้อมูลอื่นๆ ด้านล่าง -->
                 <div class="row">
-                    <!-- ตารางออเดอร์ (ต้องครอบด้วย .table-responsive เพื่อให้เลื่อนซ้ายขวาในมือถือได้) -->
                     <div class="col-xl-8 col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -437,7 +493,6 @@
                         </div>
                     </div>
 
-                    <!-- Live Activity -->
                     <div class="col-xl-4 col-12">
                         <div class="custom-card">
                             <h5 class="fw-bold mb-1">Live Activity</h5>
@@ -462,7 +517,7 @@
         </div>
     </div>
 
-    <!-- โหลดสคริปต์ -->
+    <!-- โหลดสคริปต์ (จำเป็นสำหรับการเปิด/ปิดเมนูย่อยของ Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
@@ -475,25 +530,21 @@
         const pageContent = document.getElementById('page-content');
         const overlay = document.getElementById('sidebar-overlay');
 
-        // เมื่อกดปุ่มแฮมเบอร์เกอร์
         menuToggle.addEventListener('click', function() {
-            // เช็คว่าขนาดหน้าจอเป็นมือถือ (น้อยกว่า 992px) หรือ PC
             if (window.innerWidth <= 991.98) {
-                sidebar.classList.toggle('mobile-show'); // สไลด์เมนูออกมา
-                overlay.classList.toggle('active');      // เปิดฉากหลังดำ
+                sidebar.classList.toggle('mobile-show'); 
+                overlay.classList.toggle('active');      
             } else {
-                sidebar.classList.toggle('toggled');     // หดเมนูบน PC
-                pageContent.classList.toggle('toggled'); // ขยายเนื้อหาหลัก
+                sidebar.classList.toggle('toggled');     
+                pageContent.classList.toggle('toggled'); 
             }
         });
 
-        // เมื่อกดที่ฉากหลังดำในมือถือ ให้ปิดเมนู
         overlay.addEventListener('click', function() {
             sidebar.classList.remove('mobile-show');
             overlay.classList.remove('active');
         });
 
-        // ถ้ามีการหมุนจอ หรือย่อขยายเบราว์เซอร์ ให้รีเซ็ตค่ามือถือออก
         window.addEventListener('resize', function() {
             if (window.innerWidth > 991.98) {
                 sidebar.classList.remove('mobile-show');
@@ -518,18 +569,12 @@
         });
 
         /* =========================================
-           3. วาดกราฟเส้น (Revenue Chart)
+           3. วาดกราฟเส้นและโดนัท (ApexCharts)
         ========================================= */
         var revenueOptions = {
-            series: [{
-                name: 'Revenue', data: [4200, 5800, 4800, 6100, 5200, 7900]
-            }, {
-                name: 'Expenses', data: [3100, 2800, 3200, 2800, 3400, 3200]
-            }],
-            chart: {
-                height: 320, width: "100%", type: 'area', toolbar: { show: false }, 
-                foreColor: '#8b8a9e', fontFamily: 'Segoe UI, sans-serif'
-            },
+            series: [{ name: 'Revenue', data: [4200, 5800, 4800, 6100, 5200, 7900] }, 
+                     { name: 'Expenses', data: [3100, 2800, 3200, 2800, 3400, 3200] }],
+            chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
             colors: ['#9d4edd', '#ff7675'],
             fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] } },
             dataLabels: { enabled: false },
@@ -539,15 +584,11 @@
             legend: { position: 'top', horizontalAlign: 'right' },
             tooltip: { theme: 'dark' }
         };
-        var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), revenueOptions);
-        revenueChart.render();
+        new ApexCharts(document.querySelector("#revenueChart"), revenueOptions).render();
 
-        /* =========================================
-           4. วาดกราฟเป้าหมาย (Sales Goal)
-        ========================================= */
         var goalOptions = {
             series: [78],
-            chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI, sans-serif' },
+            chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
             plotOptions: {
                 radialBar: {
                     startAngle: -120, endAngle: 120, hollow: { size: '65%' },
@@ -561,8 +602,7 @@
             fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#ff7675' }, { offset: 100, color: '#9d4edd' }] } },
             stroke: { lineCap: 'round' }, labels: ['of monthly goal'],
         };
-        var goalChart = new ApexCharts(document.querySelector("#goalChart"), goalOptions);
-        goalChart.render();
+        new ApexCharts(document.querySelector("#goalChart"), goalOptions).render();
     </script>
 </body>
 </html>
