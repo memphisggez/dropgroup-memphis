@@ -158,7 +158,6 @@
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
-        /* 🌟 สไตล์สำหรับ Dropdown Profile Menu */
         .profile-dropdown-menu {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -247,6 +246,7 @@
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
         .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
+        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
@@ -305,7 +305,16 @@
                         <li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa-solid fa-shield-halved"></i> <span>Authentication</span></a></li>
+                
+                <!-- 🌟 สเต็ปที่ 1: แก้ไขเมนู Authentication เดิม -->
+                <li>
+                    <a href="product.html">
+                        <!-- เปลี่ยนไอคอนเป็นรูปตะกร้าสินค้า (fa-cart-flatbed) -->
+                        <i class="fa-solid fa-cart-flatbed"></i> 
+                        <!-- เปลี่ยนชื่อเมนูเป็น "สินค้า" -->
+                        <span>สินค้า</span>
+                    </a>
+                </li>
 
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
@@ -342,7 +351,7 @@
                     <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
-                    <!-- 🌟 ส่วนโปรไฟล์มุมขวาบน (เพิ่มระบบ Dropdown Menu และเอาลูกศรซ้ำซ้อนออก) -->
+                    <!-- ส่วนโปรไฟล์มุมขวาบน ( dropdown-toggle) -->
                     <div class="dropdown">
                         <!-- ลบคลาส dropdown-toggle ออก เพื่อไม่ให้ Bootstrap ใส่ลูกศรสามเหลี่ยมอัตโนมัติมาชนกับไอคอนของเรา -->
                         <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
@@ -352,7 +361,7 @@
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
                         
-                        <!-- 🌟 กล่องเมนูที่เด้งลงมา (Dropdown Menu) -->
+                        <!-- กล่องเมนูที่เด้งลงมา (Dropdown Menu) -->
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
                                 <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
