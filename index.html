@@ -158,10 +158,49 @@
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px);
+        /* 🌟 สไตล์สำหรับ Dropdown Profile Menu */
+        .profile-dropdown-menu {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 15px 0;
+            min-width: 250px;
+            margin-top: 15px !important; /* ดันลงมานิดนึงให้สวยงาม */
         }
+        
+        /* สามเหลี่ยมชี้ขึ้น (Tooltip Arrow) */
+        .profile-dropdown-menu::before {
+            content: ''; position: absolute; top: -8px; right: 20px;
+            width: 15px; height: 15px; background-color: var(--bg-card);
+            transform: rotate(45deg); border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        body.light-mode .profile-dropdown-menu { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .profile-dropdown-menu .dropdown-item {
+            color: var(--text-light);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
+        .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
+        .profile-dropdown-menu .dropdown-item:hover i { color: var(--primary-color); }
+
+        /* ปุ่ม Sign Out ใน Dropdown */
+        .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
+        .signout-btn {
+            display: block; width: 100%; padding: 10px; text-align: center;
+            background-color: rgba(255, 118, 117, 0.1); color: #ff7675;
+            border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s;
+        }
+        .signout-btn:hover { background-color: #ff7675; color: #fff; }
+
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
 
         @media (max-width: 991.98px) {
@@ -176,35 +215,19 @@
         /* =========================================
            4. แบนเนอร์ (Banner)
         ========================================= */
-        .banner-card {
-            background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
-            border-radius: 20px; margin-bottom: 25px; color: #ffffff;
-            position: relative; overflow: hidden;
-        }
+        .banner-card { background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%); border-radius: 20px; margin-bottom: 25px; color: #ffffff; position: relative; overflow: hidden; }
         .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); z-index: 0; }
         .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
         .banner-circle-2 { width: 250px; height: 250px; bottom: -80px; right: 300px; }
-
-        .banner-btn {
-            background: #ffffff; color: var(--primary-color); border: none; padding: 10px 24px;
-            border-radius: 25px; font-weight: 600; font-size: 0.95rem; margin-top: 10px; transition: 0.3s;
-        }
+        .banner-btn { background: #ffffff; color: var(--primary-color); border: none; padding: 10px 24px; border-radius: 25px; font-weight: 600; font-size: 0.95rem; margin-top: 10px; transition: 0.3s; }
         .banner-btn:hover { background: #f0f0f0; }
         
-        .glass-stat-box {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
-            border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex; flex-direction: column; justify-content: center;
-        }
+        .glass-stat-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; justify-content: center; }
 
         /* =========================================
            5. การ์ดต่างๆ และเอฟเฟกต์ลอย (Hover Lift)
         ========================================= */
-        .custom-card {
-            background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px;
-            border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
-            height: calc(100% - 25px);
-        }
+        .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
         body.light-mode .custom-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 
@@ -224,6 +247,7 @@
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
         .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
+        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
@@ -238,7 +262,6 @@
             <p class="text-muted">กรุณาเข้าสู่ระบบสำหรับตัวแทน</p>
             
             <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
-            <!-- 🌟 เพิ่มช่องกรอกรหัสผ่าน -->
             <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
             
             <button id="btn-login" class="banner-btn w-100 mt-2" style="background: var(--primary-color); color: #fff;">เข้าสู่ระบบ</button>
@@ -301,8 +324,6 @@
                         <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนขาย</small>
                     </div>
                 </div>
-                <!-- ปุ่มออกจากระบบ (Logout) -->
-                <button class="btn-logout" id="btn-logout" title="ออกจากระบบ"><i class="fa-solid fa-right-from-bracket"></i></button>
             </div>
         </nav>
 
@@ -322,10 +343,32 @@
                     <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
-                    <div class="d-flex align-items-center gap-2 ms-1 ms-md-2" style="cursor: pointer;">
-                        <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
-                        <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
-                        <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
+                    <!-- 🌟 ส่วนโปรไฟล์มุมขวาบน (เพิ่มระบบ Dropdown Menu) -->
+                    <div class="dropdown">
+                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3 dropdown-toggle" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
+                            <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
+                            <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
+                        </div>
+                        
+                        <!-- 🌟 กล่องเมนูที่เด้งลงมา (Dropdown Menu) -->
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
+                                <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
+                                <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
+                                <small class="text-muted d-block mb-2">ตัวแทนจำหน่าย</small>
+                                <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
+                            </div>
+                            
+                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-line"></i> Activity Log</a></li>
+                            
+                            <div class="signout-btn-wrap">
+                                <!-- ปุ่มออกจากระบบ (ย้ายมาไว้ตรงนี้) -->
+                                <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
+                            </div>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -478,7 +521,6 @@
                                             <th class="text-muted" style="font-size: 0.8rem;">STATUS</th>
                                         </tr>
                                     </thead>
-                                    <!-- 🌟 เตรียม ID ไว้ให้ Javascript ส่งข้อมูลตารางมาวางตรงนี้ -->
                                     <tbody id="recent-orders-table">
                                         <tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr>
                                     </tbody>
@@ -491,7 +533,6 @@
                         <div class="custom-card">
                             <h5 class="fw-bold mb-1">Live Activity</h5>
                             <small class="text-muted d-block mb-3">What's happening right now</small>
-                            <!-- 🌟 เตรียม ID ไว้ให้ Javascript ส่งข้อมูลไทม์ไลน์มาวางตรงนี้ -->
                             <div class="timeline" id="live-activity-timeline">
                                 <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
                             </div>
@@ -508,8 +549,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 🚨 วาง URL ของ Google Apps Script ที่นี่ (ใช้ URL เดิมที่คุณให้มา)
-        const apiURL = "https://script.google.com/macros/s/AKfycbxRpUwpLIBLhbd9sW4PVJGhsbpkjNHEuUqqXKKKHDKXl3271d3oL4C8VUNMrLiHgG2ZqQ/exec"; 
+        // 🚨 URL API Google Sheets
+        const apiURL = "https://script.google.com/macros/s/AKfycbx_URxsMApT3GaA4Dn4IGnNb3Bs6hJAxxunKcpJv9xtjvpge9ydBGfxg0bl9yZrcjSDaQ/exec"; 
 
         /* =========================================
            1. ระบบเมนู Responsive & Dark Mode
@@ -534,7 +575,6 @@
         /* =========================================
            2. สร้างโครงกราฟไว้รอรับข้อมูล (ApexCharts)
         ========================================= */
-        // โครงสร้างของกราฟเส้นรายเดือน
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Expenses', data: [] }],
             chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
@@ -547,7 +587,6 @@
         });
         revenueChart.render();
 
-        // โครงสร้างของกราฟวงกลมเป้าหมาย
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), {
             series: [0], 
             chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
@@ -567,44 +606,43 @@
         goalChart.render();
 
         /* =========================================
-           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน (เพิ่มรหัสผ่าน)
+           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน (มี Dropdown Menu)
         ========================================= */
         const loginScreen = document.getElementById('login-screen');
         const loginBtn = document.getElementById('btn-login');
         const agentInput = document.getElementById('agent-input');
-        const passwordInput = document.getElementById('password-input'); // ดึงค่าจากช่องรหัสผ่าน
+        const passwordInput = document.getElementById('password-input');
         const loginError = document.getElementById('login-error');
-        const logoutBtn = document.getElementById('btn-logout');
+        const logoutBtnDropdown = document.getElementById('btn-logout-dropdown'); // ปุ่มออกระบบใน Dropdown
         
         let currentAgent = null;
 
-        // ฟังก์ชันอัปเดตหน้าจอให้แสดงชื่อของตัวแทนที่ล็อคอินเข้ามา
+        // อัปเดตข้อมูลผู้ใช้บนหน้าเว็บ (รวมถึงในกล่อง Dropdown)
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
+            document.getElementById('dropdown-name').innerText = agent.name; // ชื่อในกล่องเมนู
             document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
             
-            // สุ่มรูปอวาตาร์โดยใช้ชื่อตัวแทนเพื่อให้ดูสวยงาม
+            // สุ่มอวาตาร์
             let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
             document.getElementById('sidebar-avatar').src = avatarUrl;
             document.getElementById('topbar-avatar').src = avatarUrl;
+            document.getElementById('dropdown-avatar').src = avatarUrl; // รูปในกล่องเมนู
         }
 
-        // เช็คว่าเคยล็อคอินทิ้งไว้ในเครื่องนี้ไหม? (Local Storage)
         const savedAgent = localStorage.getItem('memphis_agent');
         if (savedAgent) {
             currentAgent = JSON.parse(savedAgent);
-            loginScreen.style.display = 'none'; // ซ่อนหน้าล็อคอิน
-            updateUIWithAgent(currentAgent);    // เปลี่ยนชื่อบนเว็บ
-            loadDataFromGoogleSheet();          // ดึงข้อมูลกราฟมาแสดง
+            loginScreen.style.display = 'none';
+            updateUIWithAgent(currentAgent);    
+            loadDataFromGoogleSheet();          
         }
 
-        // เมื่อกดปุ่ม "เข้าสู่ระบบ"
         loginBtn.addEventListener('click', function() {
             const agentId = agentInput.value.trim();
             const password = passwordInput.value.trim();
             
-            // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
             if(!agentId || !password) {
                 loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่านให้ครบถ้วน";
                 loginError.style.display = 'block';
@@ -614,16 +652,15 @@
             loginBtn.innerText = "กำลังตรวจสอบ...";
             loginError.style.display = 'none';
 
-            // ส่งรหัสตัวแทนและรหัสผ่านไปตรวจสอบกับ Google Sheet API
             fetch(apiURL + "?action=login&agentId=" + agentId + "&password=" + password)
                 .then(res => res.json())
                 .then(data => {
                     if(data.success) {
                         currentAgent = data;
-                        localStorage.setItem('memphis_agent', JSON.stringify(data)); // จำการล็อคอินไว้ในเครื่อง
+                        localStorage.setItem('memphis_agent', JSON.stringify(data));
                         loginScreen.style.display = 'none';
                         updateUIWithAgent(currentAgent);
-                        loadDataFromGoogleSheet(); // โหลดข้อมูลมาแสดง
+                        loadDataFromGoogleSheet();
                     } else {
                         loginError.innerText = data.message || "รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง";
                         loginError.style.display = 'block';
@@ -637,95 +674,62 @@
                 });
         });
 
-        // เมื่อกดปุ่มออกจากระบบ
-        logoutBtn.addEventListener('click', function() {
-            localStorage.removeItem('memphis_agent'); // ลบข้อมูลในเครื่องทิ้ง
-            location.reload(); // รีเฟรชหน้าเว็บเพื่อให้กลับไปแสดงหน้าล็อคอิน
+        // กดออกจากระบบ (ผ่านปุ่มใน Dropdown Menu)
+        logoutBtnDropdown.addEventListener('click', function(e) {
+            e.preventDefault(); // ป้องกันการเด้งไปหน้าอื่น
+            localStorage.removeItem('memphis_agent'); 
+            location.reload(); 
         });
 
         /* =========================================
-           🌟 4. ฟังก์ชันดึงข้อมูลจาก Google Sheets (API) และอัปเดตทุกส่วนของหน้าจอ
+           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง (เหมือนเดิม)
         ========================================= */
         function loadDataFromGoogleSheet() {
-            if(!currentAgent) return; // ถ้ายังไม่ล็อคอิน จะไม่โหลดข้อมูล
+            if(!currentAgent) return;
 
             fetch(apiURL)
                 .then(response => response.json())
                 .then(data => {
-                    // ตรวจสอบข้อมูล KPI และอัปเดตกล่องตัวเลข 4 กล่อง
                     if(data.kpi) {
                         document.getElementById('data-sales').innerText = "$" + Number(data.kpi.sales).toLocaleString();
                         document.getElementById('data-revenue').innerText = "$" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
                         document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
                     }
-
-                    // ตรวจสอบและอัปเดตกล่องสถิติในแบนเนอร์
                     if(data.banner) {
                         document.getElementById('banner-today-revenue').innerText = "$" + Number(data.banner.todayRevenue).toLocaleString();
                         document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
-
-                    // ตรวจสอบและอัปเดตกราฟเป้าหมาย
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "$" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "$" + Number(data.goal.earned).toLocaleString();
                         goalChart.updateSeries([data.goal.percent]); 
                     }
-
-                    // ตรวจสอบและอัปเดตเส้นกราฟรายเดือน
                     if(data.charts) {
-                        revenueChart.updateSeries([
-                            { name: 'Revenue', data: data.charts.revenue },
-                            { name: 'Expenses', data: data.charts.expenses }
-                        ]);
+                        revenueChart.updateSeries([{ name: 'Revenue', data: data.charts.revenue }, { name: 'Expenses', data: data.charts.expenses }]);
                         revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
                     }
-
-                    // ตรวจสอบและสร้างรายการออเดอร์ล่าสุด รวมถึงไทม์ไลน์กิจกรรม
                     if(data.recentOrders) {
-                        let tableHTML = "";
-                        let timelineHTML = "";
-                        
+                        let tableHTML = ""; let timelineHTML = "";
                         if (data.recentOrders.length === 0) {
                             tableHTML = `<tr><td colspan="4" class="text-center text-muted">ยังไม่มีรายการสั่งซื้อ</td></tr>`;
                             timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
                         } else {
                             data.recentOrders.forEach((order, index) => {
-                                // สุ่มสีให้ไอคอนวงกลม
                                 let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
                                 let avatarBg = bgColors[index % bgColors.length];
-                                
-                                tableHTML += `
-                                    <tr>
-                                        <td class="text-purple fw-semibold">${order.id}</td>
-                                        <td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0)}</div> ${order.customer}</div></td>
-                                        <td><span class="text-muted">${order.product}</span></td>
-                                        <td><span class="badge-status bg-completed">${order.status}</span></td>
-                                    </tr>
-                                `;
-                                
+                                tableHTML += `<tr><td class="text-purple fw-semibold">${order.id}</td><td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0)}</div> ${order.customer}</div></td><td><span class="text-muted">${order.product}</span></td><td><span class="badge-status bg-completed">${order.status}</span></td></tr>`;
                                 let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
                                 let dotColor = dotColors[index % dotColors.length];
-                                timelineHTML += `
-                                    <div class="timeline-item">
-                                        <div class="timeline-dot" style="border-color: ${dotColor};"></div>
-                                        <span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span>
-                                        <small class="text-muted">${order.time}</small>
-                                    </div>
-                                `;
+                                timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
                             });
                         }
-                        
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                         document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
-
                 })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+                .catch(error => { console.error('Error fetching data:', error); });
         }
     </script>
 </body>
