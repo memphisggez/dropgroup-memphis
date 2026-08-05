@@ -45,9 +45,18 @@
             border-right: 1px solid var(--border-color);
             position: fixed; left: 0; top: 0;
             display: flex; flex-direction: column;
-            z-index: 1040;
+            z-index: 1040; transition: all 0.3s ease; /* เพิ่ม transition ให้เมนูเลื่อนนุ่มนวล */
         }
         
+        #sidebar.toggled { width: 70px; }
+        #sidebar.toggled .sidebar-brand span,
+        #sidebar.toggled .menu-title,
+        #sidebar.toggled .sidebar-menu li a span,
+        #sidebar.toggled .user-profile-bottom,
+        #sidebar.toggled .toggle-arrow,
+        #sidebar.toggled .sidebar-submenu { display: none !important; } 
+        #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
+
         .sidebar-brand {
             padding: 20px 25px; font-size: 1.25rem; font-weight: bold;
             display: flex; align-items: center; gap: 10px;
@@ -92,15 +101,33 @@
         ========================================= */
         #page-content {
             margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width));
-            padding: 20px; min-height: 100vh;
+            padding: 20px; min-height: 100vh; transition: all 0.3s ease;
         }
+        #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
         .topbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px;
         }
 
-        /* 🌟 สไตล์สำหรับ Dropdown Profile Menu (เหมือนหน้า index) */
+        /* 🌟 สไตล์ปุ่มแฮมเบอร์เกอร์ */
+        .icon-btn { background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;}
+        .icon-btn:hover { color: var(--primary-color); }
+
+        /* 🌟 สไตล์ฉากกั้นสีดำเวลากดเปิดเมนูในมือถือ */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
+        .sidebar-overlay.active { display: block; }
+
+        /* 🌟 การแสดงผลบนจอมือถือ (Mobile Responsive) */
+        @media (max-width: 991.98px) {
+            #sidebar { left: calc(-1 * var(--sidebar-width)); box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+            #sidebar.mobile-show { left: 0; }
+            #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; }
+            #page-content.toggled { margin-left: 0; width: 100%; }
+            .user-name-text { display: none !important; } /* ซ่อนชื่อผู้ใช้เหลือแต่รูปเวลามือถือแนวตั้ง */
+        }
+
+        /* สไตล์สำหรับ Dropdown Profile Menu */
         .profile-dropdown-menu {
             background-color: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -171,6 +198,9 @@
 <body>
 
     <div id="wrapper">
+        <!-- 🌟 ฉากกั้นสีดำเวลากดเมนูในมือถือ -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
         <!-- Sidebar -->
         <nav id="sidebar">
             <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
@@ -201,7 +231,7 @@
                     </ul>
                 </li>
                 
-                <!-- 🌟 เมนู "สินค้า" จะถูกไฮไลท์ (active) เมื่ออยู่หน้านี้ -->
+                <!-- เมนู "สินค้า" จะเป็น active ในหน้านี้ -->
                 <li>
                     <a href="product.html" class="active">
                         <i class="fa-solid fa-cart-flatbed"></i> 
@@ -226,19 +256,23 @@
         <div id="page-content">
             <!-- Topbar -->
             <div class="topbar">
-                <h5 class="mb-0 fw-bold">เลือกสินค้าให้ลูกค้า</h5>
+                <!-- 🌟 เพิ่มปุ่มแฮมเบอร์เกอร์กลับมาให้เหมือนหน้าหลัก -->
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
+                    <!-- ซ่อนข้อความในมือถือ เพื่อไม่ให้เบียดกับชื่อโปรไฟล์ -->
+                    <h5 class="mb-0 fw-bold d-none d-sm-block">เลือกสินค้าให้ลูกค้า</h5>
+                </div>
                 
                 <div class="topbar-actions">
-                    <!-- 🌟 ส่วนโปรไฟล์มุมขวาบน (เชื่อมต่อกับระบบล็อคอิน) -->
+                    <!-- ส่วนโปรไฟล์มุมขวาบน (เชื่อมต่อกับระบบล็อคอิน) -->
                     <div class="dropdown">
-                        <!-- ไม่ใส่คลาส dropdown-toggle เพื่อซ่อนลูกศรของ Bootstrap -->
                         <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
                             <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
                         
-                        <!-- 🌟 กล่องเมนู Dropdown (ดึงโค้ดมาจากหน้า index) -->
+                        <!-- กล่องเมนู Dropdown -->
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
                                 <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
@@ -251,7 +285,6 @@
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
                             
                             <div class="signout-btn-wrap">
-                                <!-- ปุ่มออกจากระบบ -->
                                 <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
                             </div>
                         </ul>
@@ -261,7 +294,7 @@
 
             <div class="container-fluid p-0">
                 
-                <!-- 🌟 1. ส่วนค้นหาลูกค้า (เปลี่ยนเป็น Email และ Line ID) -->
+                <!-- ส่วนค้นหาลูกค้า (Email และ Line ID) -->
                 <div class="search-filter-card">
                     <h6 class="fw-bold mb-3"><i class="fa-solid fa-user-plus me-2 text-purple"></i>ค้นหา/เลือกลูกค้าก่อน</h6>
                     <input type="text" class="custom-input" placeholder="ค้นหาด้วย อีเมล หรือ ไอดีไลน์...">
@@ -270,9 +303,7 @@
                         <!-- ตัวอย่างรายชื่อลูกค้าที่ค้นเจอ -->
                         <div class="customer-item">
                             <div>
-                                <!-- บรรทัดหลัก: อีเมลลูกค้า -->
                                 <strong style="font-size: 1.05rem;">customer_one@email.com</strong><br>
-                                <!-- บรรทัดรอง: ไอดีไลน์ -->
                                 <small class="text-muted">Line ID: cust_one_01</small>
                             </div>
                             <button class="badge bg-green-light text-green px-3 py-2 rounded-pill" style="border:none;">เลือก</button>
@@ -288,7 +319,7 @@
                     </div>
                 </div>
 
-                <!-- 🌟 2. หัวข้อรายการสินค้า และ ตัวเลือกประเภทสินค้าแบบ 2 ชั้น -->
+                <!-- หัวข้อรายการสินค้า และ ตัวเลือกประเภทสินค้าแบบ 2 ชั้น -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
                     
@@ -304,19 +335,16 @@
                         <!-- Dropdown ชั้นที่ 2: เลือกประเภทย่อย (จะซ่อนไว้ก่อนจนกว่าจะเลือกหมวดหมู่หลัก) -->
                         <select id="sub-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem; display: none;">
                             <option value="">-- เลือกประเภทย่อย --</option>
-                            <!-- ตัวเลือกจะถูกสร้างด้วย Javascript ด้านล่าง -->
                         </select>
                     </div>
                 </div>
 
-                <!-- 🌟 3. รายการสินค้า (Grid) -->
+                <!-- รายการสินค้า (Grid) -->
                 <div class="row">
                     
-                    <!-- ตัวอย่างสินค้า 1 -->
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                         <div class="product-card">
                             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" class="product-img" alt="กลุ่มสอนวาดตูน">
-                            <!-- เพิ่ม Tag บอกหมวดหมู่เล็กๆ ด้านบน -->
                             <span class="badge bg-purple-light text-purple mb-2" style="width: fit-content;">กลุ่มสอน</span>
                             <div class="product-title">คอร์สสอนวาดตูนพื้นฐาน</div>
                             <div class="product-sku">รหัส: GRP-TUT-01</div>
@@ -325,7 +353,6 @@
                         </div>
                     </div>
 
-                    <!-- ตัวอย่างสินค้า 2 -->
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                         <div class="product-card">
                             <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600" class="product-img" alt="งานเอฟบล็อก">
@@ -337,7 +364,6 @@
                         </div>
                     </div>
 
-                    <!-- ตัวอย่างสินค้า 3 -->
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                         <div class="product-card">
                             <img src="https://images.unsplash.com/photo-1511385348-a52b4a160dc2?q=80&w=600" class="product-img" alt="กลุ่มของตกแต่ง">
@@ -349,7 +375,6 @@
                         </div>
                     </div>
 
-                    <!-- ตัวอย่างสินค้า 4 -->
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                         <div class="product-card">
                             <img src="https://images.unsplash.com/photo-1583394828319-68069bf2351c?q=80&w=600" class="product-img" alt="คลิปสอน">
@@ -371,6 +396,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        /* =========================================
+           🌟 0. ระบบเปิด/ปิดเมนูบนมือถือ (Hamburger Menu)
+        ========================================= */
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const pageContent = document.getElementById('page-content');
+        const overlay = document.getElementById('sidebar-overlay');
+        
+        // เวลากดปุ่ม ☰
+        menuToggle.addEventListener('click', function() {
+            if (window.innerWidth <= 991.98) { 
+                sidebar.classList.toggle('mobile-show'); // ดันแถบเมนูออกมา
+                overlay.classList.toggle('active');      // แสดงฉากกั้นสีดำ
+            } else { 
+                sidebar.classList.toggle('toggled'); 
+                pageContent.classList.toggle('toggled'); 
+            }
+        });
+
+        // เวลากดที่ฉากกั้นสีดำ ให้ปิดเมนู
+        overlay.addEventListener('click', function() { 
+            sidebar.classList.remove('mobile-show'); 
+            overlay.classList.remove('active'); 
+        });
+
         /* =========================================
            🌟 1. ระบบจัดการการล็อคอิน (ดึงข้อมูลจาก localStorage)
         ========================================= */
@@ -401,7 +451,6 @@
             localStorage.removeItem('memphis_agent'); // ล้างประวัติล็อคอิน
             window.location.href = "index.html"; // เด้งกลับไปหน้าล็อคอิน
         });
-
 
         /* =========================================
            🌟 2. ระบบหมวดหมู่สินค้า 2 ชั้น (Dynamic Dropdown)
@@ -438,7 +487,6 @@
                 subCategory.style.display = 'none'; 
             }
         });
-
 
         /* =========================================
            3. ฟังก์ชันปุ่มเพิ่มลงตะกร้า (ตัวอย่าง)
