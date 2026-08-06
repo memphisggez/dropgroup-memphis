@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เลือกสินค้าให้ลูกค้า - Memphis Group</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* =========================================
-           1. ตั้งค่าตัวแปรสีหลัก (Color Variables)
+           1. ตั้งค่าตัวแปรสีและธีมหลัก (คุมโทน Dark Mode เหมือนหน้าหลัก)
         ========================================= */
         :root {
             --bg-main: #131224;
@@ -24,60 +23,29 @@
             --sidebar-width: 260px;
         }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-        }
-
+        body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
         /* =========================================
-           2. แถบเมนูด้านซ้าย (Sidebar)
+           2. แถบเมนู Sidebar และ Component ทั่วไป
         ========================================= */
-        #sidebar {
-            width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh;
-            border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0;
-            display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease;
-        }
-        
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
-
         .sidebar-brand { padding: 20px 25px; font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
         .sidebar-menu { list-style: none; padding: 0 15px; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; }
-        
-        .sidebar-menu > li > a {
-            display: flex; align-items: center; padding: 12px 15px;
-            color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem;
-        }
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 15px; color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
         .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); color: #ffffff; }
-
-        .toggle-arrow { transition: transform 0.3s ease; }
-        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
-        .sidebar-submenu { list-style: none; padding: 5px 0 5px 0; margin: 0 0 5px 30px; border-left: 1px solid var(--border-color); }
-        .sidebar-submenu li a { display: block; padding: 8px 15px 8px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none; transition: 0.3s; }
-        .sidebar-submenu li a:hover { color: var(--text-light); background: transparent !important; }
-
         .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
         .user-profile-bottom img { width: 40px; border-radius: 50%; }
 
-        /* =========================================
-           3. พื้นที่เนื้อหาด้านขวา (Main Content)
-        ========================================= */
-        #page-content {
-            margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width));
-            padding: 20px; min-height: 100vh; transition: all 0.3s ease;
-        }
+        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 20px; min-height: 100vh; transition: all 0.3s ease; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
-
         .topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px; }
 
         .icon-btn { background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;}
@@ -99,20 +67,19 @@
         .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
         .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
         .profile-dropdown-menu .dropdown-item:hover i { color: var(--primary-color); }
-
         .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
         .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
         /* =========================================
-           4. การ์ดต่างๆ ในหน้าสินค้า
+           3. การ์ดสินค้าและตัวกรอง
         ========================================= */
         .product-card {
             background-color: var(--bg-card); border-radius: 15px; padding: 15px; margin-bottom: 25px;
             border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%; display: flex; flex-direction: column; position: relative;
         }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
 
         .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
         .product-img { width: 100%; height: 100%; object-fit: contain; transition: 0.3s ease; }
@@ -122,70 +89,44 @@
 
         .product-title { font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
         .product-sku { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
-        .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.3rem; margin-top: auto; }
+        .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.3rem; margin-top: auto; text-align: right;}
         
         .select-btn {
             background: var(--primary-color); color: #fff; border: none; padding: 10px;
-            border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s;
+            border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px;
         }
         .select-btn:hover { background: var(--primary-hover); }
 
-        /* ส่วนค้นหาลูกค้า และ ตัวกรองสินค้า */
         .search-filter-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
         .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
         .custom-input:focus { border-color: var(--primary-color); }
-        
-        .customer-list { margin-top: 15px; }
-        .customer-item { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-primary-custom { color: #1e90ff; }
 
         /* =========================================
-           🌟 5. สไตล์เฉพาะสำหรับหน้าต่างชำระเงิน (Payment Modal)
+           🌟 4. สไตล์หน้าต่างชำระเงิน (Modal)
         ========================================= */
-        .modal-content {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            color: var(--text-light);
-        }
+        .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
         .modal-header { border-bottom: 1px solid var(--border-color); }
-        .modal-footer { border-top: 1px solid var(--border-color); }
         
         .order-summary-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex; gap: 15px; align-items: center;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center;
         }
         .order-summary-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; background: var(--bg-main); }
         
-        .payment-qr-box {
-            text-align: center; margin-bottom: 20px;
-        }
-        .payment-qr-img {
-            width: 200px; max-width: 100%; border-radius: 15px; border: 2px dashed var(--border-color); padding: 5px;
-        }
+        .payment-qr-box { text-align: center; margin-bottom: 20px; }
+        .payment-qr-img { width: 200px; max-width: 100%; border-radius: 15px; border: 2px dashed var(--border-color); padding: 5px; }
         
         .custom-file-upload {
-            border: 1px dashed var(--text-muted);
-            background: rgba(255,255,255,0.02);
+            border: 1px dashed var(--text-muted); background: rgba(255,255,255,0.02);
             padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s;
         }
         .custom-file-upload:hover { border-color: var(--primary-color); background: rgba(157, 78, 221, 0.05); }
         
-        .btn-submit-order {
-            background: rgba(255,255,255,0.1); /* สีเทาหม่นๆ ตอนยังไม่ได้อัปสลิป */
-            color: var(--text-muted); border: none; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.3s; width: 100%;
-        }
-        .btn-submit-order.ready {
-            background: var(--primary-color); color: #fff; /* เปลี่ยนเป็นสีม่วงเมื่อพร้อม */
-            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
-        }
+        .btn-submit-order { background: rgba(255,255,255,0.1); color: var(--text-muted); border: none; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.3s; width: 100%; }
+        .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4); }
         .btn-submit-order.ready:hover { background: var(--primary-hover); }
     </style>
 </head>
@@ -197,40 +138,11 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
-            
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
                 <li><a href="index.html"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                
-                <li>
-                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
-                    <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Analytics</a></li>
-                    </ul>
-                </li>
-                
-                <li>
-                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
-                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <li><a href="#">User List</a></li>
-                        <li><a href="#">Add New User</a></li>
-                    </ul>
-                </li>
-                
-                <!-- เมนู สินค้า -->
-                <li>
-                    <a href="product.html" class="active">
-                        <i class="fa-solid fa-cart-flatbed"></i> 
-                        <span>สินค้า</span>
-                    </a>
-                </li>
+                <li><a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span></a></li>
+                <li><a href="product.html" class="active"><i class="fa-solid fa-cart-flatbed"></i> <span>สินค้า</span></a></li>
             </ul>
 
             <div class="user-profile-bottom">
@@ -254,9 +166,8 @@
                 </div>
                 
                 <div class="topbar-actions">
-                    <!-- Dropdown โปรไฟล์ -->
                     <div class="dropdown">
-                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
                             <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
@@ -264,15 +175,12 @@
                         
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
-                                <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
+                                <img src="" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
                                 <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
-                                <small class="text-muted d-block mb-2">ตัวแทนจำหน่าย</small>
                                 <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
                             </div>
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
                             <div class="signout-btn-wrap">
-                                <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
+                                <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> ออกจากระบบ</a>
                             </div>
                         </ul>
                     </div>
@@ -280,47 +188,26 @@
             </div>
 
             <div class="container-fluid p-0">
-                
-                <!-- ส่วนค้นหาลูกค้า -->
-                <div class="search-filter-card">
-                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-user-plus me-2 text-purple"></i>ค้นหา/เลือกลูกค้าก่อน (สำหรับตัวแทนที่กรอกให้)</h6>
-                    <input type="text" class="custom-input" placeholder="ค้นหาด้วย อีเมล หรือ ไอดีไลน์...">
-                    
-                    <div class="customer-list">
-                        <div class="customer-item">
-                            <div>
-                                <strong style="font-size: 1.05rem;">customer_one@email.com</strong><br>
-                                <small class="text-muted">Line ID: cust_one_01</small>
-                            </div>
-                            <button class="badge bg-green-light text-green px-3 py-2 rounded-pill" style="border:none;">เลือก</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- หัวข้อรายการสินค้า และ ตัวเลือกประเภทสินค้า -->
+                <!-- 🌟 ตัวกรองสินค้า -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
-                    
                     <div class="d-flex flex-column flex-sm-row gap-2">
-                        <!-- Dropdown ประเภทหลัก -->
                         <select id="main-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem;">
                             <option value="">-- เลือกประเภทสินค้า --</option>
                             <option value="กลุ่ม">กลุ่ม</option>
                             <option value="งานปล่อยเอฟ">งานปล่อยเอฟ</option>
                         </select>
-                        
-                        <!-- Dropdown ประเภทย่อย (เชื่อมต่ออัตโนมัติ) -->
                         <select id="sub-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem; display: none;">
                             <option value="">-- เลือกประเภทย่อย --</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- พื้นที่สำหรับวางการ์ดสินค้าที่จะโหลดมาจาก Google Sheet -->
+                <!-- พื้นที่แสดงการ์ดสินค้า -->
                 <div class="row" id="product-grid">
                     <div class="col-12 text-center text-muted py-5">
                         <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3"></i>
-                        <p>กำลังโหลดรายการสินค้า...</p>
+                        <p>กำลังโหลดรายการสินค้าจากระบบ...</p>
                     </div>
                 </div> 
 
@@ -329,39 +216,39 @@
     </div>
 
     <!-- =========================================
-         🌟 โครงสร้างหน้าต่าง ชำระเงิน / แจ้งโอน (Modal)
-         จะเด้งขึ้นมาเมื่อกดปุ่ม "สั่งซื้อสินค้านี้"
+         🌟 หน้าต่าง ชำระเงิน / แจ้งโอน (Modal)
     ========================================= -->
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0 pb-0">
                     <h5 class="modal-title fw-bold w-100 text-center text-purple">ชำระเงิน / แจ้งโอน</h5>
-                    <button type="button" class="btn-close btn-close-white position-absolute" style="right: 20px;" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white position-absolute" style="right: 20px;" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body pt-1 px-4">
                     <p class="text-center text-muted mb-4" style="font-size: 0.9rem;">อัปโหลดสลิปเพื่อรับสิทธิ์เข้ากลุ่มอัตโนมัติ</p>
 
-                    <!-- กล่องสรุปสินค้าที่จะซื้อ -->
+                    <!-- สรุปสินค้า -->
                     <div class="order-summary-box">
                         <img src="" id="modal-product-img" class="order-summary-img" alt="Product">
-                        <div>
+                        <div style="flex-grow: 1;">
                             <small class="text-muted">รายการสั่งซื้อ:</small>
                             <h6 class="fw-bold mb-1" id="modal-product-name" style="font-size: 1.1rem;">ชื่อสินค้า...</h6>
-                            <div style="font-size: 0.85rem;" class="text-muted" id="modal-product-fullprice">ราคาเต็ม: ฿0</div>
-                            <div style="font-size: 0.85rem;" class="text-muted" id="modal-product-agentcut">เก็บเอง: ฿0</div>
-                            <!-- ยอดที่ต้องโอนให้ร้านทำสีเด่นๆ -->
+                            <div class="d-flex justify-content-between">
+                                <div style="font-size: 0.85rem;" class="text-muted" id="modal-product-fullprice">ราคาเต็ม: ฿0</div>
+                                <div style="font-size: 0.85rem;" class="text-muted text-green" id="modal-product-agentcut">เก็บเอง: ฿0</div>
+                            </div>
                             <div style="font-size: 1.1rem; color: #ff7675;" class="fw-bold mt-1" id="modal-product-net">ยอดที่ต้องโอนให้ร้าน: ฿0</div>
                         </div>
                     </div>
 
-                    <!-- ข้อมูลบัญชีธนาคาร -->
+                    <!-- ข้อมูลบัญชี -->
                     <div class="payment-qr-box">
-                        <p class="fw-bold mb-2">สแกน QR Code เพื่อชำระเงิน</p>
-                        <!-- คุณสามารถใส่ลิงก์รูป QR Code ของร้านคุณตรงนี้ได้เลยครับ -->
+                        <p class="fw-bold mb-2">สแกน QR Code หรือโอนผ่านเลขบัญชี</p>
+                        <!-- เปลี่ยนรูป QR Code ตรงนี้ได้เลยครับ -->
                         <img src="https://placehold.co/400x400/2a2940/ffffff?text=QR+Code+Payment" class="payment-qr-img mb-3" alt="QR Code">
                         
-                        <div style="font-size: 1.1rem;">
+                        <div style="font-size: 1.05rem;">
                             <p class="mb-1"><strong>Kbank :</strong> <span class="text-purple">213-8-03713-7</span></p>
                             <p class="mb-1"><strong>SCB :</strong> <span class="text-purple">579-2-78259-4</span></p>
                             <p class="mb-1"><strong>True Wallet :</strong> <span class="text-purple">0988863400</span></p>
@@ -371,21 +258,20 @@
 
                     <hr style="border-color: var(--border-color);">
 
-                    <!-- ฟอร์มกรอกข้อมูลลูกค้าเพื่อเก็บแต้ม -->
+                    <!-- ฟอร์มกรอกลูกค้าเพื่อรับแต้ม & เข้า Drive -->
                     <div class="mb-3">
-                        <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span> <br><small class="text-muted fw-normal">(สำคัญมาก! สำหรับรับสิทธิ์เข้า Drive)</small></label>
-                        <input type="email" id="modal-customer-email" class="custom-input" placeholder="พิมพ์ @gmail.com ให้ถูกต้อง">
+                        <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span> <br><small class="text-muted fw-normal">(สำคัญมาก! ระบบจะเชิญอีเมลนี้เข้าไดร์ฟอัตโนมัติ)</small></label>
+                        <input type="email" id="modal-customer-email" class="custom-input" placeholder="พิมพ์ @gmail.com ของลูกค้า">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Line ID ของลูกค้า <span class="text-danger">*</span> <br><small class="text-muted fw-normal">(เพื่อใช้ติดต่อกรณีมีปัญหา)</small></label>
+                        <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Line ID ของลูกค้า <span class="text-danger">*</span></label>
                         <input type="text" id="modal-customer-line" class="custom-input" placeholder="พิมพ์ไอดีไลน์ของลูกค้า">
                     </div>
 
-                    <!-- ส่วนอัปโหลดสลิปโอนเงิน (เชื่อมกับ SlipOK ในอนาคต) -->
+                    <!-- อัปโหลดสลิป -->
                     <div class="mb-4">
                         <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน (ต้องมี QR Code)</label>
-                        <!-- ซ่อน input file ของจริงไว้ แล้วใช้ label ครอบเพื่อแต่ง CSS ให้สวยๆ -->
                         <label for="modal-slip-upload" class="d-block custom-file-upload">
                             <i class="fa-solid fa-cloud-arrow-up fs-2 text-purple mb-2"></i>
                             <div id="upload-text">คลิกเพื่อเลือกไฟล์สลิป</div>
@@ -393,7 +279,6 @@
                         <input type="file" id="modal-slip-upload" accept="image/*" style="display: none;">
                     </div>
 
-                    <!-- ปุ่มกดยืนยัน (เริ่มต้นจะกดไม่ได้ จนกว่าจะอัปสลิป) -->
                     <button class="btn-submit-order" id="modal-btn-submit" disabled>
                         <i class="fa-solid fa-lock me-2"></i> กรุณาอัปโหลดสลิปที่ถูกต้อง
                     </button>
@@ -403,47 +288,32 @@
             </div>
         </div>
     </div>
-    <!-- ========================================= -->
 
     <!-- โหลดสคริปต์ต่างๆ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 🚨 URL API Google Sheets
-        const apiURL = "https://script.google.com/macros/s/AKfycbx6O391t9WVvmIZJosT0q5r8g0rJU5mtgdDEGC0b54YqJa4ICiTUDat5gwusgbFw6wF5Q/exec";
+        // 🚨 URL API ของคุณ //////////////////////////////////////////
+        const apiURL = "https://script.google.com/macros/s/AKfycbxsFTWT18ab_M3AhBg8jSzf5fqa6xRACovrmHtuyM6QHWL65BOJKj3qtGiDOtgDYv6dvQ/exec";
 
         /* =========================================
-           1. ระบบเมนู Responsive
+           1. ตั้งค่าพื้นฐาน (Sidebar, Login)
         ========================================= */
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const pageContent = document.getElementById('page-content');
-        const overlay = document.getElementById('sidebar-overlay');
-        
-        menuToggle.addEventListener('click', function() {
-            if (window.innerWidth <= 991.98) { sidebar.classList.toggle('mobile-show'); overlay.classList.toggle('active'); } 
-            else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            if (window.innerWidth <= 991.98) { document.getElementById('sidebar').classList.toggle('mobile-show'); document.getElementById('sidebar-overlay').classList.toggle('active'); } 
+            else { document.getElementById('sidebar').classList.toggle('toggled'); document.getElementById('page-content').classList.toggle('toggled'); }
         });
-        overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
+        document.getElementById('sidebar-overlay').addEventListener('click', function() { document.getElementById('sidebar').classList.remove('mobile-show'); this.classList.remove('active'); });
 
-        /* =========================================
-           2. ระบบล็อคอิน
-        ========================================= */
+        let currentAgent = null;
         const savedAgent = localStorage.getItem('memphis_agent');
-        
         if (!savedAgent) {
-            alert("กรุณาเข้าสู่ระบบก่อนใช้งานหน้าสินค้านะครับ");
-            window.location.href = "index.html"; 
+            alert("กรุณาเข้าสู่ระบบก่อนใช้งานหน้าสินค้านะครับ"); window.location.href = "index.html"; 
         } else {
-            const currentAgent = JSON.parse(savedAgent);
-            document.getElementById('sidebar-name').innerText = currentAgent.name;
-            document.getElementById('topbar-name').innerText = currentAgent.name;
-            document.getElementById('dropdown-name').innerText = currentAgent.name; 
-            
+            currentAgent = JSON.parse(savedAgent);
+            document.getElementById('sidebar-name').innerText = currentAgent.name; document.getElementById('topbar-name').innerText = currentAgent.name; document.getElementById('dropdown-name').innerText = currentAgent.name; 
             let avatarUrl = `https://ui-avatars.com/api/?name=${currentAgent.name.replace(/ /g, '+')}&background=random`;
-            document.getElementById('sidebar-avatar').src = avatarUrl;
-            document.getElementById('topbar-avatar').src = avatarUrl;
-            document.getElementById('dropdown-avatar').src = avatarUrl; 
+            document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; document.getElementById('dropdown-avatar').src = avatarUrl; 
         }
 
         document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) {
@@ -451,36 +321,24 @@
         });
 
         /* =========================================
-           3. ระบบดึงข้อมูลสินค้า (Products)
+           2. ระบบโหลดสินค้าและตัวกรอง
         ========================================= */
         let allProducts = []; 
-
         function fetchProducts() {
             fetch(apiURL + "?action=getProducts")
                 .then(res => res.json())
                 .then(data => {
-                    if (data.success) {
-                        allProducts = data.products; 
-                        renderProducts(allProducts); 
-                    }
-                })
-                .catch(err => {
-                    document.getElementById('product-grid').innerHTML = '<div class="col-12 text-center text-danger">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</div>';
-                });
+                    if (data.success) { allProducts = data.products; renderProducts(allProducts); }
+                }).catch(err => { document.getElementById('product-grid').innerHTML = '<div class="col-12 text-center text-danger">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</div>'; });
         }
 
         function renderProducts(productsToRender) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = ""; 
-
-            if (productsToRender.length === 0) {
-                grid.innerHTML = '<div class="col-12 text-center text-muted py-5">ไม่พบสินค้าในหมวดหมู่นี้</div>';
-                return;
-            }
+            if (productsToRender.length === 0) { grid.innerHTML = '<div class="col-12 text-center text-muted py-5">ไม่พบสินค้าในหมวดหมู่นี้</div>'; return; }
 
             productsToRender.forEach(p => {
                 let badgeClass = p.mainCat === 'กลุ่ม' ? 'bg-purple-light text-purple' : 'bg-green-light text-green';
-
                 const cardHTML = `
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                         <div class="product-card">
@@ -488,148 +346,143 @@
                                 <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
                                 <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
                             </a>
-                            
                             <span class="badge ${badgeClass} mb-2" style="width: fit-content;">${p.subCat}</span>
                             <div class="product-title">${p.name}</div>
                             <div class="product-sku">รหัส: ${p.sku}</div>
-                            
                             <div class="d-flex justify-content-between align-items-end mt-2 mb-3">
-                                <div>
-                                    <div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
-                                    <div style="font-size: 0.8rem;" class="text-muted">ส่งร้าน: <span class="text-primary-custom fw-bold">฿${p.netRevenue}</span></div>
-                                </div>
+                                <div><div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
+                                <div style="font-size: 0.8rem;" class="text-muted">ส่งร้าน: <span class="text-primary-custom fw-bold">฿${p.netRevenue}</span></div></div>
                                 <div class="product-price">฿${p.fullPrice}</div>
                             </div>
-                            
-                            <!-- 🌟 แก้ไขปุ่มสั่งซื้อ ให้เรียกใช้ฟังก์ชัน openPaymentModal แทนการ Alert ธรรมดา -->
                             <button class="select-btn mt-auto" onclick="openPaymentModal('${p.sku}')">สั่งซื้อสินค้านี้</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
         }
-
         fetchProducts();
 
-        /* =========================================
-           4. ระบบหมวดหมู่สินค้า 2 ชั้น (กรองสินค้า)
-        ========================================= */
         const mainCategory = document.getElementById('main-category');
         const subCategory = document.getElementById('sub-category');
-
-        const categoryOptions = {
-            "กลุ่ม": ["กลุ่มตูน", "กลุ่มบล็อก", "กลุ่มรวม", "กลุ่มสอน", "กลุ่มของตกแต่ง"],
-            "งานปล่อยเอฟ": ["บล็อก", "คลิปสอน", "ตูน", "ของตกแต่ง"]
-        };
+        const categoryOptions = { "กลุ่ม": ["กลุ่มตูน", "กลุ่มบล็อก", "กลุ่มรวม", "กลุ่มสอน", "กลุ่มของตกแต่ง"], "งานปล่อยเอฟ": ["บล็อก", "คลิปสอน", "ตูน", "ของตกแต่ง"] };
 
         mainCategory.addEventListener('change', function() {
-            const selected = this.value;
             subCategory.innerHTML = '<option value="">-- เลือกประเภทย่อย --</option>';
-
-            if (selected && categoryOptions[selected]) {
-                categoryOptions[selected].forEach(function(opt) {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = opt; optionElement.textContent = opt;
-                    subCategory.appendChild(optionElement);
+            if (this.value && categoryOptions[this.value]) {
+                categoryOptions[this.value].forEach(opt => {
+                    const optionElement = document.createElement('option'); optionElement.value = opt; optionElement.textContent = opt; subCategory.appendChild(optionElement);
                 });
                 subCategory.style.display = 'block'; 
-            } else {
-                subCategory.style.display = 'none'; 
-            }
+            } else { subCategory.style.display = 'none'; }
             filterProducts(); 
         });
-
         subCategory.addEventListener('change', filterProducts);
 
         function filterProducts() {
-            const mainCatFilter = mainCategory.value;
-            const subCatFilter = subCategory.value;
             const filtered = allProducts.filter(p => {
-                let matchMain = mainCatFilter === "" || p.mainCat === mainCatFilter;
-                let matchSub = subCatFilter === "" || p.subCat === subCatFilter;
+                let matchMain = mainCategory.value === "" || p.mainCat === mainCategory.value;
+                let matchSub = subCategory.value === "" || p.subCat === subCategory.value;
                 return matchMain && matchSub;
             });
             renderProducts(filtered); 
         }
 
         /* =========================================
-           🌟 5. ระบบหน้าต่างชำระเงิน (Payment Modal) & ตรวจสลิปจำลอง
+           🌟 3. ระบบส่งสลิป & ตัดยอด
         ========================================= */
-        let currentCheckoutProduct = null; // ตัวแปรเก็บข้อมูลสินค้าที่กำลังจะซื้อ
+        let currentProduct = null;
+        let currentBase64Slip = null; // เก็บรูปรอส่ง
 
-        // ฟังก์ชันเปิดหน้าต่างชำระเงิน
         function openPaymentModal(sku) {
-            // ค้นหาสินค้าจาก SKU ที่กด
-            currentCheckoutProduct = allProducts.find(p => p.sku === sku);
-            if(!currentCheckoutProduct) return;
+            currentProduct = allProducts.find(p => p.sku === sku);
+            if(!currentProduct) return;
 
-            // เอาข้อมูลสินค้าไปแปะในหน้าต่าง Modal
-            document.getElementById('modal-product-img').src = currentCheckoutProduct.imgUrl;
-            document.getElementById('modal-product-name').innerText = currentCheckoutProduct.name;
-            document.getElementById('modal-product-fullprice').innerText = `ราคาเต็ม: ฿${currentCheckoutProduct.fullPrice}`;
-            document.getElementById('modal-product-agentcut').innerText = `เก็บเอง: ฿${currentCheckoutProduct.agentCut}`;
-            document.getElementById('modal-product-net').innerText = `ยอดที่ต้องโอนให้ร้าน: ฿${currentCheckoutProduct.netRevenue}`;
+            document.getElementById('modal-product-img').src = currentProduct.imgUrl;
+            document.getElementById('modal-product-name').innerText = currentProduct.name;
+            document.getElementById('modal-product-fullprice').innerText = `ราคาเต็ม: ฿${currentProduct.fullPrice}`;
+            document.getElementById('modal-product-agentcut').innerText = `เก็บเอง: ฿${currentProduct.agentCut}`;
+            document.getElementById('modal-product-net').innerText = `ยอดที่ต้องโอนให้ร้าน: ฿${currentProduct.netRevenue}`;
 
-            // ล้างค่าฟอร์มและปุ่มทุกครั้งที่เปิดหน้าต่างใหม่
             document.getElementById('modal-customer-email').value = "";
             document.getElementById('modal-customer-line').value = "";
             document.getElementById('modal-slip-upload').value = "";
-            document.getElementById('upload-text').innerText = "คลิกเพื่อเลือกไฟล์สลิป";
+            currentBase64Slip = null;
+            
+            document.getElementById('upload-text').innerHTML = "คลิกเพื่อเลือกไฟล์สลิป";
             
             let btnSubmit = document.getElementById('modal-btn-submit');
             btnSubmit.innerHTML = '<i class="fa-solid fa-lock me-2"></i> กรุณาอัปโหลดสลิปที่ถูกต้อง';
             btnSubmit.classList.remove('ready');
             btnSubmit.disabled = true;
 
-            // สั่งเปิด Modal ของ Bootstrap
             var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
             paymentModal.show();
         }
 
-        // ระบบจำลองตรวจสลิป (SlipOK) เมื่อเลือกไฟล์
-        document.getElementById('modal-slip-upload').addEventListener('change', function() {
-            if(this.files.length > 0) {
-                let fileName = this.files[0].name;
-                document.getElementById('upload-text').innerHTML = `<span class="text-green"><i class="fa-solid fa-check-circle"></i> เลือกไฟล์แล้ว: ${fileName}</span>`;
+        // เมื่อเลือกไฟล์สลิป ให้แปลงเป็น Base64
+        document.getElementById('modal-slip-upload').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if(file) {
+                document.getElementById('upload-text').innerHTML = `<span class="text-green"><i class="fa-solid fa-check-circle"></i> เลือกไฟล์แล้ว: ${file.name}</span>`;
                 
-                let btnSubmit = document.getElementById('modal-btn-submit');
-                
-                // สั่งให้ปุ่มหมุนติ้วๆ จำลองการส่งสลิปไปให้ SlipOK ตรวจสอบ
-                btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> กำลังตรวจสอบสลิป...';
-                btnSubmit.disabled = true;
-                btnSubmit.classList.remove('ready');
-
-                // จำลองว่าตรวจเสร็จใน 2 วินาที (ของจริงต้องเขียนโค้ดยิง API ไปเช็คยอดเงิน)
-                setTimeout(() => {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    currentBase64Slip = e.target.result; // เก็บฐานข้อมูลรูปไว้
+                    
+                    let btnSubmit = document.getElementById('modal-btn-submit');
                     btnSubmit.innerHTML = 'ยืนยันการสั่งซื้อ / แจ้งโอน';
                     btnSubmit.disabled = false;
-                    btnSubmit.classList.add('ready'); // ปุ่มเปลี่ยนเป็นสีม่วงกดได้
-                }, 2000); 
+                    btnSubmit.classList.add('ready'); 
+                };
+                reader.readAsDataURL(file);
             }
         });
 
-        // เมื่อกดปุ่ม ยืนยันการสั่งซื้อ
+        // เมื่อกด ยืนยันสั่งซื้อ
         document.getElementById('modal-btn-submit').addEventListener('click', function() {
-            let email = document.getElementById('modal-customer-email').value;
-            let line = document.getElementById('modal-customer-line').value;
+            let email = document.getElementById('modal-customer-email').value.trim();
+            let line = document.getElementById('modal-customer-line').value.trim();
 
-            // เช็คว่ากรอกอีเมลกับไลน์หรือยัง
-            if(!email || !line) {
-                alert("กรุณากรอก Gmail และ Line ID ของลูกค้าให้ครบถ้วนเพื่อผลประโยชน์ของลูกค้าครับ");
-                return;
-            }
+            if(!email || !line) { alert("กรุณากรอก Gmail และ Line ID ของลูกค้าให้ครบถ้วน"); return; }
+            if(!currentBase64Slip) { alert("กรุณาแนบภาพสลิป"); return; }
 
-            // (ส่วนนี้เตรียมไว้สำหรับเขียนส่งข้อมูลเข้า Sheet Orders / Customers ในอนาคต)
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> กำลังบันทึกข้อมูล...';
-            
-            setTimeout(() => {
-                alert("ระบบบันทึกออเดอร์สำเร็จ! ระบบให้สิทธิ์ลูกค้าเข้ากลุ่มเรียบร้อยแล้วครับ 🎉");
-                var paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
-                paymentModal.hide(); // ปิดหน้าต่าง
-            }, 1500);
+            // เปลี่ยนปุ่มเป็นกำลังโหลด
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> ระบบกำลังตรวจสอบยอด และส่งไดร์ฟ...';
+            this.disabled = true;
+
+            // แพ็คข้อมูลส่งไปให้ Google Sheet
+            var payload = {
+                action: 'submitOrder',
+                agentId: currentAgent.agentId,
+                email: email,
+                lineId: line,
+                sku: currentProduct.sku,
+                netRevenue: currentProduct.netRevenue, // ยอดที่ร้านต้องได้
+                driveUrl: currentProduct.driveUrl,
+                slipBase64: currentBase64Slip
+            };
+
+            fetch(apiURL, {
+                method: "POST", // ส่งข้อมูลไฟล์ต้องใช้ POST
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert("✅ บันทึกออเดอร์สำเร็จ!\nระบบได้ส่งสิทธิ์เข้าไดร์ฟให้ลูกค้า และบวกแต้มเรียบร้อยแล้วครับ");
+                    bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
+                } else {
+                    alert("❌ เกิดข้อผิดพลาด: " + data.message);
+                    this.innerHTML = 'ลองใหม่อีกครั้ง';
+                    this.disabled = false;
+                }
+            })
+            .catch(err => {
+                alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
+                this.innerHTML = 'ยืนยันการสั่งซื้อ / แจ้งโอน';
+                this.disabled = false;
+            });
         });
-
     </script>
 </body>
 </html>
