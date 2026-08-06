@@ -116,7 +116,10 @@
 
         /* การทำรูปลิงก์ให้มี Hover Effect (แสดงคำว่าดูตัวอย่าง) */
         .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
-        .product-img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s ease; }
+        
+        /* 🌟 เปลี่ยนตรงนี้แหละครับ: object-fit จาก cover เป็น contain เพื่อให้ภาพแสดงเต็มๆ โดยไม่โดนตัด */
+        .product-img { width: 100%; height: 100%; object-fit: contain; transition: 0.3s ease; }
+        
         .product-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; color: #fff; font-weight: bold; font-size: 1.1rem;}
         .product-img-wrapper:hover .product-img { transform: scale(1.05); }
         .product-img-wrapper:hover .product-img-overlay { opacity: 1; }
@@ -252,7 +255,6 @@
                     <div class="customer-list">
                         <div class="customer-item">
                             <div>
-                                <!-- 🌟 แสดงอีเมลเป็นหลัก และตามด้วยไอดีไลน์ -->
                                 <strong style="font-size: 1.05rem;">customer_one@email.com</strong><br>
                                 <small class="text-muted">Line ID: cust_one_01</small>
                             </div>
@@ -266,21 +268,21 @@
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
                     
                     <div class="d-flex flex-column flex-sm-row gap-2">
-                        <!-- 🌟 Dropdown ประเภทหลัก -->
+                        <!-- Dropdown ประเภทหลัก -->
                         <select id="main-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem;">
                             <option value="">-- เลือกประเภทสินค้า --</option>
                             <option value="กลุ่ม">กลุ่ม</option>
                             <option value="งานปล่อยเอฟ">งานปล่อยเอฟ</option>
                         </select>
                         
-                        <!-- 🌟 Dropdown ประเภทย่อย (เชื่อมต่ออัตโนมัติ) -->
+                        <!-- Dropdown ประเภทย่อย (เชื่อมต่ออัตโนมัติ) -->
                         <select id="sub-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem; display: none;">
                             <option value="">-- เลือกประเภทย่อย --</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- 🌟 พื้นที่สำหรับวางการ์ดสินค้าที่จะโหลดมาจาก Google Sheet -->
+                <!-- พื้นที่สำหรับวางการ์ดสินค้าที่จะโหลดมาจาก Google Sheet -->
                 <div class="row" id="product-grid">
                     <div class="col-12 text-center text-muted py-5">
                         <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3"></i>
@@ -296,8 +298,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 🚨 URL API Google Sheets (เอาลิงก์ของคุณมาวางตรงนี้)
-        const apiURL = "https://script.google.com/macros/s/AKfycbx6O391t9WVvmIZJosT0q5r8g0rJU5mtgdDEGC0b54YqJa4ICiTUDat5gwusgbFw6wF5Q/exec";
+        // 🚨 URL API Google Sheets
+        const apiURL = "https://script.google.com/macros/s/AKfycbx_URxsMApT3GaA4Dn4IGnNb3Bs6hJAxxunKcpJv9xtjvpge9ydBGfxg0bl9yZrcjSDaQ/exec";
 
         /* =========================================
            1. ระบบเมนู Responsive
@@ -375,7 +377,7 @@
                 const cardHTML = `
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                         <div class="product-card">
-                            <!-- 🌟 กดที่รูปจะพาไปดูตัวอย่างที่ Google Drive (เป้าหมายแท็บใหม่) -->
+                            <!-- กดที่รูปพาไป Google Drive -->
                             <a href="${p.driveUrl}" target="_blank" class="product-img-wrapper" title="คลิกเพื่อดูตัวอย่างงานใน Google Drive">
                                 <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
                                 <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
@@ -385,7 +387,7 @@
                             <div class="product-title">${p.name}</div>
                             <div class="product-sku">รหัส: ${p.sku}</div>
                             
-                            <!-- 🌟 แสดงข้อมูลยอดเงินแบบละเอียด -->
+                            <!-- แสดงข้อมูลยอดเงินแบบละเอียด -->
                             <div class="d-flex justify-content-between align-items-end mt-2 mb-3">
                                 <div>
                                     <div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
@@ -394,7 +396,7 @@
                                 <div class="product-price">฿${p.fullPrice}</div>
                             </div>
                             
-                            <!-- 🌟 ปุ่มกดสั่งซื้อ (สั่งได้ทีละ 1 ออเดอร์) -->
+                            <!-- ปุ่มกดสั่งซื้อ (สั่งได้ทีละ 1 ออเดอร์) -->
                             <button class="select-btn mt-auto" onclick="buySingleProduct('${p.sku}', '${p.name}')">สั่งซื้อสินค้านี้</button>
                         </div>
                     </div>
@@ -461,8 +463,6 @@
            5. ฟังก์ชันสั่งซื้อสินค้า (ทีละออเดอร์)
         ========================================= */
         function buySingleProduct(sku, productName) {
-            // โค้ดส่วนนี้เตรียมไว้สำหรับทำการส่งยอดไปยัง Google Sheet
-            // ตอนนี้ให้ขึ้นแจ้งเตือนก่อนว่ากดสำเร็จ
             alert(`ดำเนินการสั่งซื้อสำเร็จ!\nรหัส: ${sku}\nชื่อสินค้า: ${productName}\n\n(ระบบส่งยอดเข้าตารางกำลังจะมาในสเต็ปถัดไปครับ)`);
         }
     </script>
