@@ -74,35 +74,23 @@
         /* =========================================
            3. การ์ดสินค้าและตัวกรอง
         ========================================= */
-        .product-card {
-            background-color: var(--bg-card); border-radius: 15px; padding: 15px; margin-bottom: 25px;
-            border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%; display: flex; flex-direction: column; position: relative;
-        }
+        .product-card { background-color: var(--bg-card); border-radius: 15px; padding: 15px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
-
         .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
         .product-img { width: 100%; height: 100%; object-fit: contain; transition: 0.3s ease; }
         .product-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; color: #fff; font-weight: bold; font-size: 1.1rem;}
         .product-img-wrapper:hover .product-img { transform: scale(1.05); }
         .product-img-wrapper:hover .product-img-overlay { opacity: 1; }
-
         .product-title { font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
         .product-sku { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
         .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.3rem; margin-top: auto; text-align: right;}
         
-        .select-btn {
-            background: var(--primary-color); color: #fff; border: none; padding: 10px;
-            border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px;
-        }
+        .select-btn { background: var(--primary-color); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px; }
         .select-btn:hover { background: var(--primary-hover); }
 
         .search-filter-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
         .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
         .custom-input:focus { border-color: var(--primary-color); }
-        
-        .customer-list { margin-top: 15px; }
-        .customer-item { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: rgba(165, 94, 234, 0.1); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
@@ -114,10 +102,7 @@
         .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
         .modal-header { border-bottom: 1px solid var(--border-color); }
         
-        .order-summary-box {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center;
-        }
+        .order-summary-box { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
         .order-summary-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; background: var(--bg-main); }
         
         .payment-qr-box { text-align: center; margin-bottom: 20px; }
@@ -130,16 +115,16 @@
         .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4); }
         .btn-submit-order.ready:hover { background: var(--primary-hover); }
 
-        /* 🌟 สไตล์หน้าสำเร็จและปุ่มเข้ากลุ่มไลน์ */
+        /* 🌟 สไตล์หน้าสำเร็จ (อัปเดตกล่องก๊อปปี้ลิงก์) */
         .success-box { text-align: center; padding: 30px 10px; }
         .success-icon { font-size: 4.5rem; color: #2ed573; margin-bottom: 20px; animation: popIn 0.5s ease; }
         
-        .line-btn {
-            background-color: #06C755; color: #fff; border: none; padding: 15px; border-radius: 12px;
-            font-weight: bold; font-size: 1.1rem; text-decoration: none; display: flex; justify-content: center;
-            align-items: center; gap: 10px; transition: 0.3s; width: 100%; margin-top: 20px;
+        .line-link-box {
+            background: rgba(0,0,0,0.2); border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left;
         }
-        .line-btn:hover { background-color: #05a044; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(6, 199, 85, 0.3); }
+        .copy-btn { background-color: #06C755; color: #fff; border: none; transition: 0.3s; }
+        .copy-btn:hover { background-color: #05a044; color: #fff; }
 
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
@@ -206,7 +191,6 @@
             </div>
 
             <div class="container-fluid p-0">
-                <!-- ตัวกรองสินค้า -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
                     <div class="d-flex flex-column flex-sm-row gap-2">
@@ -221,14 +205,12 @@
                     </div>
                 </div>
 
-                <!-- พื้นที่แสดงการ์ดสินค้า -->
                 <div class="row" id="product-grid">
                     <div class="col-12 text-center text-muted py-5">
                         <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3"></i>
                         <p>กำลังโหลดรายการสินค้าจากระบบ...</p>
                     </div>
                 </div> 
-
             </div>
         </div>
     </div>
@@ -249,7 +231,6 @@
                         <h5 class="fw-bold w-100 text-center text-purple mb-1">ชำระเงิน / แจ้งโอน</h5>
                         <p class="text-center text-muted mb-4" style="font-size: 0.9rem;">อัปโหลดสลิปเพื่อรับสิทธิ์เข้ากลุ่มอัตโนมัติ</p>
 
-                        <!-- สรุปสินค้า -->
                         <div class="order-summary-box">
                             <img src="" id="modal-product-img" class="order-summary-img" alt="Product">
                             <div style="flex-grow: 1;">
@@ -263,7 +244,6 @@
                             </div>
                         </div>
 
-                        <!-- ข้อมูลบัญชี (แก้ QR ตรงนี้ได้) -->
                         <div class="payment-qr-box">
                             <p class="fw-bold mb-2">สแกน QR Code หรือโอนผ่านเลขบัญชี</p>
                             <img src="https://placehold.co/400x400/2a2940/ffffff?text=QR+Code+Payment" class="payment-qr-img mb-3" alt="QR Code">
@@ -278,7 +258,7 @@
                         <hr style="border-color: var(--border-color);">
 
                         <div class="mb-3">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span> <br><small class="text-muted fw-normal">(สำคัญมาก! ระบบจะเชิญอีเมลนี้เข้าไดร์ฟอัตโนมัติ)</small></label>
+                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span></label>
                             <input type="email" id="modal-customer-email" class="custom-input" placeholder="พิมพ์ @gmail.com ของลูกค้า">
                         </div>
                         <div class="mb-4">
@@ -287,7 +267,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน (ต้องมี QR Code)</label>
+                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน</label>
                             <label for="modal-slip-upload" class="d-block custom-file-upload">
                                 <i class="fa-solid fa-cloud-arrow-up fs-2 text-purple mb-2"></i>
                                 <div id="upload-text">คลิกเพื่อเลือกไฟล์สลิป</div>
@@ -300,18 +280,27 @@
                         </button>
                     </div>
 
-                    <!-- 🌟 ส่วนที่ 2: หน้าต่างสำเร็จ (จะโชว์ก็ต่อเมื่อตรวจสอบผ่าน) -->
+                    <!-- 🌟 ส่วนที่ 2: หน้าต่างสำเร็จ (อัปเดตกล่องก๊อปปี้ลิงก์) -->
                     <div id="payment-success-section" class="success-box" style="display: none;">
                         <i class="fa-solid fa-circle-check success-icon"></i>
                         <h3 class="fw-bold mb-3 text-light">สั่งซื้อเสร็จสมบูรณ์!</h3>
-                        <p class="text-muted mb-4">ระบบได้ส่งสิทธิ์การเข้าถึงไฟล์ไปที่ Gmail ของลูกค้า<br>และเพิ่มคะแนนสะสมให้ลูกค้าเรียบร้อยแล้วครับ 🎉</p>
+                        <p class="text-muted mb-3">ระบบได้ส่งสิทธิ์เข้าถึงไฟล์ไปที่ Gmail ของลูกค้า<br>และเพิ่มคะแนนสะสมเรียบร้อยแล้วครับ 🎉</p>
                         
-                        <!-- 🌟 ปุ่มเข้าร่วมกลุ่ม Line -->
-                        <a href="#" id="success-line-link" class="line-btn" target="_blank" style="display: none;">
-                            <i class="fa-brands fa-line fs-4"></i> เข้าร่วมกลุ่ม Line สินค้านี้
-                        </a>
+                        <!-- 🌟 กล่องกดคัดลอกลิงก์ไลน์กลุ่ม -->
+                        <div id="line-link-container" class="line-link-box" style="display: none;">
+                            <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
+                                <i class="fa-brands fa-line text-success fs-5 me-1"></i> ลิ้งก์เข้ากลุ่ม Line
+                            </label>
+                            <div class="input-group mt-1">
+                                <input type="text" id="success-line-input" class="form-control bg-dark text-light border-secondary" readonly>
+                                <button class="btn copy-btn" type="button" onclick="copyLineLink()">
+                                    <i class="fa-regular fa-copy"></i> คัดลอก
+                                </button>
+                            </div>
+                            <small class="text-muted mt-2 d-block" style="font-size: 0.8rem;">กดคัดลอกลิงก์ด้านบน ส่งให้ลูกค้าในแชทได้เลยครับ</small>
+                        </div>
                         
-                        <button type="button" class="btn btn-outline-light w-100 mt-3" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+                        <button type="button" class="btn btn-outline-light w-100 mt-2" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
                     </div>
 
                 </div>
@@ -322,11 +311,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 🚨 อย่าลืมใส่ URL API ของคุณตรงนี้!
+        // 🚨 อย่าลืมใส่ URL API ของคุณตรงนี้นะครับ
         const apiURL = "https://script.google.com/macros/s/AKfycbwKR11ZMc1mYpcq3hwHNf5nCfTbrNwjGEyOYq97-rcQKJ7LTvLpWpERvyqbPATWV_-5fg/exec";
 
         /* =========================================
-           1. ตั้งค่าพื้นฐาน (Sidebar, Login)
+           1. ตั้งค่า Sidebar, Login
         ========================================= */
         document.getElementById('menu-toggle').addEventListener('click', function() {
             if (window.innerWidth <= 991.98) { document.getElementById('sidebar').classList.toggle('mobile-show'); document.getElementById('sidebar-overlay').classList.toggle('active'); } 
@@ -337,17 +326,14 @@
         let currentAgent = null;
         const savedAgent = localStorage.getItem('memphis_agent');
         if (!savedAgent) {
-            alert("กรุณาเข้าสู่ระบบก่อนใช้งานหน้าสินค้านะครับ"); window.location.href = "index.html"; 
+            alert("กรุณาเข้าสู่ระบบก่อนใช้งาน"); window.location.href = "index.html"; 
         } else {
             currentAgent = JSON.parse(savedAgent);
             document.getElementById('sidebar-name').innerText = currentAgent.name; document.getElementById('topbar-name').innerText = currentAgent.name; document.getElementById('dropdown-name').innerText = currentAgent.name; 
             let avatarUrl = `https://ui-avatars.com/api/?name=${currentAgent.name.replace(/ /g, '+')}&background=random`;
             document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; document.getElementById('dropdown-avatar').src = avatarUrl; 
         }
-
-        document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) {
-            e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; 
-        });
+        document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
 
         /* =========================================
            2. ระบบโหลดสินค้าและตัวกรอง
@@ -371,7 +357,7 @@
                 const cardHTML = `
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                         <div class="product-card">
-                            <a href="${p.driveUrl}" target="_blank" class="product-img-wrapper" title="คลิกเพื่อดูตัวอย่างงานใน Google Drive">
+                            <a href="${p.driveUrl}" target="_blank" class="product-img-wrapper" title="ดูตัวอย่างงาน">
                                 <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
                                 <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
                             </a>
@@ -389,7 +375,7 @@
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
         }
-        fetchProducts();
+        fetchProducts(); // อย่าลืมกดรีเฟรชหน้าเว็บ เพื่อให้มันดึงลิงก์ล่าสุดมาใช้นะครับ
 
         const mainCategory = document.getElementById('main-category');
         const subCategory = document.getElementById('sub-category');
@@ -455,7 +441,6 @@
             var file = event.target.files[0];
             if(file) {
                 document.getElementById('upload-text').innerHTML = `<span class="text-green"><i class="fa-solid fa-check-circle"></i> เลือกไฟล์แล้ว: ${file.name}</span>`;
-                
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     currentBase64Slip = e.target.result; 
@@ -489,22 +474,23 @@
                 slipBase64: currentBase64Slip
             };
 
-            fetch(apiURL, {
-                method: "POST", 
-                body: JSON.stringify(payload)
-            })
+            fetch(apiURL, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
+                    // ปิดหน้าฟอร์ม เปิดหน้า Success
                     document.getElementById('payment-form-section').style.display = 'none';
                     document.getElementById('payment-success-section').style.display = 'block';
                     
-                    let lineBtn = document.getElementById('success-line-link');
-                    if(currentProduct.lineGroupUrl && currentProduct.lineGroupUrl !== "") {
-                        lineBtn.href = currentProduct.lineGroupUrl;
-                        lineBtn.style.display = 'flex'; 
+                    // 🌟 ตรวจสอบว่าสินค้ามีลิงก์ไลน์ไหม (คอลัมน์ J ในชีต)
+                    let lineContainer = document.getElementById('line-link-container');
+                    let lineInput = document.getElementById('success-line-input');
+                    
+                    if(currentProduct.lineGroupUrl && currentProduct.lineGroupUrl.trim() !== "") {
+                        lineInput.value = currentProduct.lineGroupUrl; // เอาลิงก์ยัดใส่กล่อง
+                        lineContainer.style.display = 'block'; // โชว์กล่องก๊อปปี้ลิงก์
                     } else {
-                        lineBtn.style.display = 'none'; 
+                        lineContainer.style.display = 'none'; // ซ่อนไว้ถ้าไม่ได้ใส่ลิงก์
                     }
                 } else {
                     alert("❌ เกิดข้อผิดพลาด: " + data.message);
@@ -518,6 +504,15 @@
                 this.disabled = false;
             });
         });
+
+        // 🌟 ฟังก์ชันสำหรับก๊อปปี้ลิงก์
+        function copyLineLink() {
+            let copyText = document.getElementById("success-line-input");
+            copyText.select(); // เลือกข้อความในกล่อง
+            copyText.setSelectionRange(0, 99999); // สำหรับรองรับมือถือ
+            navigator.clipboard.writeText(copyText.value); // ก๊อปปี้
+            alert("✅ คัดลอกลิ้งก์เรียบร้อยแล้ว! นำไปส่งให้ลูกค้าได้เลยครับ");
+        }
     </script>
 </body>
 </html>
