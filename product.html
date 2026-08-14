@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           1. ตั้งค่าตัวแปรสีและธีมหลัก
-        ========================================= */
         :root {
             --bg-main: #131224;
             --bg-card: #1c1b2f;
@@ -27,9 +24,6 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* =========================================
-           2. แถบเมนู Sidebar และ Component
-        ========================================= */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -71,9 +65,7 @@
         .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
-        /* =========================================
-           3. การ์ดสินค้าและตัวกรอง
-        ========================================= */
+        /* การ์ดสินค้า */
         .product-card { background-color: var(--bg-card); border-radius: 15px; padding: 15px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
         .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
@@ -88,6 +80,10 @@
         .select-btn { background: var(--primary-color); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px; }
         .select-btn:hover { background: var(--primary-hover); }
 
+        /* ปุ่มกฎกลุ่มเพิ่มเติม */
+        .rules-btn { background: rgba(157, 78, 221, 0.15); color: #d8b4fe; border: 1px solid rgba(157, 78, 221, 0.4); padding: 8px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 5px; font-size: 0.9rem; }
+        .rules-btn:hover { background: rgba(157, 78, 221, 0.3); color: #fff; }
+
         .search-filter-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
         .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
         .custom-input:focus { border-color: var(--primary-color); }
@@ -96,9 +92,7 @@
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-primary-custom { color: #1e90ff; }
 
-        /* =========================================
-           🌟 4. สไตล์หน้าต่างชำระเงิน (Modal) และ หน้าสำเร็จ
-        ========================================= */
+        /* Modal สไตล์ */
         .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
         .modal-header { border-bottom: 1px solid var(--border-color); }
         
@@ -115,7 +109,6 @@
         .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4); }
         .btn-submit-order.ready:hover { background: var(--primary-hover); }
 
-        /* 🌟 สไตล์หน้าสำเร็จและปุ่มเข้ากลุ่มไลน์ */
         .success-box { text-align: center; padding: 30px 10px; }
         .success-icon { font-size: 4.5rem; color: #2ed573; margin-bottom: 20px; animation: popIn 0.5s ease; }
         
@@ -158,7 +151,6 @@
 
         <!-- Main Content -->
         <div id="page-content">
-            <!-- Topbar -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
@@ -188,7 +180,6 @@
             </div>
 
             <div class="container-fluid p-0">
-                <!-- ตัวกรองสินค้า -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h4 class="fw-bold mb-0">รายการสินค้า</h4>
                     <div class="d-flex flex-column flex-sm-row gap-2">
@@ -203,14 +194,12 @@
                     </div>
                 </div>
 
-                <!-- พื้นที่แสดงการ์ดสินค้า -->
                 <div class="row" id="product-grid">
                     <div class="col-12 text-center text-muted py-5">
                         <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3"></i>
                         <p>กำลังโหลดรายการสินค้าจากระบบ...</p>
                     </div>
                 </div> 
-
             </div>
         </div>
     </div>
@@ -226,7 +215,6 @@
                 </div>
                 <div class="modal-body pt-1 px-4 pb-4">
                     
-                    <!-- 🌟 ส่วนที่ 1: ฟอร์มชำระเงิน -->
                     <div id="payment-form-section">
                         <h5 class="fw-bold w-100 text-center text-purple mb-1">ชำระเงิน / แจ้งโอน</h5>
                         <p class="text-center text-muted mb-4" style="font-size: 0.9rem;">อัปโหลดสลิปเพื่อรับสิทธิ์เข้ากลุ่มอัตโนมัติ</p>
@@ -244,7 +232,6 @@
                             </div>
                         </div>
 
-                        <!-- 💡 แก้รูป QR Code ตรงนี้ได้เลยครับ -->
                         <div class="payment-qr-box">
                             <p class="fw-bold mb-2">สแกน QR Code หรือโอนผ่านเลขบัญชี</p>
                             <img src="https://placehold.co/400x400/2a2940/ffffff?text=QR+Code+Payment" class="payment-qr-img mb-3" alt="QR Code">
@@ -259,7 +246,7 @@
                         <hr style="border-color: var(--border-color);">
 
                         <div class="mb-3">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span> <br><small class="text-muted fw-normal">(สำคัญมาก! ระบบจะเชิญอีเมลนี้เข้าไดร์ฟอัตโนมัติ)</small></label>
+                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span></label>
                             <input type="email" id="modal-customer-email" class="custom-input" placeholder="พิมพ์ @gmail.com ของลูกค้า">
                         </div>
                         <div class="mb-4">
@@ -268,7 +255,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน (ต้องมี QR Code)</label>
+                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน</label>
                             <label for="modal-slip-upload" class="d-block custom-file-upload">
                                 <i class="fa-solid fa-cloud-arrow-up fs-2 text-purple mb-2"></i>
                                 <div id="upload-text">คลิกเพื่อเลือกไฟล์สลิป</div>
@@ -281,13 +268,12 @@
                         </button>
                     </div>
 
-                    <!-- 🌟 ส่วนที่ 2: หน้าต่างสำเร็จ (แสดงเมื่อตรวจสอบสลิปผ่าน) -->
+                    <!-- หน้าต่างสำเร็จ -->
                     <div id="payment-success-section" class="success-box" style="display: none;">
                         <i class="fa-solid fa-circle-check success-icon"></i>
                         <h3 class="fw-bold mb-3 text-light">สั่งซื้อเสร็จสมบูรณ์!</h3>
                         <p class="text-muted mb-3">ระบบได้ส่งสิทธิ์เข้าถึงไฟล์ไปที่ Gmail ของลูกค้า<br>และเพิ่มคะแนนสะสมเรียบร้อยแล้วครับ 🎉</p>
                         
-                        <!-- 🌟 กล่องกดคัดลอกลิงก์ไลน์กลุ่ม -->
                         <div id="line-link-container" class="line-link-box" style="display: none;">
                             <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
                                 <i class="fa-brands fa-line text-success fs-5 me-1"></i> ลิ้งก์เข้ากลุ่ม Line
@@ -309,16 +295,43 @@
         </div>
     </div>
 
-    <!-- โหลดสคริปต์ -->
+    <!-- =========================================
+         🌟 Modal สำหรับแสดงกฎกลุ่ม (เปิดดูและกดคัดลอก)
+    ========================================= -->
+    <div class="modal fade" id="rulesModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold text-purple" id="rules-modal-title">กฎและข้อตกลงของกลุ่ม</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    <p class="text-muted small mb-3">ตัวแทนสามารถคัดลอกลิงก์นี้ส่งให้ลูกค้าอ่านกฎระเบียบก่อนตัดสินใจซื้อได้ครับ</p>
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" id="rules-link-input" class="form-control bg-dark text-light border-secondary" readonly>
+                        <button class="btn copy-btn" type="button" onclick="copyRulesLink()">
+                            <i class="fa-regular fa-copy"></i> คัดลอก
+                        </button>
+                    </div>
+
+                    <div id="rules-preview-container" class="mt-3" style="display: none;">
+                        <a href="#" id="rules-external-link" target="_blank" class="btn btn-outline-purple w-100" style="border-color: var(--primary-color); color: #d8b4fe;">
+                            <i class="fa-solid fa-images me-2"></i> เปิดดูรูปภาพ/อัลบั้มกฎกลุ่มทั้งหมด
+                        </a>
+                    </div>
+                    
+                    <button type="button" class="btn btn-outline-light w-100 mt-3" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 🚨 นำ API URL ล่าสุดของคุณมาวางให้แล้วครับ
-        const apiURL = "https://script.google.com/macros/s/AKfycbwqKGSnM3F9-XWz5MzjGvKsvCXZ7V17vYEhDZIWaHO8hw833TlinrM7zETIUFfNkKI0bg/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbzsknzYm82bMuDk3Kj-P1OVCqvDS_epzmOoMenNT0K-hmEsG6Uhnb8zmLIeln6JTeHjtQ/exec";
 
-        /* =========================================
-           1. ตั้งค่า Sidebar และ Login
-        ========================================= */
         document.getElementById('menu-toggle').addEventListener('click', function() {
             if (window.innerWidth <= 991.98) { document.getElementById('sidebar').classList.toggle('mobile-show'); document.getElementById('sidebar-overlay').classList.toggle('active'); } 
             else { document.getElementById('sidebar').classList.toggle('toggled'); document.getElementById('page-content').classList.toggle('toggled'); }
@@ -337,9 +350,6 @@
         }
         document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
 
-        /* =========================================
-           2. ระบบโหลดสินค้าและตัวกรอง
-        ========================================= */
         let allProducts = []; 
         function fetchProducts() {
             fetch(apiURL + "?action=getProducts")
@@ -359,7 +369,6 @@
                 const cardHTML = `
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                         <div class="product-card">
-                            <!-- ใช้ previewUrl (คอลัมน์ I) สำหรับคลิกดูตัวอย่างหน้าเว็บ -->
                             <a href="${p.previewUrl}" target="_blank" class="product-img-wrapper" title="ดูตัวอย่างงาน">
                                 <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
                                 <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
@@ -367,12 +376,18 @@
                             <span class="badge ${badgeClass} mb-2" style="width: fit-content;">${p.subCat}</span>
                             <div class="product-title">${p.name}</div>
                             <div class="product-sku">รหัส: ${p.sku}</div>
-                            <div class="d-flex justify-content-between align-items-end mt-2 mb-3">
+                            <div class="d-flex justify-content-between align-items-end mt-2 mb-2">
                                 <div><div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
                                 <div style="font-size: 0.8rem;" class="text-muted">ส่งร้าน: <span class="text-primary-custom fw-bold">฿${p.netRevenue}</span></div></div>
                                 <div class="product-price">฿${p.fullPrice}</div>
                             </div>
-                            <button class="select-btn mt-auto" onclick="openPaymentModal('${p.sku}')">สั่งซื้อสินค้านี้</button>
+                            
+                            <!-- 🌟 ปุ่มกฎกลุ่ม (เปิดหน้าต่างดูและก๊อปปิ้งก์กฎ) -->
+                            <button class="rules-btn" onclick="openRulesModal('${p.sku}')">
+                                <i class="fa-solid fa-book-open me-1"></i> กฎกลุ่ม
+                            </button>
+
+                            <button class="select-btn mt-2" onclick="openPaymentModal('${p.sku}')">สั่งซื้อสินค้านี้</button>
                         </div>
                     </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
@@ -406,7 +421,40 @@
         }
 
         /* =========================================
-           🌟 3. ระบบหน้าต่างชำระเงิน (Modal) และ สลิป
+           🌟 3. ระบบ Modal กฎกลุ่ม
+        ========================================= */
+        function openRulesModal(sku) {
+            let product = allProducts.find(p => p.sku === sku);
+            if(!product) return;
+
+            document.getElementById('rules-modal-title').innerText = `กฎกลุ่ม: ${product.name}`;
+            let linkInput = document.getElementById('rules-link-input');
+            let previewContainer = document.getElementById('rules-preview-container');
+            let externalLink = document.getElementById('rules-external-link');
+
+            if(product.rulesUrl && product.rulesUrl.trim() !== "") {
+                linkInput.value = product.rulesUrl;
+                externalLink.href = product.rulesUrl;
+                previewContainer.style.display = 'block';
+            } else {
+                linkInput.value = "ยังไม่ได้ระบุลิงก์กฎกลุ่มในชีตช่อง L ครับ";
+                previewContainer.style.display = 'none';
+            }
+
+            var rulesModal = new bootstrap.Modal(document.getElementById('rulesModal'));
+            rulesModal.show();
+        }
+
+        function copyRulesLink() {
+            let copyText = document.getElementById("rules-link-input");
+            copyText.select(); 
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value); 
+            alert("✅ คัดลอกลิ้งก์กฎกลุ่มเรียบร้อยแล้ว! นำไปส่งให้ลูกค้าอ่านได้เลยครับ");
+        }
+
+        /* =========================================
+           🌟 4. ระบบหน้าต่างชำระเงิน (Modal) และ สลิป
         ========================================= */
         let currentProduct = null;
         let currentBase64Slip = null; 
@@ -473,7 +521,7 @@
                 lineId: line,
                 sku: currentProduct.sku,
                 netRevenue: currentProduct.netRevenue, 
-                workFileUrl: currentProduct.workFileUrl, // 🌟 ส่งลิ้งก์ "ไฟล์งาน" (คอลัมน์ K) ไปให้หลังบ้านดึงแชร์
+                workFileUrl: currentProduct.workFileUrl, 
                 slipBase64: currentBase64Slip
             };
 
@@ -487,7 +535,6 @@
                     let lineContainer = document.getElementById('line-link-container');
                     let lineInput = document.getElementById('success-line-input');
                     
-                    // โชว์กล่องลิ้งก์กลุ่ม Line (คอลัมน์ J)
                     if(currentProduct.lineGroupUrl && currentProduct.lineGroupUrl.trim() !== "") {
                         lineInput.value = currentProduct.lineGroupUrl; 
                         lineContainer.style.display = 'block'; 
@@ -507,11 +554,10 @@
             });
         });
 
-        // 🌟 ฟังก์ชันสำหรับก๊อปปี้ลิงก์ไลน์กลุ่ม
         function copyLineLink() {
             let copyText = document.getElementById("success-line-input");
             copyText.select(); 
-            copyText.setSelectionRange(0, 99999); // สำหรับรองรับมือถือ
+            copyText.setSelectionRange(0, 99999); 
             navigator.clipboard.writeText(copyText.value); 
             alert("✅ คัดลอกลิ้งก์เรียบร้อยแล้ว! นำไปส่งให้ลูกค้าได้เลยครับ");
         }
