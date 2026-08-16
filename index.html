@@ -20,7 +20,6 @@
             --primary-color: #9d4edd;
             --primary-hover: #7b2cbf;
             --text-light: #ffffff; 
-            /* 🌟 สีเทาสว่าง เพื่อให้มองเห็นชัดเจนบนพื้นหลังมืด */
             --text-muted: #b0b0c5; 
             --border-color: #2a2940;
             --sidebar-width: 260px;
@@ -32,7 +31,6 @@
             --bg-card: #ffffff;     
             --bg-sidebar: #ffffff;  
             --text-light: #2b2b36;  
-            /* สีเทาสำหรับโหมดสว่าง */
             --text-muted: #79788f;  
             --border-color: #eaeaea;
         }
@@ -45,7 +43,6 @@
             transition: background-color 0.4s ease, color 0.4s ease; 
         }
 
-        /* บังคับให้คลาสของ Bootstrap ใช้สีสว่างที่เราตั้งไว้ */
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
@@ -68,8 +65,6 @@
             color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem;
         }
         .login-input:focus { border-color: var(--primary-color); }
-        .btn-logout { background: transparent; border: none; color: #ff7675; cursor: pointer; transition: 0.3s; }
-        .btn-logout:hover { color: #d63031; }
 
         /* =========================================
            2. แถบเมนูด้านซ้าย (Sidebar)
@@ -159,44 +154,23 @@
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
         .profile-dropdown-menu {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 15px 0;
-            min-width: 250px;
-            margin-top: 15px !important; /* ดันลงมานิดนึงให้สวยงาม */
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 15px 0; min-width: 250px; margin-top: 15px !important; 
         }
-        
-        /* สามเหลี่ยมชี้ขึ้น (Tooltip Arrow) */
         .profile-dropdown-menu::before {
             content: ''; position: absolute; top: -8px; right: 20px;
             width: 15px; height: 15px; background-color: var(--bg-card);
-            transform: rotate(45deg); border-top: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
+            transform: rotate(45deg); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color);
         }
-
         body.light-mode .profile-dropdown-menu { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
-        .profile-dropdown-menu .dropdown-item {
-            color: var(--text-light);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
+        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 12px 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; }
         .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
         .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
         .profile-dropdown-menu .dropdown-item:hover i { color: var(--primary-color); }
 
-        /* ปุ่ม Sign Out ใน Dropdown */
         .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
-        .signout-btn {
-            display: block; width: 100%; padding: 10px; text-align: center;
-            background-color: rgba(255, 118, 117, 0.1); color: #ff7675;
-            border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s;
-        }
+        .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
@@ -218,13 +192,10 @@
         .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); z-index: 0; }
         .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
         .banner-circle-2 { width: 250px; height: 250px; bottom: -80px; right: 300px; }
-        .banner-btn { background: #ffffff; color: var(--primary-color); border: none; padding: 10px 24px; border-radius: 25px; font-weight: 600; font-size: 0.95rem; margin-top: 10px; transition: 0.3s; }
-        .banner-btn:hover { background: #f0f0f0; }
-        
         .glass-stat-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; justify-content: center; }
 
         /* =========================================
-           5. การ์ดต่างๆ และเอฟเฟกต์ลอย (Hover Lift)
+           5. การ์ดต่างๆ
         ========================================= */
         .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
@@ -244,14 +215,12 @@
         .text-green { color: #2ed573; } .bg-green-light { background-color: rgba(46, 213, 115, 0.1); }
         .text-orange { color: #ffa502; } .bg-orange-light { background-color: rgba(255, 165, 2, 0.1); }
         .text-blue { color: #1e90ff; } .bg-blue-light { background-color: rgba(30, 144, 255, 0.1); }
-        .text-pink { color: #ff7675; } .bg-pink-light { background-color: rgba(255, 118, 117, 0.1); }
         .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
-        .bg-pending { background-color: rgba(255, 165, 2, 0.15); color: #ffa502; }
     </style>
 </head>
 <body>
 
-    <!-- 🌟 หน้าจอล็อคอิน (จะแสดงผลทับทุกสิ่งจนกว่าจะล็อคอินผ่าน) -->
+    <!-- หน้าจอล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
             <div class="stat-icon bg-purple-light text-purple mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.8rem;">
@@ -263,12 +232,12 @@
             <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
             
-            <button id="btn-login" class="banner-btn w-100 mt-2" style="background: var(--primary-color); color: #fff;">เข้าสู่ระบบ</button>
+            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">เข้าสู่ระบบ</button>
             <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง</p>
         </div>
     </div>
 
-    <!-- แดชบอร์ดหลัก (ซ่อนอยู่ด้านหลัง) -->
+    <!-- แดชบอร์ดหลัก -->
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -288,10 +257,6 @@
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
                         <li><a href="#">Sales</a></li>
                         <li><a href="#">Analytics</a></li>
-                        <li><a href="#">CRM</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Finance</a></li>
                     </ul>
                 </li>
                 
@@ -306,12 +271,10 @@
                     </ul>
                 </li>
                 
-                <!-- 🌟 สเต็ปที่ 1: แก้ไขเมนู Authentication เดิม -->
+                <!-- เมนูไปหน้าสินค้า -->
                 <li>
                     <a href="product.html">
-                        <!-- เปลี่ยนไอคอนเป็นรูปตะกร้าสินค้า (fa-cart-flatbed) -->
                         <i class="fa-solid fa-cart-flatbed"></i> 
-                        <!-- เปลี่ยนชื่อเมนูเป็น "สินค้า" -->
                         <span>สินค้า</span>
                     </a>
                 </li>
@@ -351,17 +314,13 @@
                     <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
                     <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
                     
-                    <!-- ส่วนโปรไฟล์มุมขวาบน ( dropdown-toggle) -->
                     <div class="dropdown">
-                        <!-- ลบคลาส dropdown-toggle ออก เพื่อไม่ให้ Bootstrap ใส่ลูกศรสามเหลี่ยมอัตโนมัติมาชนกับไอคอนของเรา -->
                         <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
                             <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
-                            <!-- ไอคอนลูกศรจาก FontAwesome -->
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
                         
-                        <!-- กล่องเมนูที่เด้งลงมา (Dropdown Menu) -->
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
                                 <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
@@ -372,10 +331,8 @@
                             
                             <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-line"></i> Activity Log</a></li>
                             
                             <div class="signout-btn-wrap">
-                                <!-- ปุ่มออกจากระบบ -->
                                 <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
                             </div>
                         </ul>
@@ -392,12 +349,10 @@
                     <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
                         <div>
                             <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem; letter-spacing: 1px;">DASHBOARD</span>
-                            <!-- ชื่อตรงนี้จะเปลี่ยนอัตโนมัติตามล็อคอิน -->
                             <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
                             <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
                         </div>
                         
-                        <!-- โซนกล่องในแบนเนอร์ ผูก ID เพื่อรับข้อมูลรายวันจาก API -->
                         <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold" id="banner-today-revenue">Loading...</h3>
@@ -415,7 +370,7 @@
                     </div>
                 </div>
 
-                <!-- การ์ด 4 กล่อง (KPI หลัก) ผูก ID รับข้อมูลรวมจาก API -->
+                <!-- การ์ด 4 กล่อง (KPI หลัก) -->
                 <div class="row">
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="custom-card">
@@ -437,7 +392,7 @@
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-dollar-sign"></i></div>
+                                    <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div>
                                     <div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Revenue</h6><small class="text-muted" style="font-size: 0.75rem;">Income vs Expenses</small></div>
                                 </div>
                             </div>
@@ -559,8 +514,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 🚨 URL API Google Sheets
-        const apiURL = "https://script.google.com/macros/s/AKfycbxRpUwpLIBLhbd9sW4PVJGhsbpkjNHEuUqqXKKKHDKXl3271d3oL4C8VUNMrLiHgG2ZqQ/exec"; 
+        // 🚨 นำ API URL ล่าสุดของคุณมาวาง
+        const apiURL = "https://script.google.com/macros/s/AKfycbwqKGSnM3F9-XWz5MzjGvKsvCXZ7V17vYEhDZIWaHO8hw833TlinrM7zETIUFfNkKI0bg/exec"; 
 
         /* =========================================
            1. ระบบเมนู Responsive & Dark Mode
@@ -616,7 +571,7 @@
         goalChart.render();
 
         /* =========================================
-           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน (มี Dropdown Menu)
+           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน
         ========================================= */
         const loginScreen = document.getElementById('login-screen');
         const loginBtn = document.getElementById('btn-login');
@@ -627,14 +582,12 @@
         
         let currentAgent = null;
 
-        // อัปเดตข้อมูลผู้ใช้บนหน้าเว็บ
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
             document.getElementById('dropdown-name').innerText = agent.name; 
             document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
             
-            // สุ่มอวาตาร์
             let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
             document.getElementById('sidebar-avatar').src = avatarUrl;
             document.getElementById('topbar-avatar').src = avatarUrl;
@@ -684,7 +637,6 @@
                 });
         });
 
-        // กดออกจากระบบ (ผ่านปุ่มใน Dropdown Menu)
         logoutBtnDropdown.addEventListener('click', function(e) {
             e.preventDefault(); 
             localStorage.removeItem('memphis_agent'); 
@@ -692,7 +644,7 @@
         });
 
         /* =========================================
-           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง
+           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง (เปลี่ยนเป็น ฿ และกรองข้อมูลขยะ)
         ========================================= */
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
@@ -701,19 +653,20 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.kpi) {
-                        document.getElementById('data-sales').innerText = "$" + Number(data.kpi.sales).toLocaleString();
-                        document.getElementById('data-revenue').innerText = "$" + Number(data.kpi.revenue).toLocaleString();
+                        // เปลี่ยนจาก $ เป็น ฿
+                        document.getElementById('data-sales').innerText = "฿" + Number(data.kpi.sales).toLocaleString();
+                        document.getElementById('data-revenue').innerText = "฿" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
                         document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
                     }
                     if(data.banner) {
-                        document.getElementById('banner-today-revenue').innerText = "$" + Number(data.banner.todayRevenue).toLocaleString();
+                        document.getElementById('banner-today-revenue').innerText = "฿" + Number(data.banner.todayRevenue).toLocaleString();
                         document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
                     if(data.goal) {
-                        document.getElementById('data-target').innerText = "$" + Number(data.goal.target).toLocaleString();
-                        document.getElementById('data-earned').innerText = "$" + Number(data.goal.earned).toLocaleString();
+                        document.getElementById('data-target').innerText = "฿" + Number(data.goal.target).toLocaleString();
+                        document.getElementById('data-earned').innerText = "฿" + Number(data.goal.earned).toLocaleString();
                         goalChart.updateSeries([data.goal.percent]); 
                     }
                     if(data.charts) {
@@ -722,19 +675,32 @@
                     }
                     if(data.recentOrders) {
                         let tableHTML = ""; let timelineHTML = "";
-                        if (data.recentOrders.length === 0) {
-                            tableHTML = `<tr><td colspan="4" class="text-center text-muted">ยังไม่มีรายการสั่งซื้อ</td></tr>`;
+                        let validOrdersCount = 0; // ตัวนับจำนวนออเดอร์ที่ใช้งานได้จริง
+
+                        data.recentOrders.forEach((order, index) => {
+                            // 🌟 ตรวจสอบและกรองออเดอร์ที่ไม่มีข้อมูลหรือเป็นค่าว่าง (ข้ามไปเลย ไม่เอามาแสดง)
+                            if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid Date")) {
+                                return; 
+                            }
+                            
+                            validOrdersCount++; // นับว่ามีออเดอร์ปกติแล้ว 1 รายการ
+                            let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
+                            let avatarBg = bgColors[index % bgColors.length];
+                            
+                            tableHTML += `<tr><td class="text-purple fw-semibold">${order.id}</td><td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0).toUpperCase()}</div> ${order.customer}</div></td><td><span class="text-muted">${order.product}</span></td><td><span class="badge-status bg-completed">${order.status}</span></td></tr>`;
+                            
+                            let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
+                            let dotColor = dotColors[index % dotColors.length];
+                            
+                            timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
+                        });
+
+                        // ถ้าตรวจสอบแล้วไม่เจอออเดอร์ที่สมบูรณ์เลย ให้แสดงข้อความว่ายังไม่มีรายการ
+                        if (validOrdersCount === 0) {
+                            tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อล่าสุด</td></tr>`;
                             timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
-                        } else {
-                            data.recentOrders.forEach((order, index) => {
-                                let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
-                                let avatarBg = bgColors[index % bgColors.length];
-                                tableHTML += `<tr><td class="text-purple fw-semibold">${order.id}</td><td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0)}</div> ${order.customer}</div></td><td><span class="text-muted">${order.product}</span></td><td><span class="badge-status bg-completed">${order.status}</span></td></tr>`;
-                                let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
-                                let dotColor = dotColors[index % dotColors.length];
-                                timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
-                            });
                         }
+
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                         document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
