@@ -5,147 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memphis Group - Full Dashboard</title>
     
-    <!-- โหลดชุดเครื่องมือ Bootstrap 5 และ Font Awesome สำหรับไอคอน -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* =========================================
-           1. ตั้งค่าตัวแปรสี (Color Variables)
+           1. ตั้งค่าตัวแปรสีและธีม
         ========================================= */
         :root {
-            --bg-main: #131224;
-            --bg-card: #1c1b2f;
-            --bg-sidebar: #151426;
-            --primary-color: #9d4edd;
-            --primary-hover: #7b2cbf;
-            --text-light: #ffffff; 
-            --text-muted: #b0b0c5; 
-            --border-color: #2a2940;
+            --bg-main: #131224; --bg-card: #1c1b2f; --bg-sidebar: #151426;
+            --primary-color: #9d4edd; --primary-hover: #7b2cbf;
+            --text-light: #ffffff; --text-muted: #b0b0c5; --border-color: #2a2940;
             --sidebar-width: 260px;
         }
 
-        /* --- โหมดสว่าง (Light Mode) --- */
         body.light-mode {
-            --bg-main: #f4f6f9;     
-            --bg-card: #ffffff;     
-            --bg-sidebar: #ffffff;  
-            --text-light: #2b2b36;  
-            --text-muted: #79788f;  
-            --border-color: #eaeaea;
+            --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff;  
+            --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea;
         }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            transition: background-color 0.4s ease, color 0.4s ease; 
-        }
-
+        body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* =========================================
-           🌟 หน้าจอล็อคอิน (Login Screen)
-        ========================================= */
-        #login-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--bg-main); z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .login-card {
-            background-color: var(--bg-card); padding: 40px; border-radius: 20px;
-            width: 90%; max-width: 400px; border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
-        }
-        .login-input {
-            width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px;
-            border: 1px solid var(--border-color); background: var(--bg-main);
-            color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem;
-        }
+        /* Login Screen */
+        #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* =========================================
-           2. แถบเมนูด้านซ้าย (Sidebar)
-        ========================================= */
-        #sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-sidebar);
-            height: 100vh;
-            border-right: 1px solid var(--border-color);
-            position: fixed; left: 0; top: 0;
-            display: flex; flex-direction: column;
-            z-index: 1040; transition: all 0.3s ease;
-        }
-        
+        /* Sidebar & Topbar */
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; }
         #sidebar.toggled { width: 70px; }
-        #sidebar.toggled .sidebar-brand span,
-        #sidebar.toggled .menu-title,
-        #sidebar.toggled .sidebar-menu li a span,
-        #sidebar.toggled .user-profile-bottom,
-        #sidebar.toggled .toggle-arrow,
-        #sidebar.toggled .sidebar-submenu { display: none !important; } 
+        #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
-
-        .sidebar-brand {
-            padding: 20px 25px; font-size: 1.25rem; font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
-            color: var(--text-light); text-decoration: none;
-        }
+        .sidebar-brand { padding: 20px 25px; font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
-
         .sidebar-menu { list-style: none; padding: 0 15px; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
-        .sidebar-menu::-webkit-scrollbar { width: 4px; }
-        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; }
-        
-        .sidebar-menu > li > a {
-            display: flex; align-items: center; padding: 12px 15px;
-            color: var(--text-muted); text-decoration: none; border-radius: 8px;
-            margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem;
-        }
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 15px; color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
-        
-        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active {
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-            color: #ffffff;
-        }
-
-        .toggle-arrow { transition: transform 0.3s ease; }
-        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
-        .sidebar-submenu {
-            list-style: none; padding: 5px 0 5px 0; margin: 0 0 5px 30px; 
-            border-left: 1px solid var(--border-color); 
-        }
-        .sidebar-submenu li a {
-            display: block; padding: 8px 15px 8px 20px; font-size: 0.9rem;
-            color: var(--text-muted); text-decoration: none; transition: 0.3s;
-        }
-        .sidebar-submenu li a:hover { color: var(--text-light); background: transparent !important; }
-
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%); color: #ffffff; }
         .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .user-profile-bottom img { width: 40px; border-radius: 50%; }
 
-        /* =========================================
-           3. พื้นที่เนื้อหาด้านขวา (Main Content)
-        ========================================= */
-        #page-content {
-            margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width));
-            padding: 20px; transition: all 0.3s ease; min-height: 100vh;
-        }
+        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 20px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
-
-        .topbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px;
-        }
-        .search-bar {
-            background-color: var(--bg-main); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 250px;
-        }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: var(--bg-card); border-radius: 12px; margin-bottom: 25px; }
+        .search-bar { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 250px; }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         
@@ -153,55 +60,30 @@
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
-        .profile-dropdown-menu {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 15px 0; min-width: 250px; margin-top: 15px !important; 
-        }
-        .profile-dropdown-menu::before {
-            content: ''; position: absolute; top: -8px; right: 20px;
-            width: 15px; height: 15px; background-color: var(--bg-card);
-            transform: rotate(45deg); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color);
-        }
-        body.light-mode .profile-dropdown-menu { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 15px 0; min-width: 250px; margin-top: 15px !important; }
+        .profile-dropdown-menu::before { content: ''; position: absolute; top: -8px; right: 20px; width: 15px; height: 15px; background-color: var(--bg-card); transform: rotate(45deg); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 12px 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; }
         .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
         .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
-        .profile-dropdown-menu .dropdown-item:hover i { color: var(--primary-color); }
-
         .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
         .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
+        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; } .search-bar, .user-name-text { display: none !important; } }
 
-        @media (max-width: 991.98px) {
-            #sidebar { left: calc(-1 * var(--sidebar-width)); box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
-            #sidebar.mobile-show { left: 0; }
-            #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; }
-            #page-content.toggled { margin-left: 0; width: 100%; }
-            .search-bar { display: none !important; }
-            .user-name-text { display: none !important; }
-        }
-
-        /* =========================================
-           4. แบนเนอร์ (Banner)
-        ========================================= */
+        /* การ์ดสถิติ (Cards) */
         .banner-card { background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%); border-radius: 20px; margin-bottom: 25px; color: #ffffff; position: relative; overflow: hidden; }
-        .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); z-index: 0; }
+        .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); }
         .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
         .banner-circle-2 { width: 250px; height: 250px; bottom: -80px; right: 300px; }
         .glass-stat-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; justify-content: center; }
 
-        /* =========================================
-           5. การ์ดต่างๆ
-        ========================================= */
-        .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; height: calc(100% - 25px); }
-        .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: rgba(157, 78, 221, 0.3); }
-        body.light-mode .custom-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-
+        .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; height: calc(100% - 25px); }
+        .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .stat-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 0; }
+        
         .table { color: var(--text-light); margin-bottom: 0; }
         .table td, .table th { border-bottom: 1px solid var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; white-space: nowrap; }
         .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
@@ -220,18 +102,14 @@
 </head>
 <body>
 
-    <!-- หน้าจอล็อคอิน -->
+    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
-            <div class="stat-icon bg-purple-light text-purple mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.8rem;">
-                <i class="fa-solid fa-user-lock"></i>
-            </div>
+            <div class="stat-icon bg-purple-light text-purple mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.8rem;"><i class="fa-solid fa-user-lock"></i></div>
             <h3 class="fw-bold text-light">Memphis Group</h3>
             <p class="text-muted">กรุณาเข้าสู่ระบบสำหรับตัวแทน</p>
-            
             <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
-            
             <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">เข้าสู่ระบบ</button>
             <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง</p>
         </div>
@@ -241,50 +119,26 @@
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- Sidebar -->
         <nav id="sidebar">
             <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
-            
             <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                
-                <li>
-                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
+                <li><a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span><i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i></a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
                     </ul>
                 </li>
-                
-                <li>
-                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
+                <li><a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed"><i class="fa-solid fa-users"></i> <span>Users</span><i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i></a>
                     <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <li><a href="#">User List</a></li>
-                        <li><a href="#">Add New User</a></li>
+                        <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                
-                <!-- เมนูไปหน้าสินค้า -->
-                <li>
-                    <a href="product.html">
-                        <i class="fa-solid fa-cart-flatbed"></i> 
-                        <span>สินค้า</span>
-                    </a>
-                </li>
+                <li><a href="product.html"><i class="fa-solid fa-cart-flatbed"></i> <span>สินค้า</span></a></li>
 
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
-                <li><a href="#"><i class="fa-regular fa-comments"></i> <span>Chat</span></a></li>
-                <li><a href="#"><i class="fa-regular fa-address-book"></i> <span>Contacts</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-list-check"></i> <span>Todo List</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
@@ -298,43 +152,27 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <div id="page-content">
-            <!-- Topbar -->
             <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
-                    <div class="search-bar d-none d-md-flex">
-                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        <input type="text" placeholder="Search anything...">
-                    </div>
+                    <div class="search-bar d-none d-md-flex"><i class="fa-solid fa-magnifying-glass text-muted"></i><input type="text" placeholder="Search anything..."></div>
                 </div>
                 <div class="topbar-actions">
                     <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn" title="ข้อความ"><i class="fa-regular fa-comments"></i><span class="badge-dot"></span></button>
-                    <button class="icon-btn" title="การแจ้งเตือน"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:#a55eea;"></span></button>
-                    
                     <div class="dropdown">
-                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown">
                             <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
                             <span class="user-name-text fw-semibold text-light" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.8rem;"></i>
                         </div>
-                        
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                             <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
-                                <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
+                                <img src="" id="dropdown-avatar" style="width:60px; border-radius:50%; margin-bottom:10px;">
                                 <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
-                                <small class="text-muted d-block mb-2">ตัวแทนจำหน่าย</small>
                                 <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
                             </div>
-                            
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> My Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                            
-                            <div class="signout-btn-wrap">
-                                <a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a>
-                            </div>
+                            <div class="signout-btn-wrap"><a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a></div>
                         </ul>
                     </div>
                 </div>
@@ -342,17 +180,15 @@
 
             <div class="container-fluid p-0">
                 
-                <!-- แบนเนอร์ -->
                 <div class="banner-card p-4 p-md-5">
                     <div class="banner-circle banner-circle-1"></div>
                     <div class="banner-circle banner-circle-2"></div>
                     <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
                         <div>
-                            <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem; letter-spacing: 1px;">DASHBOARD</span>
+                            <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem;">DASHBOARD</span>
                             <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
                             <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
                         </div>
-                        
                         <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
                             <div class="glass-stat-box flex-fill">
                                 <h3 class="mb-1 fw-bold" id="banner-today-revenue">Loading...</h3>
@@ -370,82 +206,18 @@
                     </div>
                 </div>
 
-                <!-- การ์ด 4 กล่อง (KPI หลัก) -->
                 <div class="row">
-                    <div class="col-xl-3 col-md-6 col-12">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div>
-                                    <div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Sales Goal</h6><small class="text-muted" style="font-size: 0.75rem;">Monthly target progress</small></div>
-                                </div>
-                            </div>
-                            <h3 class="mb-0 fw-bold mt-3" id="data-sales">Loading...</h3>
-                            <small class="text-muted">Total Sales</small>
-                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
-                                <div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 30%;"></div><div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 40%;"></div><div class="flex-grow-1 bg-purple-light rounded-pill" style="height: 60%;"></div><div class="rounded-circle" style="width: 25px; height: 25px; background: #a55eea; flex-shrink: 0;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-md-6 col-12">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div>
-                                    <div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Revenue</h6><small class="text-muted" style="font-size: 0.75rem;">Income vs Expenses</small></div>
-                                </div>
-                            </div>
-                            <h3 class="mb-0 fw-bold mt-3" id="data-revenue">Loading...</h3>
-                            <small class="text-muted">Net Revenue</small>
-                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
-                                <div class="flex-grow-1 bg-green-light rounded-pill" style="height: 20%;"></div><div class="flex-grow-1 bg-green-light rounded-pill" style="height: 30%;"></div><div class="flex-grow-1 bg-green-light rounded-pill" style="height: 70%;"></div><div class="rounded-circle" style="width: 25px; height: 25px; background: #2ed573; flex-shrink: 0;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-md-6 col-12">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div>
-                                    <div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Active Orders</h6><small class="text-muted" style="font-size: 0.75rem;">Pending & Delivered</small></div>
-                                </div>
-                            </div>
-                            <h3 class="mb-0 fw-bold mt-3" id="data-orders">Loading...</h3>
-                            <small class="text-muted">Total Orders</small>
-                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
-                                <div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 60%;"></div><div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 80%;"></div><div class="flex-grow-1 bg-orange-light rounded-pill" style="height: 30%;"></div><div class="rounded-pill" style="width: 25px; height: 12px; background: #ffa502; flex-shrink: 0;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-md-6 col-12">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
-                                    <div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">User Base</h6><small class="text-muted" style="font-size: 0.75rem;">Active subscriptions</small></div>
-                                </div>
-                            </div>
-                            <h3 class="mb-0 fw-bold mt-3" id="data-customers">Loading...</h3>
-                            <small class="text-muted">Total Customers</small>
-                            <div class="d-flex align-items-end gap-1 mt-4" style="height: 25px;">
-                                <div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 25%;"></div><div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 35%;"></div><div class="flex-grow-1 bg-blue-light rounded-pill" style="height: 75%;"></div><div class="rounded-circle" style="width: 25px; height: 25px; background: #1e90ff; flex-shrink: 0;"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start"><div class="d-flex align-items-center gap-3"><div class="stat-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Sales Goal</h6><small class="text-muted" style="font-size: 0.75rem;">Monthly target progress</small></div></div></div><h3 class="mb-0 fw-bold mt-3" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start"><div class="d-flex align-items-center gap-3"><div class="stat-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Revenue</h6><small class="text-muted" style="font-size: 0.75rem;">Income vs Expenses</small></div></div></div><h3 class="mb-0 fw-bold mt-3" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start"><div class="d-flex align-items-center gap-3"><div class="stat-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">Active Orders</h6><small class="text-muted" style="font-size: 0.75rem;">Pending & Delivered</small></div></div></div><h3 class="mb-0 fw-bold mt-3" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start"><div class="d-flex align-items-center gap-3"><div class="stat-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><div><h6 class="mb-0 fw-bold" style="color: var(--text-light);">User Base</h6><small class="text-muted" style="font-size: 0.75rem;">Active subscriptions</small></div></div></div><h3 class="mb-0 fw-bold mt-3" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
                 </div>
 
-                <!-- กราฟรายเดือน และ กราฟเป้าหมาย -->
                 <div class="row">
                     <div class="col-xl-8 col-12">
                         <div class="custom-card">
                             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-2">
-                                <div>
-                                    <h5 class="mb-0 fw-bold">Revenue Overview</h5>
-                                    <small class="text-muted">Income vs expenses this year</small>
-                                </div>
+                                <div><h5 class="mb-0 fw-bold">Revenue Overview</h5><small class="text-muted">Income vs expenses this year</small></div>
                             </div>
                             <div id="revenueChart" style="height: 320px; width: 100%;"></div>
                         </div>
@@ -453,10 +225,7 @@
                     
                     <div class="col-xl-4 col-12">
                         <div class="custom-card text-center d-flex flex-column justify-content-between">
-                            <div>
-                                <h5 class="mb-0 text-start fw-bold">Sales Goal</h5>
-                                <small class="text-muted d-block text-start">Monthly target progress</small>
-                            </div>
+                            <div><h5 class="mb-0 text-start fw-bold">Sales Goal (This Month)</h5><small class="text-muted d-block text-start">Monthly target ฿6,000 progress</small></div>
                             <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
                             <div class="d-flex justify-content-around mt-2">
                                 <div><small class="text-muted">Target</small><br><strong class="fs-5" id="data-target">Loading...</strong></div>
@@ -466,15 +235,35 @@
                     </div>
                 </div>
 
-                <!-- ออเดอร์ล่าสุด และ กิจกรรมล่าสุด -->
+                <!-- 🌟 กล่องจัดอันดับตัวแทน (Top Agents) และ กิจกรรม -->
                 <div class="row">
-                    <div class="col-xl-8 col-12">
+                    <div class="col-xl-6 col-12">
+                        <div class="custom-card">
+                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i> Top Agents</h5>
+                            <small class="text-muted d-block mb-4">จัดอันดับยอดขายตัวแทนเดือนปัจจุบัน</small>
+                            <div id="agent-leaderboard-list">
+                                <div class="text-center text-muted py-3">กำลังโหลดข้อมูลจัดอันดับ...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-12">
+                        <div class="custom-card">
+                            <h5 class="fw-bold mb-1">Live Activity</h5>
+                            <small class="text-muted d-block mb-3">What's happening right now</small>
+                            <div class="timeline" id="live-activity-timeline">
+                                <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ออเดอร์ล่าสุดทั้งหมด -->
+                <div class="row">
+                    <div class="col-12">
                         <div class="custom-card">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h5 class="mb-0 fw-bold">Recent Orders</h5>
-                                    <small class="text-muted">Latest transactions from your store</small>
-                                </div>
+                                <div><h5 class="mb-0 fw-bold">Recent Orders</h5><small class="text-muted">Latest valid transactions from your store</small></div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-borderless mb-0 align-middle">
@@ -493,33 +282,19 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-4 col-12">
-                        <div class="custom-card">
-                            <h5 class="fw-bold mb-1">Live Activity</h5>
-                            <small class="text-muted d-block mb-3">What's happening right now</small>
-                            <div class="timeline" id="live-activity-timeline">
-                                <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- โหลดสคริปต์ต่างๆ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
         // 🚨 นำ API URL ล่าสุดของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbwqKGSnM3F9-XWz5MzjGvKsvCXZ7V17vYEhDZIWaHO8hw833TlinrM7zETIUFfNkKI0bg/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbx5G8sAYHqsKo9ksTwqeKsNJrkeGWqTM2pcppLWToi0lqz9FvbWoIOzTXKRqcBKufrI/exec"; 
 
-        /* =========================================
-           1. ระบบเมนู Responsive & Dark Mode
-        ========================================= */
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const pageContent = document.getElementById('page-content');
@@ -537,9 +312,6 @@
             themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
         });
 
-        /* =========================================
-           2. สร้างโครงกราฟไว้รอรับข้อมูล (ApexCharts)
-        ========================================= */
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Expenses', data: [] }],
             chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
@@ -570,9 +342,6 @@
         });
         goalChart.render();
 
-        /* =========================================
-           🌟 3. ระบบล็อคอินและการจัดการบัญชีตัวแทน
-        ========================================= */
         const loginScreen = document.getElementById('login-screen');
         const loginBtn = document.getElementById('btn-login');
         const agentInput = document.getElementById('agent-input');
@@ -587,11 +356,8 @@
             document.getElementById('topbar-name').innerText = agent.name;
             document.getElementById('dropdown-name').innerText = agent.name; 
             document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
-            
             let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-            document.getElementById('sidebar-avatar').src = avatarUrl;
-            document.getElementById('topbar-avatar').src = avatarUrl;
-            document.getElementById('dropdown-avatar').src = avatarUrl; 
+            document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; document.getElementById('dropdown-avatar').src = avatarUrl; 
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -603,48 +369,27 @@
         }
 
         loginBtn.addEventListener('click', function() {
-            const agentId = agentInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            if(!agentId || !password) {
-                loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่านให้ครบถ้วน";
-                loginError.style.display = 'block';
-                return;
-            }
-
-            loginBtn.innerText = "กำลังตรวจสอบ...";
-            loginError.style.display = 'none';
+            const agentId = agentInput.value.trim(); const password = passwordInput.value.trim();
+            if(!agentId || !password) { loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่านให้ครบถ้วน"; loginError.style.display = 'block'; return; }
+            loginBtn.innerText = "กำลังตรวจสอบ..."; loginError.style.display = 'none';
 
             fetch(apiURL + "?action=login&agentId=" + agentId + "&password=" + password)
                 .then(res => res.json())
                 .then(data => {
                     if(data.success) {
-                        currentAgent = data;
-                        localStorage.setItem('memphis_agent', JSON.stringify(data));
-                        loginScreen.style.display = 'none';
-                        updateUIWithAgent(currentAgent);
-                        loadDataFromGoogleSheet();
+                        currentAgent = data; localStorage.setItem('memphis_agent', JSON.stringify(data));
+                        loginScreen.style.display = 'none'; updateUIWithAgent(currentAgent); loadDataFromGoogleSheet();
                     } else {
-                        loginError.innerText = data.message || "รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง";
-                        loginError.style.display = 'block';
-                        loginBtn.innerText = "เข้าสู่ระบบ";
+                        loginError.innerText = data.message || "รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง"; loginError.style.display = 'block'; loginBtn.innerText = "เข้าสู่ระบบ";
                     }
                 })
-                .catch(err => {
-                    loginError.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย";
-                    loginError.style.display = 'block';
-                    loginBtn.innerText = "เข้าสู่ระบบ";
-                });
+                .catch(err => { loginError.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย"; loginError.style.display = 'block'; loginBtn.innerText = "เข้าสู่ระบบ"; });
         });
 
-        logoutBtnDropdown.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            localStorage.removeItem('memphis_agent'); 
-            location.reload(); 
-        });
+        logoutBtnDropdown.addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); });
 
         /* =========================================
-           🌟 4. ฟังก์ชันดึงข้อมูลกราฟและตาราง (เปลี่ยนเป็น ฿ และกรองข้อมูลขยะ)
+           🌟 4. ฟังก์ชันดึงข้อมูล Dashboard
         ========================================= */
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
@@ -653,7 +398,6 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.kpi) {
-                        // เปลี่ยนจาก $ เป็น ฿
                         document.getElementById('data-sales').innerText = "฿" + Number(data.kpi.sales).toLocaleString();
                         document.getElementById('data-revenue').innerText = "฿" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
@@ -664,6 +408,8 @@
                         document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
+                    
+                    // 🌟 อัปเดตเป้า 6000 บาท
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "฿" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "฿" + Number(data.goal.earned).toLocaleString();
@@ -673,34 +419,57 @@
                         revenueChart.updateSeries([{ name: 'Revenue', data: data.charts.revenue }, { name: 'Expenses', data: data.charts.expenses }]);
                         revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
                     }
+
+                    // 🌟 แสดงตารางจัดอันดับตัวแทน (Leaderboard)
+                    if(data.leaderboard) {
+                        let lbHTML = "";
+                        if(data.leaderboard.length === 0) {
+                            lbHTML = '<div class="text-center text-muted py-3">ยังไม่มียอดขายในเดือนนี้</div>';
+                        } else {
+                            data.leaderboard.forEach((agent, index) => {
+                                let rankColor = index === 0 ? '#ffd700' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-muted)'));
+                                lbHTML += `
+                                <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="fw-bold fs-5 text-center" style="color: ${rankColor}; width: 30px;">#${index+1}</div>
+                                        <div class="rounded-circle bg-purple-light text-purple d-flex align-items-center justify-content-center" style="width:40px; height:40px; font-size: 1.1rem;">
+                                            <i class="fa-solid fa-user-tie"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 fw-bold text-light">${agent.id}</h6>
+                                            <small class="text-muted">Agent</small>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <h5 class="mb-0 fw-bold text-green">฿${Number(agent.sales).toLocaleString()}</h5>
+                                    </div>
+                                </div>`;
+                            });
+                        }
+                        document.getElementById('agent-leaderboard-list').innerHTML = lbHTML;
+                    }
+
+                    // 🌟 กรองข้อมูลขยะใน Recent Orders
                     if(data.recentOrders) {
                         let tableHTML = ""; let timelineHTML = "";
-                        let validOrdersCount = 0; // ตัวนับจำนวนออเดอร์ที่ใช้งานได้จริง
+                        let validCount = 0;
 
                         data.recentOrders.forEach((order, index) => {
-                            // 🌟 ตรวจสอบและกรองออเดอร์ที่ไม่มีข้อมูลหรือเป็นค่าว่าง (ข้ามไปเลย ไม่เอามาแสดง)
-                            if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid Date")) {
-                                return; 
-                            }
+                            if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid")) return; 
                             
-                            validOrdersCount++; // นับว่ามีออเดอร์ปกติแล้ว 1 รายการ
+                            validCount++;
                             let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
                             let avatarBg = bgColors[index % bgColors.length];
-                            
                             tableHTML += `<tr><td class="text-purple fw-semibold">${order.id}</td><td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0).toUpperCase()}</div> ${order.customer}</div></td><td><span class="text-muted">${order.product}</span></td><td><span class="badge-status bg-completed">${order.status}</span></td></tr>`;
-                            
                             let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
                             let dotColor = dotColors[index % dotColors.length];
-                            
                             timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
                         });
 
-                        // ถ้าตรวจสอบแล้วไม่เจอออเดอร์ที่สมบูรณ์เลย ให้แสดงข้อความว่ายังไม่มีรายการ
-                        if (validOrdersCount === 0) {
-                            tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อล่าสุด</td></tr>`;
-                            timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรม</small></div>`;
+                        if (validCount === 0) {
+                            tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
+                            timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรมที่สมบูรณ์</small></div>`;
                         }
-
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                         document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
