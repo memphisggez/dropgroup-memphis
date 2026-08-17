@@ -10,7 +10,7 @@
     
     <style>
         /* =========================================
-           1. ตั้งค่าตัวแปรสี (TrendyAdmin Premium Theme)
+           1. ตั้งค่าตัวแปรสีและธีม
         ========================================= */
         :root {
             --bg-main: #151521;      
@@ -37,7 +37,7 @@
             --text-muted: #a1a5b7;    
             --border-color: #2b2b40;  
             
-            --sidebar-width: 260px;
+            --sidebar-width: 280px; /* 🌟 ขยาย Sidebar ให้กว้างขึ้นนิดนึง เพื่อความสมดุล */
         }
 
         body.light-mode {
@@ -58,57 +58,51 @@
         .login-input:focus { border-color: var(--primary-color); }
 
         /* =========================================
-           🌟 2. แถบเมนูด้านซ้าย (อัปเดตความสวยงามใหม่)
+           🌟 2. แถบเมนูด้านซ้าย (ปรับดีไซน์สวยงามขึ้น)
         ========================================= */
-        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; }
+        #sidebar { 
+            width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; 
+            border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; 
+            display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1); /* 🌟 เพิ่มแสงเงาให้ Sidebar ดูมีมิติแยกจากพื้นหลัง */
+        }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
         
-        .sidebar-brand { padding: 20px 25px; font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
-        .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
+        .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
+        .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
         
-        .sidebar-menu { list-style: none !important; padding: 0 15px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
+        .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
         .sidebar-menu::-webkit-scrollbar { width: 4px; }
         .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
         
-        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 15px 0 10px 10px; font-weight: 600;}
+        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
         
-        /* สไตล์เมนูหลัก */
+        /* 🌟 สไตล์เมนูหลัก (ปรับขอบมน เพิ่มระยะห่าง) */
         .sidebar-menu > li > a { 
-            display: flex; align-items: center; padding: 10px 15px; 
-            color: var(--text-muted); text-decoration: none !important; border-radius: 8px; 
-            margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500;
+            display: flex; align-items: center; padding: 12px 18px; 
+            color: var(--text-muted); text-decoration: none !important; border-radius: 12px; 
+            margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500;
         }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
-        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); }
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
         
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
 
-        /* 🌟 สไตล์เมนูย่อย (แก้ปัญหาจุดไข่ปลาและลิงก์สีน้ำเงิน) */
-        .sidebar-submenu { 
-            list-style: none !important; 
-            padding: 0 !important; 
-            margin: 0 0 5px 30px !important; 
-            border-left: 1px dashed var(--border-color); 
-        }
+        /* สไตล์เมนูย่อย */
+        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
         .sidebar-submenu li { position: relative; }
-        .sidebar-submenu li a { 
-            display: flex; align-items: center; padding: 8px 15px 8px 20px; 
-            font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; 
-            transition: 0.3s; font-weight: 500;
-        }
-        /* สร้างเส้นขีดเชื่อมต่อเวลาเอาเมาส์ชี้ (Tree effect) */
-        .sidebar-submenu li a::before {
-            content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%);
-            width: 10px; height: 1px; background-color: transparent; transition: 0.3s;
-        }
+        .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
+        .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
         .sidebar-submenu li a:hover { color: var(--primary-color); }
         .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
 
-        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(0,0,0,0.1); }
-        .user-profile-bottom img { width: 40px; border-radius: 50%; }
+        /* 🌟 สไตล์กล่องโปรไฟล์ด้านล่างสุด (กว้างขึ้น เนียนตาขึ้น) */
+        .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
+        .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
+        .user-profile-bottom img { width: 45px; border-radius: 50%; border: 2px solid var(--border-color); }
 
         /* =========================================
            3. โซนเนื้อหา (Main Content)
@@ -116,11 +110,14 @@
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
-        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 300px; }
-        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
-        .topbar-actions { display: flex; align-items: center; gap: 15px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         
+        /* 🌟 ปรับกล่องค้นหาให้กว้างและสวยงามขึ้น */
+        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
+        .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
+        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
+        
+        .topbar-actions { display: flex; align-items: center; gap: 15px; }
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
@@ -151,7 +148,6 @@
         .table th { font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; color: var(--text-muted); }
         .badge-status { padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
         
-        /* สีกราฟิกตกแต่ง */
         .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
         .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
         .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
@@ -181,7 +177,7 @@
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- Sidebar -->
+        <!-- Sidebar (อัปเดตสวยงาม) -->
         <nav id="sidebar">
             <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             <ul class="sidebar-menu mt-2">
@@ -219,14 +215,14 @@
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
-                <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-3">
                     <img src="https://ui-avatars.com/api/?name=User&background=random" id="sidebar-avatar" alt="User">
                     <div class="user-info">
-                        <h6 class="mb-0 text-light" id="sidebar-name" style="font-size: 0.9rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
+                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
                     </div>
                 </div>
-                <i class="fa-solid fa-gear text-muted" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
             </div>
         </nav>
 
@@ -238,7 +234,7 @@
                     <div class="search-bar d-none d-md-flex">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
                         <input type="text" placeholder="Search anything...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto">⌘K</span>
+                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
                     </div>
                 </div>
                 <div class="topbar-actions">
@@ -248,7 +244,7 @@
                     
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:35px; border-radius:50%;">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:38px; height:38px; border-radius:50%; border: 2px solid var(--border-color);">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
@@ -462,9 +458,8 @@
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
-            document.getElementById('dropdown-name').innerText = agent.name; 
             let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-            document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; document.getElementById('dropdown-avatar').src = avatarUrl; 
+            document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; 
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -493,13 +488,20 @@
                 .catch(err => { loginError.innerText = "Network error"; loginError.style.display = 'block'; loginBtn.innerText = "Login"; });
         });
 
-        document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); });
+        // ฟังก์ชัน Logout (ทำได้ทั้งปุ่มในเมนูขวาบน และไอคอนด้านซ้ายล่าง)
+        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); };
+        document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
+        document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
 
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
 
-            fetch(apiURL)
-                .then(response => response.json())
+            // 🌟 แก้ไขบัค Loading: ระบุ action=getDashboard ให้ชัดเจน
+            fetch(apiURL + "?action=getDashboard")
+                .then(response => {
+                    if (!response.ok) throw new Error("Network Error");
+                    return response.json();
+                })
                 .then(data => {
                     if(data.kpi) {
                         document.getElementById('data-sales').innerText = "฿" + Number(data.kpi.sales).toLocaleString();
@@ -574,7 +576,16 @@
                         if (validCount === 0) tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                     }
-                }).catch(error => { console.error('Error:', error); });
+                })
+                .catch(error => { 
+                    // 🚨 แจ้งเตือนเมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
+                    console.error('Error:', error); 
+                    document.getElementById('data-sales').innerHTML = '<span class="text-danger fs-5">API Error</span>';
+                    document.getElementById('data-revenue').innerHTML = '<span class="text-danger fs-5">API Error</span>';
+                    document.getElementById('data-orders').innerHTML = '<span class="text-danger fs-5">API Error</span>';
+                    document.getElementById('data-customers').innerHTML = '<span class="text-danger fs-5">API Error</span>';
+                    alert("⚠️ เชื่อมต่อข้อมูลไม่สำเร็จ:\nกรุณาตรวจสอบการตั้งค่า Deploy (New Version) ใน Google Apps Script ครับ");
+                });
         }
     </script>
 </body>
