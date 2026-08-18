@@ -9,27 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           1. ตั้งค่าตัวแปรสี (TrendyAdmin Premium Theme)
-        ========================================= */
         :root {
-            --bg-main: #151521;      
-            --bg-card: #1e1e2d;      
-            --bg-sidebar: #1e1e2d;   
-            --primary-color: #8950fc; 
-            --primary-light: rgba(137, 80, 252, 0.15);
-            --primary-hover: #733ee6; 
-            --success-color: #1bc5bd; 
-            --success-light: rgba(27, 197, 189, 0.15);
-            --info-color: #3699ff;    
-            --info-light: rgba(54, 153, 255, 0.15);
-            --warning-color: #ffa800; 
-            --warning-light: rgba(255, 168, 0, 0.15);
-            --danger-color: #f64e60;
-            --danger-light: rgba(246, 78, 96, 0.15);
-            --text-light: #ffffff; 
-            --text-muted: #a1a5b7;    
-            --border-color: #2b2b40;  
+            --bg-main: #151521; --bg-card: #1e1e2d; --bg-sidebar: #1e1e2d;   
+            --primary-color: #8950fc; --primary-light: rgba(137, 80, 252, 0.15); --primary-hover: #733ee6; 
+            --success-color: #1bc5bd; --success-light: rgba(27, 197, 189, 0.15);
+            --info-color: #3699ff; --info-light: rgba(54, 153, 255, 0.15);
+            --warning-color: #ffa800; --warning-light: rgba(255, 168, 0, 0.15);
+            --danger-color: #f64e60; --danger-light: rgba(246, 78, 96, 0.15);
+            --text-light: #ffffff; --text-muted: #a1a5b7; --border-color: #2b2b40;  
             --sidebar-width: 280px; 
         }
 
@@ -44,27 +31,22 @@
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* Sidebar Style (ซิงค์ดีไซน์จากหน้า product.html) */
+        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
-        
         .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
-        
         .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
         .sidebar-menu::-webkit-scrollbar { width: 4px; }
         .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
-        
         .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
         .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
         .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
         .sidebar-submenu li { position: relative; }
         .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
@@ -80,7 +62,6 @@
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
-        /* Topbar (ซิงค์ดีไซน์แบบพรีเมียม) */
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
@@ -103,7 +84,7 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* การ์ดสถิติ (Cards) */
+        /* Metric Cards */
         .banner-card { background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%); border-radius: 20px; margin-bottom: 25px; color: #ffffff; position: relative; overflow: hidden; }
         .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); }
         .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
@@ -113,28 +94,29 @@
         .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
         .metric-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; }
+        
+        /* 🌟 ปรับสไตล์ป้ายให้สวยงามและพร้อมรับสีเขียว/แดง */
+        .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; transition: 0.3s; }
         
         .table { color: var(--text-light); margin-bottom: 0; }
         .table td, .table th { border-bottom: 1px dashed var(--border-color); background: transparent; padding: 15px 10px; vertical-align: middle; white-space: nowrap; }
         .table th { font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; color: var(--text-muted); }
         .badge-status { padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
         
+        .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
+        .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
+        .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
+        .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
+        .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
+        
         .timeline { border-left: 1px dashed var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item:last-child { margin-bottom: 0; }
         .timeline-dot { position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
-
-        .text-purple { color: #a55eea; } .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
-        .text-green { color: #2ed573; } .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
-        .text-orange { color: #ffa502; } .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
-        .text-blue { color: #1e90ff; } .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
-        .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
     </style>
 </head>
 <body>
 
-    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
@@ -148,7 +130,6 @@
         </div>
     </div>
 
-    <!-- แดชบอร์ดหลัก -->
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -163,7 +144,7 @@
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
+                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
                     </ul>
                 </li>
                 <li>
@@ -175,7 +156,6 @@
                         <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                <!-- ลิ้งก์ไปหน้าสินค้า -->
                 <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
                 <div class="menu-title">Apps</div>
@@ -196,7 +176,6 @@
         </nav>
 
         <div id="page-content">
-            <!-- Topbar -->
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
@@ -228,6 +207,7 @@
             </div>
 
             <div class="container-fluid p-0">
+                
                 <div class="banner-card p-4 p-md-5">
                     <div class="banner-circle banner-circle-1"></div>
                     <div class="banner-circle banner-circle-2"></div>
@@ -255,10 +235,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 18.2%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 5.3%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><span class="metric-badge" style="background: var(--danger-light); color: var(--danger-color);"><i class="fa-solid fa-arrow-trend-down"></i> 2.1%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><span class="metric-badge" id="trend-sales">0%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><span class="metric-badge" id="trend-revenue">0%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><span class="metric-badge" id="trend-orders">0%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><span class="metric-badge" id="trend-customers">0%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
                 </div>
 
                 <div class="row">
@@ -327,7 +307,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbw9Op6Wmm-OIw9887tan186rOJfn-BUOBkqSIRaRhPY5VTot59zBG7Zkhtm7PF8OI0m1g/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbyLnpIPgOPgBFdMVAvVrlsCZIPP7OZB6RmNqwEO-sULDMUxngHGx2FQ-i0UWeKh6vGKTg/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -445,6 +425,21 @@
         document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
         document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
 
+        // 🌟 อัปเดตฟังก์ชันแสดงเปอร์เซ็นต์สีเขียว(ขึ้น) สีแดง(ลง)
+        function setTrendBadge(elementId, value) {
+            let el = document.getElementById(elementId);
+            if (!el) return;
+            if(value >= 0) {
+                el.style.backgroundColor = "var(--success-light)";
+                el.style.color = "var(--success-color)";
+                el.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${value}%`;
+            } else {
+                el.style.backgroundColor = "var(--danger-light)";
+                el.style.color = "var(--danger-color)";
+                el.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i> ${Math.abs(value)}%`;
+            }
+        }
+
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
 
@@ -458,7 +453,7 @@
                         document.getElementById('data-sales').innerText = "฿" + Number(data.kpi.sales).toLocaleString();
                         document.getElementById('data-revenue').innerText = "฿" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
-                        document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
+                        document.getElementById('data-customers').innerText = Number(data.kpi.customers || 0).toLocaleString();
                     }
                     if(data.banner) {
                         document.getElementById('banner-today-revenue').innerText = "฿" + Number(data.banner.todayRevenue).toLocaleString();
@@ -466,6 +461,14 @@
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
                     
+                    // 🌟 แสดงผลเปอร์เซ็นต์ (Trends) ของจริงจากหลังบ้าน
+                    if(data.trends) {
+                        setTrendBadge('trend-sales', data.trends.sales);
+                        setTrendBadge('trend-revenue', data.trends.revenue);
+                        setTrendBadge('trend-orders', data.trends.orders);
+                        setTrendBadge('trend-customers', data.trends.customers);
+                    }
+
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "฿" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "฿" + Number(data.goal.earned).toLocaleString();
@@ -481,22 +484,23 @@
                         if(data.leaderboard.length === 0) {
                             lbHTML = '<div class="text-center text-muted py-3">ยังไม่มียอดขายในเดือนนี้</div>';
                         } else {
+                            let maxSales = data.leaderboard[0].sales; 
                             data.leaderboard.forEach((agent, index) => {
+                                let percent = Math.round((agent.sales / maxSales) * 100);
                                 let rankColor = index === 0 ? '#ffd700' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-muted)'));
+                                let barColor = index === 0 ? '#8950fc' : (index === 1 ? '#1bc5bd' : (index === 2 ? '#3699ff' : '#2b2b40'));
+                                
                                 lbHTML += `
-                                <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="fw-bold fs-5 text-center" style="color: ${rankColor}; width: 30px;">#${index+1}</div>
-                                        <div class="rounded-circle bg-purple-light text-purple d-flex align-items-center justify-content-center" style="width:40px; height:40px; font-size: 1.1rem;">
-                                            <i class="fa-solid fa-user-tie"></i>
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded bg-dark text-muted d-flex justify-content-center align-items-center fw-bold fs-6" style="width:30px; height:30px; color:${rankColor}!important;">#${index+1}</div>
+                                            <span class="text-light fw-semibold" style="font-size: 0.9rem;">${agent.id}</span>
                                         </div>
-                                        <div>
-                                            <h6 class="mb-0 fw-bold text-light">${agent.id}</h6>
-                                            <small class="text-muted">Agent</small>
-                                        </div>
+                                        <span class="text-muted" style="font-size: 0.8rem;">฿${Number(agent.sales).toLocaleString()}</span>
                                     </div>
-                                    <div class="text-end">
-                                        <h5 class="mb-0 fw-bold text-green">฿${Number(agent.sales).toLocaleString()}</h5>
+                                    <div class="progress" style="height: 6px; background-color: var(--border-color);">
+                                        <div class="progress-bar" role="progressbar" style="width: ${percent}%; background-color: ${barColor}; border-radius: 10px;"></div>
                                     </div>
                                 </div>`;
                             });
