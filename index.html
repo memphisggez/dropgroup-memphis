@@ -25,11 +25,13 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
+        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
+        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -53,7 +55,7 @@
         .sidebar-submenu li a:hover { color: var(--primary-color); }
         .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
         
-        /* 🌟 สีไฮไลท์ให้เมนูย่อย Active */
+        /* สีไฮไลท์ให้เมนูย่อย Active */
         .sidebar-submenu li a.active { color: var(--primary-color); }
         .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
 
@@ -61,6 +63,7 @@
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
         .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
+        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
@@ -86,6 +89,7 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
+        /* Metric Cards */
         .banner-card { background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%); border-radius: 20px; margin-bottom: 25px; color: #ffffff; position: relative; overflow: hidden; }
         .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); }
         .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
@@ -116,19 +120,21 @@
 </head>
 <body>
 
+    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
-            <h3 class="fw-bold text-light mb-1">MemphisGroup</h3>
-            <p class="text-muted mb-4">กรุณาเข้าสู่ระบบ</p>
-            <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
-            <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
-            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">เข้าสู่ระบบ</button>
+            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
+            <p class="text-muted mb-4">Sign in to your account</p>
+            <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
+            <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
+            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
             <button id="btn-force-clear" class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="clearOldData()">ล้างแคชเก่า (ถ้าค้าง)</button>
-            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง</p>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
         </div>
     </div>
 
+    <!-- แดชบอร์ดหลัก -->
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -136,7 +142,6 @@
             <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             <ul class="sidebar-menu mt-2">
                 <div class="menu-title">Overview</div>
-                <!-- เมนูนี้คือหน้าหลัก ให้เป็น Active -->
                 <li><a href="index.html" class="active" onclick="window.location.href='index.html';"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
                 
                 <li>
@@ -151,13 +156,13 @@
                 
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
+                        <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <!-- 🌟 อัปเดตลิ้งก์ให้ข้ามไปหน้า userlist.html -->
+                        <!-- 🌟 อัปเดตลิ้งก์เมนูย่อย -->
                         <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li>
-                        <li><a href="#">Add New User</a></li>
+                        <li><a href="customers.html" onclick="window.location.href='customers.html';">Customers</a></li>
                     </ul>
                 </li>
                 
@@ -194,6 +199,7 @@
                     <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                    
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
                             <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
@@ -210,96 +216,82 @@
                 </div>
             </div>
 
-            <div class="container-fluid p-0">
-                <div class="banner-card p-4 p-md-5">
-                    <div class="banner-circle banner-circle-1"></div>
-                    <div class="banner-circle banner-circle-2"></div>
-                    <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
-                        <div>
-                            <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem;">DASHBOARD</span>
-                            <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
-                            <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1">Sales Dashboard</h2>
+                    <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
+                </div>
+                <div class="mt-3 mt-md-0 d-flex gap-2">
+                    <button class="btn btn-outline-secondary text-light" style="border-color: var(--border-color);"><i class="fa-regular fa-calendar me-2"></i> Last 30 days <i class="fa-solid fa-chevron-down ms-2" style="font-size:0.7rem;"></i></button>
+                    <button class="btn btn-create" style="background: var(--primary-color); color:#fff;"><i class="fa-solid fa-download me-1"></i> Export</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><span class="metric-badge" id="trend-sales">0%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><span class="metric-badge" id="trend-revenue">0%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><span class="metric-badge" id="trend-orders">0%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><span class="metric-badge" id="trend-customers">0%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-8 col-12">
+                    <div class="custom-card">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-2">
+                            <div><h5 class="mb-0 fw-bold">Sales Over Time</h5><small class="text-muted">Income vs expenses this year</small></div>
                         </div>
-                        <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
-                            <div class="glass-stat-box flex-fill">
-                                <h3 class="mb-1 fw-bold" id="banner-today-revenue">...</h3>
-                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Today's Revenue</small>
-                            </div>
-                            <div class="glass-stat-box flex-fill">
-                                <h3 class="mb-1 fw-bold" id="banner-today-orders">...</h3>
-                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">New Orders</small>
-                            </div>
-                            <div class="glass-stat-box flex-fill">
-                                <h3 class="mb-1 fw-bold" id="banner-visitors">...</h3>
-                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Visitors</small>
-                            </div>
-                        </div>
+                        <div id="revenueChart" style="height: 320px; width: 100%;"></div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><span class="metric-badge" id="trend-sales">0%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><span class="metric-badge" id="trend-revenue">0%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><span class="metric-badge" id="trend-orders">0%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
-                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><span class="metric-badge" id="trend-customers">0%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-8 col-12">
-                        <div class="custom-card">
-                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-2">
-                                <div><h5 class="mb-0 fw-bold">Sales Over Time</h5><small class="text-muted">Income vs expenses this year</small></div>
-                            </div>
-                            <div id="revenueChart" style="height: 320px; width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-12">
-                        <div class="custom-card text-center d-flex flex-column justify-content-between">
-                            <div><h5 class="mb-0 text-start fw-bold">Sales Goal (This Month)</h5><small class="text-muted d-block text-start">Monthly target ฿6,000 progress</small></div>
-                            <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
-                            <div class="d-flex justify-content-around mt-2">
-                                <div><small class="text-muted">Target</small><br><strong class="fs-5" id="data-target">...</strong></div>
-                                <div><small class="text-muted">Earned</small><br><strong class="fs-5" id="data-earned">...</strong></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-6 col-12">
-                        <div class="custom-card">
-                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i> Top Agents</h5>
-                            <small class="text-muted d-block mb-4">จัดอันดับยอดขายตัวแทนเดือนปัจจุบัน</small>
-                            <div id="agent-leaderboard-list"><div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div></div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-12">
-                        <div class="custom-card">
-                            <h5 class="fw-bold mb-1">Live Activity</h5>
-                            <small class="text-muted d-block mb-3">What's happening right now</small>
-                            <div class="timeline" id="live-activity-timeline">
-                                <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="custom-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div><h5 class="mb-0 fw-bold">Recent Orders</h5><small class="text-muted">Latest valid transactions from your store</small></div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-borderless mb-0 align-middle">
-                                    <thead><tr><th class="text-muted">ORDER</th><th class="text-muted">CUSTOMER</th><th class="text-muted">PRODUCT</th><th class="text-muted">STATUS</th></tr></thead>
-                                    <tbody id="recent-orders-table"><tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr></tbody>
-                                </table>
-                            </div>
+                
+                <div class="col-xl-4 col-12">
+                    <div class="custom-card text-center d-flex flex-column justify-content-between">
+                        <div><h5 class="mb-0 text-start fw-bold">Sales Goal (This Month)</h5><small class="text-muted d-block text-start">Monthly target ฿6,000 progress</small></div>
+                        <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
+                        <div class="d-flex justify-content-around mt-2">
+                            <div><small class="text-muted">Target</small><br><strong class="fs-5" id="data-target">...</strong></div>
+                            <div><small class="text-muted">Earned</small><br><strong class="fs-5" id="data-earned">...</strong></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-12">
+                    <div class="custom-card">
+                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i> Top Agents</h5>
+                        <small class="text-muted d-block mb-4">จัดอันดับยอดขายตัวแทนเดือนปัจจุบัน</small>
+                        <div id="agent-leaderboard-list"><div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-12">
+                    <div class="custom-card">
+                        <h5 class="fw-bold mb-1">Live Activity</h5>
+                        <small class="text-muted d-block mb-3">What's happening right now</small>
+                        <div class="timeline" id="live-activity-timeline">
+                            <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div><h5 class="mb-0 fw-bold">Recent Orders</h5><small class="text-muted">Latest valid transactions from your store</small></div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0 align-middle">
+                                <thead><tr><th class="text-muted">ORDER</th><th class="text-muted">CUSTOMER</th><th class="text-muted">PRODUCT</th><th class="text-muted">STATUS</th></tr></thead>
+                                <tbody id="recent-orders-table"><tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -307,7 +299,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbw9Op6Wmm-OIw9887tan186rOJfn-BUOBkqSIRaRhPY5VTot59zBG7Zkhtm7PF8OI0m1g/exec"; 
+        // 🚨 นำ API URL ล่าสุดของคุณมาวาง
+        const apiURL = "https://script.google.com/macros/s/AKfycbxBIQCUTBI2--048Tb4vBn1oZBw4WK43AIDCQRBNbJQUvRgw9UTLbRno_TStIJgAPidvg/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -318,20 +311,39 @@
             else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
         });
         overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
+        });
 
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Expenses', data: [] }],
             chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
-            colors: ['#1bc5bd', '#8950fc'], fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] } },
+            colors: ['#1bc5bd', '#8950fc'],
+            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] } },
             dataLabels: { enabled: false }, stroke: { curve: 'smooth', width: 3 },
             xaxis: { categories: [], axisBorder: { show: false }, axisTicks: { show: false } },
-            grid: { borderColor: 'rgba(139, 138, 158, 0.1)', strokeDashArray: 4 }, legend: { position: 'top', horizontalAlign: 'right' }, tooltip: { theme: 'dark' }
+            grid: { borderColor: 'rgba(139, 138, 158, 0.1)', strokeDashArray: 4 },
+            legend: { position: 'top', horizontalAlign: 'right' }, tooltip: { theme: 'dark' }
         });
         revenueChart.render();
 
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), {
-            series: [0], chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
-            plotOptions: { radialBar: { startAngle: -120, endAngle: 120, hollow: { size: '65%' }, track: { background: 'rgba(139, 138, 158, 0.1)', strokeWidth: '100%' }, dataLabels: { name: { show: true, color: '#8b8a9e', fontSize: '13px', offsetY: 25 }, value: { offsetY: -10, fontSize: '35px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } } } } },
+            series: [0], 
+            chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -120, endAngle: 120, hollow: { size: '65%' },
+                    track: { background: 'rgba(139, 138, 158, 0.1)', strokeWidth: '100%' }, 
+                    dataLabels: {
+                        name: { show: true, color: '#8b8a9e', fontSize: '13px', offsetY: 25 },
+                        value: { offsetY: -10, fontSize: '35px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } }
+                    }
+                }
+            },
             fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#8950fc' }, { offset: 100, color: '#f64e60' }] } },
             stroke: { lineCap: 'round' }, labels: ['of monthly goal'],
         });
@@ -345,6 +357,7 @@
         
         let currentAgent = null;
 
+        // 🌟 เพิ่มปุ่มฟังก์ชันให้เคลียร์แคช
         function clearOldData() {
             localStorage.removeItem('memphis_agent');
             alert("ล้างข้อมูลเก่าเรียบร้อย! กรุณาล็อคอินใหม่อีกครั้งครับ");
@@ -359,15 +372,21 @@
 
                 let safeName = encodeURIComponent(agent.name || 'User');
                 let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
+                
                 let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
                 
                 let sAvatar = document.getElementById('sidebar-avatar');
                 let tAvatar = document.getElementById('topbar-avatar');
 
-                sAvatar.src = avatarUrl; tAvatar.src = avatarUrl;
+                sAvatar.src = avatarUrl;
+                tAvatar.src = avatarUrl;
+
                 sAvatar.onerror = function() { this.src = defaultAvatar; };
                 tAvatar.onerror = function() { this.src = defaultAvatar; };
-            } catch (e) { console.error("UI Update Error:", e); }
+
+            } catch (e) {
+                console.error("UI Update Error:", e);
+            }
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -404,10 +423,12 @@
             let el = document.getElementById(elementId);
             if (!el) return;
             if(value >= 0) {
-                el.style.backgroundColor = "var(--success-light)"; el.style.color = "var(--success-color)";
+                el.style.backgroundColor = "var(--success-light)";
+                el.style.color = "var(--success-color)";
                 el.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${value}%`;
             } else {
-                el.style.backgroundColor = "var(--danger-light)"; el.style.color = "var(--danger-color)";
+                el.style.backgroundColor = "var(--danger-light)";
+                el.style.color = "var(--danger-color)";
                 el.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i> ${Math.abs(value)}%`;
             }
         }
@@ -432,10 +453,14 @@
                         document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
                         document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
                     }
+                    
                     if(data.trends) {
-                        setTrendBadge('trend-sales', data.trends.sales); setTrendBadge('trend-revenue', data.trends.revenue);
-                        setTrendBadge('trend-orders', data.trends.orders); setTrendBadge('trend-customers', data.trends.customers);
+                        setTrendBadge('trend-sales', data.trends.sales);
+                        setTrendBadge('trend-revenue', data.trends.revenue);
+                        setTrendBadge('trend-orders', data.trends.orders);
+                        setTrendBadge('trend-customers', data.trends.customers);
                     }
+
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "฿" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "฿" + Number(data.goal.earned).toLocaleString();
@@ -445,6 +470,7 @@
                         revenueChart.updateSeries([{ name: 'Revenue', data: data.charts.revenue }, { name: 'Expenses', data: data.charts.expenses }]);
                         revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
                     }
+
                     if(data.leaderboard) {
                         let lbHTML = "";
                         if(data.leaderboard.length === 0) {
@@ -473,10 +499,14 @@
                         }
                         document.getElementById('agent-leaderboard-list').innerHTML = lbHTML;
                     }
+
                     if(data.recentOrders) {
-                        let tableHTML = ""; let timelineHTML = ""; let validCount = 0;
+                        let tableHTML = ""; let timelineHTML = "";
+                        let validCount = 0;
+
                         data.recentOrders.forEach((order, index) => {
                             if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid")) return; 
+                            
                             validCount++;
                             let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
                             let avatarBg = bgColors[index % bgColors.length];
@@ -485,6 +515,7 @@
                             let dotColor = dotColors[index % dotColors.length];
                             timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
                         });
+
                         if (validCount === 0) {
                             tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
                             timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรมที่สมบูรณ์</small></div>`;
@@ -500,715 +531,6 @@
                     document.getElementById('data-orders').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
                     document.getElementById('data-customers').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
                 });
-        }
-    </script>
-</body>
-</html>
-
-นี่คือโค้หน้า product ปัจจุบัน
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Catalog - Memphis Group</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* =========================================
-           1. ตั้งค่าตัวแปรสี (TrendyAdmin Premium Theme)
-        ========================================= */
-        :root {
-            --bg-main: #151521;      
-            --bg-card: #1e1e2d;      
-            --bg-sidebar: #1e1e2d;   
-            --primary-color: #8950fc; 
-            --primary-light: rgba(137, 80, 252, 0.15);
-            --primary-hover: #733ee6; 
-            --success-color: #1bc5bd; 
-            --success-light: rgba(27, 197, 189, 0.15);
-            --info-color: #3699ff;    
-            --info-light: rgba(54, 153, 255, 0.15);
-            --warning-color: #ffa800; 
-            --warning-light: rgba(255, 168, 0, 0.15);
-            --danger-color: #f64e60;
-            --danger-light: rgba(246, 78, 96, 0.15);
-            --text-light: #ffffff; 
-            --text-muted: #a1a5b7;    
-            --border-color: #2b2b40;  
-            --sidebar-width: 280px; 
-        }
-
-        body.light-mode { --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff; --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea; }
-        body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
-        .text-muted { color: var(--text-muted) !important; }
-        #wrapper { display: flex; width: 100%; position: relative; }
-
-        /* Login Screen */
-        #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
-        .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
-        .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
-        .login-input:focus { border-color: var(--primary-color); }
-
-        /* Sidebar Style */
-        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
-        #sidebar.toggled { width: 70px; }
-        #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
-        #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
-        
-        .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
-        .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
-        
-        .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
-        .sidebar-menu::-webkit-scrollbar { width: 4px; }
-        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        
-        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
-        
-        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
-        .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
-        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
-        .toggle-arrow { transition: transform 0.3s ease; }
-        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
-        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
-        .sidebar-submenu li { position: relative; }
-        .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
-        .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
-        .sidebar-submenu li a:hover { color: var(--primary-color); }
-        .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
-
-        .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
-        .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
-        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
-
-        /* Main Content */
-        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
-        #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
-
-        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
-        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
-        .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
-        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
-        
-        .topbar-actions { display: flex; align-items: center; gap: 15px; }
-        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
-        .icon-btn:hover { color: var(--primary-color); }
-        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
-        
-        .btn-create { background: var(--primary-light); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-        .btn-create:hover { background: var(--primary-color); color: #fff; }
-
-        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; }
-        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
-        .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-        .signout-btn { color: var(--danger-color) !important; }
-
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
-        .sidebar-overlay.active { display: block; }
-        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
-
-        /* การ์ดสินค้าและตัวกรอง */
-        .search-filter-card { background-color: var(--bg-card); border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
-        .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
-        .custom-input:focus { border-color: var(--primary-color); }
-
-        .product-card { background-color: var(--bg-card); border-radius: 12px; padding: 15px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; }
-        .product-card:hover { transform: translateY(-5px); border-color: rgba(137, 80, 252, 0.3); }
-        .product-img-wrapper { position: relative; display: block; width: 100%; height: 200px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.05); }
-        .product-img { width: 100%; height: 100%; object-fit: contain; transition: 0.3s ease; }
-        .product-img-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; color: #fff; font-weight: bold; font-size: 1.1rem;}
-        .product-img-wrapper:hover .product-img { transform: scale(1.05); }
-        .product-img-wrapper:hover .product-img-overlay { opacity: 1; }
-        .product-title { font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
-        .product-sku { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
-        .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.3rem; margin-top: auto; text-align: right;}
-        
-        .select-btn { background: var(--primary-color); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px; }
-        .select-btn:hover { background: var(--primary-hover); }
-
-        .rules-btn { background: var(--primary-light); color: #d8b4fe; border: 1px solid rgba(157, 78, 221, 0.4); padding: 8px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 5px; font-size: 0.9rem; }
-        .rules-btn:hover { background: rgba(157, 78, 221, 0.3); color: #fff; }
-
-        .text-purple { color: #a55eea; } .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
-        .text-green { color: #2ed573; } .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
-        .text-primary-custom { color: #3699ff; }
-
-        /* Modal สไตล์ชำระเงิน */
-        .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
-        .modal-header { border-bottom: 1px dashed var(--border-color); }
-        
-        .order-summary-box { background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
-        .order-summary-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; background: var(--bg-main); }
-        
-        .payment-qr-box { text-align: center; margin-bottom: 20px; }
-        .payment-qr-img { width: 200px; max-width: 100%; border-radius: 15px; border: 2px dashed var(--border-color); padding: 5px; }
-        
-        .custom-file-upload { border: 1px dashed var(--text-muted); background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .custom-file-upload:hover { border-color: var(--primary-color); background: var(--primary-light); }
-        
-        .btn-submit-order { background: rgba(255,255,255,0.1); color: var(--text-muted); border: none; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.3s; width: 100%; }
-        .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(137, 80, 252, 0.4); }
-        .btn-submit-order.ready:hover { background: var(--primary-hover); }
-
-        .success-box { text-align: center; padding: 30px 10px; }
-        .success-icon { font-size: 4.5rem; color: var(--success-color); margin-bottom: 20px; animation: popIn 0.5s ease; }
-        
-        .line-link-box { background: rgba(0,0,0,0.2); border: 1px dashed var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; }
-        .copy-btn { background-color: var(--success-color); color: #fff; border: none; transition: 0.3s; font-weight: bold; }
-        .copy-btn:hover { background-color: #15a9a0; color: #fff; }
-
-        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
-    </style>
-</head>
-<body>
-
-    <!-- ล็อคอินหน้าสินค้า -->
-    <div id="login-screen">
-        <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
-            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
-            <p class="text-muted mb-4">Sign in to your account</p>
-            <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
-            <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
-            <button id="btn-login" class="btn w-100 mt-3" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
-            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
-        </div>
-    </div>
-
-    <div id="wrapper">
-        <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-        <nav id="sidebar">
-            <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
-            <ul class="sidebar-menu mt-2">
-                <div class="menu-title">Overview</div>
-                <li><a href="index.html" onclick="window.location.href='index.html';"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                <li>
-                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
-                    <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
-                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li><li><a href="#">Add New User</a></li>
-                    </ul>
-                </li>
-                
-                <!-- เลือกเมนูสินค้าให้ขึ้น Active อัตโนมัติ -->
-                <li><a href="product.html" class="active"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
-
-                <div class="menu-title">Apps</div>
-                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
-            </ul>
-
-            <div class="user-profile-bottom" id="sidebar-user-zone">
-                <div class="d-flex align-items-center gap-3">
-                    <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
-                    <div class="user-info">
-                        <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
-                    </div>
-                </div>
-                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
-            </div>
-        </nav>
-
-        <div id="page-content">
-            <div class="topbar d-flex justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
-                    <div class="search-bar d-none d-md-flex">
-                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        <input type="text" placeholder="Search anything...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
-                    </div>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
-                    <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
-                    
-                    <div class="dropdown">
-                        <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
-                            <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
-                            <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
-                        </div>
-                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
-                            <li><hr class="dropdown-divider border-secondary"></li>
-                            <li><a class="dropdown-item signout-btn" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-                <div>
-                    <h2 class="fw-bold mb-1">Store Catalog</h2>
-                    <p class="text-muted mb-0">Browse and select products for your customers.</p>
-                </div>
-            </div>
-
-            <div class="container-fluid p-0">
-                <!-- ตัวกรองสินค้า -->
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
-                    <h5 class="fw-bold mb-0">รายการสินค้า</h5>
-                    <div class="d-flex flex-column flex-sm-row gap-2">
-                        <select id="main-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem;">
-                            <option value="">-- เลือกประเภทสินค้า --</option>
-                            <option value="กลุ่ม">กลุ่ม</option>
-                            <option value="งานปล่อยเอฟ">งานปล่อยเอฟ</option>
-                        </select>
-                        <select id="sub-category" class="custom-input px-3 py-2" style="width: auto; font-size: 0.95rem; display: none;">
-                            <option value="">-- เลือกประเภทย่อย --</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row" id="product-grid">
-                    <div class="col-12 text-center text-muted py-5">
-                        <i class="fa-solid fa-circle-notch fa-spin fs-1 mb-3 text-purple"></i>
-                        <p>กำลังโหลดรายการสินค้าจากระบบ...</p>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <!-- หน้าต่างชำระเงิน (Modal) -->
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0 pb-0">
-                    <button type="button" class="btn-close btn-close-white position-absolute" style="right: 20px;" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body pt-1 px-4 pb-4">
-                    
-                    <div id="payment-form-section">
-                        <h5 class="fw-bold w-100 text-center mb-1" style="color: var(--primary-color);">ชำระเงิน / แจ้งโอน</h5>
-                        <p class="text-center text-muted mb-4" style="font-size: 0.9rem;">อัปโหลดสลิปเพื่อรับสิทธิ์เข้ากลุ่มอัตโนมัติ</p>
-
-                        <div class="order-summary-box">
-                            <img src="" id="modal-product-img" class="order-summary-img" alt="Product">
-                            <div style="flex-grow: 1;">
-                                <small class="text-muted">รายการสั่งซื้อ:</small>
-                                <h6 class="fw-bold mb-1" id="modal-product-name" style="font-size: 1.1rem;">ชื่อสินค้า...</h6>
-                                <div class="d-flex justify-content-between">
-                                    <div style="font-size: 0.85rem;" class="text-muted" id="modal-product-fullprice">ราคาเต็ม: ฿0</div>
-                                    <div style="font-size: 0.85rem;" class="text-muted text-green" id="modal-product-agentcut">เก็บเอง: ฿0</div>
-                                </div>
-                                <div style="font-size: 1.1rem; color: var(--danger-color);" class="fw-bold mt-1" id="modal-product-net">ยอดที่ต้องโอนให้ร้าน: ฿0</div>
-                            </div>
-                        </div>
-
-                        <div class="payment-qr-box">
-                            <p class="fw-bold mb-2">สแกน QR Code หรือโอนผ่านเลขบัญชี</p>
-                            <img src="https://placehold.co/400x400/2a2940/ffffff?text=QR+Code+Payment" class="payment-qr-img mb-3" alt="QR Code">
-                            <div style="font-size: 1.05rem;">
-                                <p class="mb-1"><strong>Kbank :</strong> <span style="color: var(--info-color);">213-8-03713-7</span></p>
-                                <p class="mb-1"><strong>SCB :</strong> <span style="color: var(--info-color);">579-2-78259-4</span></p>
-                                <p class="mb-1"><strong>True Wallet :</strong> <span style="color: var(--info-color);">0988863400</span></p>
-                                <p class="text-muted mt-2 mb-0" style="font-size: 0.9rem;">ชื่อบัญชี : Kanokwan Ph.</p>
-                            </div>
-                        </div>
-
-                        <hr style="border-color: var(--border-color); border-style: dashed;">
-
-                        <div class="mb-3">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Gmail ของลูกค้า <span class="text-danger">*</span></label>
-                            <input type="email" id="modal-customer-email" class="custom-input" placeholder="พิมพ์ @gmail.com ของลูกค้า">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">Line ID ของลูกค้า <span class="text-danger">*</span></label>
-                            <input type="text" id="modal-customer-line" class="custom-input" placeholder="พิมพ์ไอดีไลน์ของลูกค้า">
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label text-light fw-semibold" style="font-size: 0.95rem;">อัปโหลดภาพสลิปโอนเงิน</label>
-                            <label for="modal-slip-upload" class="d-block custom-file-upload">
-                                <i class="fa-solid fa-cloud-arrow-up fs-2 mb-2" style="color: var(--primary-color);"></i>
-                                <div id="upload-text">คลิกเพื่อเลือกไฟล์สลิป</div>
-                            </label>
-                            <input type="file" id="modal-slip-upload" accept="image/*" style="display: none;">
-                        </div>
-
-                        <button class="btn-submit-order" id="modal-btn-submit" disabled>
-                            <i class="fa-solid fa-lock me-2"></i> กรุณาอัปโหลดสลิปที่ถูกต้อง
-                        </button>
-                    </div>
-
-                    <div id="payment-success-section" class="success-box" style="display: none;">
-                        <i class="fa-solid fa-circle-check success-icon"></i>
-                        <h3 class="fw-bold mb-3 text-light">สั่งซื้อเสร็จสมบูรณ์!</h3>
-                        <p class="text-muted mb-3">ระบบได้ส่งสิทธิ์เข้าถึงไฟล์ไปที่ Gmail ของลูกค้า<br>และเพิ่มคะแนนสะสมเรียบร้อยแล้วครับ 🎉</p>
-                        
-                        <div id="line-link-container" class="line-link-box" style="display: none;">
-                            <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
-                                <i class="fa-brands fa-line text-success fs-5 me-1"></i> ลิ้งก์เข้ากลุ่ม Line
-                            </label>
-                            <div class="input-group mt-1">
-                                <input type="text" id="success-line-input" class="form-control bg-dark text-light border-secondary" readonly>
-                                <button class="btn copy-btn" type="button" onclick="copyLineLink()">
-                                    <i class="fa-regular fa-copy"></i> คัดลอก
-                                </button>
-                            </div>
-                            <small class="text-muted mt-2 d-block" style="font-size: 0.8rem;">กดคัดลอกลิงก์ด้านบน ส่งให้ลูกค้าในแชทได้เลยครับ</small>
-                        </div>
-                        
-                        <button type="button" class="btn btn-outline-light w-100 mt-2" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal กฎและคำโปรย -->
-    <div class="modal fade" id="rulesModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="rules-modal-title" style="color: var(--primary-color);">กฎและคำโปรยสินค้า</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body px-4 pb-4">
-                    
-                    <div class="mb-4">
-                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
-                            <i class="fa-solid fa-align-left text-info me-1"></i> คำโปรย (สำหรับก๊อปปี้ไปโพสต์ขาย)
-                        </label>
-                        <textarea id="promo-text-area" class="form-control bg-dark text-light border-secondary mb-2" rows="5" readonly style="font-size: 0.85rem; resize: none;"></textarea>
-                        <button class="btn btn-sm w-100 fw-bold" type="button" onclick="copyPromoText()" style="background-color: var(--info-color); color: #fff;">
-                            <i class="fa-regular fa-copy me-1"></i> คัดลอกคำโปรย
-                        </button>
-                    </div>
-
-                    <hr style="border-color: var(--border-color); border-style: dashed;">
-
-                    <div>
-                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
-                            <i class="fa-solid fa-link text-success me-1"></i> ลิ้งก์กฎกลุ่ม (ส่งให้ลูกค้าอ่านก่อนซื้อ)
-                        </label>
-                        <div class="input-group mb-2">
-                            <input type="text" id="rules-link-input" class="form-control bg-dark text-light border-secondary" readonly>
-                            <button class="btn copy-btn" type="button" onclick="copyRulesLink()" style="background-color: var(--success-color);">
-                                <i class="fa-regular fa-copy"></i> คัดลอก
-                            </button>
-                        </div>
-
-                        <div id="rules-preview-container" style="display: none;">
-                            <a href="#" id="rules-external-link" target="_blank" class="btn btn-outline-secondary w-100 btn-sm mt-1" style="border-color: var(--border-color); color: var(--text-light);">
-                                <i class="fa-solid fa-images me-1" style="color: var(--primary-color);"></i> เปิดดูรูปกฎกลุ่มทั้งหมด
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <button type="button" class="btn btn-outline-light w-100 mt-4" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // 🚨 นำ API URL ล่าสุดของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbxNZx31tennJtiQ9yrnh8lJA36Ry83bwzq9ZY8_is6geXnAKaO0JZF-ayecFZF5sl01HA/exec";
-
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const pageContent = document.getElementById('page-content');
-        const overlay = document.getElementById('sidebar-overlay');
-        menuToggle.addEventListener('click', function() {
-            if (window.innerWidth <= 991.98) { sidebar.classList.toggle('mobile-show'); overlay.classList.toggle('active'); } 
-            else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
-        });
-        overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        themeToggleBtn.addEventListener('click', function() {
-            document.body.classList.toggle('light-mode');
-            themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
-        });
-
-        let currentAgent = null;
-
-        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์มาแสดง
-        function updateUIWithAgent(agent) {
-            try {
-                document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
-                document.getElementById('topbar-name').innerText = agent.name || "Unknown";
-                
-                let safeName = encodeURIComponent(agent.name || 'User');
-                let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
-                let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
-                                
-                let sAvatar = document.getElementById('sidebar-avatar');
-                let tAvatar = document.getElementById('topbar-avatar');
-                
-                sAvatar.src = avatarUrl;
-                tAvatar.src = avatarUrl;
-                
-                sAvatar.onerror = function() { this.src = defaultAvatar; };
-                tAvatar.onerror = function() { this.src = defaultAvatar; };
-
-            } catch(e) {
-                console.error("UI Update Error:", e);
-            }
-        }
-
-        const savedAgent = localStorage.getItem('memphis_agent');
-        if (!savedAgent) {
-            alert("กรุณาเข้าสู่ระบบก่อนใช้งาน"); window.location.href = "index.html"; 
-        } else {
-            try {
-                currentAgent = JSON.parse(savedAgent);
-                // 🌟 ปิดบังหน้าล็อคอิน
-                document.getElementById('login-screen').style.display = 'none';
-                updateUIWithAgent(currentAgent); 
-                fetchProducts(); 
-            } catch(e) {
-                localStorage.removeItem('memphis_agent');
-                window.location.href = "index.html";
-            }
-        }
-
-        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; };
-        document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
-        document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
-
-        let allProducts = []; 
-        function fetchProducts() {
-            fetch(apiURL + "?action=getProducts")
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) { allProducts = data.products; renderProducts(allProducts); }
-                }).catch(err => { document.getElementById('product-grid').innerHTML = '<div class="col-12 text-center text-danger">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</div>'; });
-        }
-
-        function renderProducts(productsToRender) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = ""; 
-            if (productsToRender.length === 0) { grid.innerHTML = '<div class="col-12 text-center text-muted py-5">ไม่พบสินค้าในหมวดหมู่นี้</div>'; return; }
-
-            productsToRender.forEach(p => {
-                let badgeClass = p.mainCat === 'กลุ่ม' ? 'bg-purple-light' : 'bg-green-light';
-                const cardHTML = `
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
-                        <div class="product-card">
-                            <a href="${p.previewUrl}" target="_blank" class="product-img-wrapper" title="ดูตัวอย่างงาน">
-                                <img src="${p.imgUrl}" class="product-img" alt="${p.name}">
-                                <div class="product-img-overlay"><i class="fa-solid fa-eye me-2"></i> ดูตัวอย่างงาน</div>
-                            </a>
-                            <span class="badge ${badgeClass} mb-2" style="width: fit-content;">${p.subCat}</span>
-                            <div class="product-title">${p.name}</div>
-                            <div class="product-sku">รหัส: ${p.sku}</div>
-                            <div class="d-flex justify-content-between align-items-end mt-2 mb-2">
-                                <div><div style="font-size: 0.8rem;" class="text-muted">เก็บเอง: <span class="text-green fw-bold">฿${p.agentCut}</span></div>
-                                <div style="font-size: 0.8rem;" class="text-muted">ส่งร้าน: <span style="color:var(--info-color);" class="fw-bold">฿${p.netRevenue}</span></div></div>
-                                <div class="product-price">฿${p.fullPrice}</div>
-                            </div>
-                            
-                            <button class="rules-btn" onclick="openRulesModal('${p.sku}')">
-                                <i class="fa-solid fa-book-open me-1"></i> กฎและคำโปรย
-                            </button>
-
-                            <button class="select-btn mt-2" onclick="openPaymentModal('${p.sku}')">สั่งซื้อสินค้านี้</button>
-                        </div>
-                    </div>`;
-                grid.insertAdjacentHTML('beforeend', cardHTML);
-            });
-        }
-
-        const mainCategory = document.getElementById('main-category');
-        const subCategory = document.getElementById('sub-category');
-        const categoryOptions = { "กลุ่ม": ["กลุ่มตูน", "กลุ่มบล็อก", "กลุ่มรวม", "กลุ่มสอน", "กลุ่มของตกแต่ง"], "งานปล่อยเอฟ": ["บล็อก", "คลิปสอน", "ตูน", "ของตกแต่ง"] };
-
-        mainCategory.addEventListener('change', function() {
-            subCategory.innerHTML = '<option value="">-- เลือกประเภทย่อย --</option>';
-            if (this.value && categoryOptions[this.value]) {
-                categoryOptions[this.value].forEach(opt => {
-                    const optionElement = document.createElement('option'); optionElement.value = opt; optionElement.textContent = opt; subCategory.appendChild(optionElement);
-                });
-                subCategory.style.display = 'block'; 
-            } else { subCategory.style.display = 'none'; }
-            filterProducts(); 
-        });
-        subCategory.addEventListener('change', filterProducts);
-
-        function filterProducts() {
-            const filtered = allProducts.filter(p => {
-                let matchMain = mainCategory.value === "" || p.mainCat === mainCategory.value;
-                let matchSub = subCategory.value === "" || p.subCat === subCategory.value;
-                return matchMain && matchSub;
-            });
-            renderProducts(filtered); 
-        }
-
-        function openRulesModal(sku) {
-            let product = allProducts.find(p => p.sku === sku);
-            if(!product) return;
-
-            document.getElementById('rules-modal-title').innerText = `กฎและคำโปรย: ${product.name}`;
-            let linkInput = document.getElementById('rules-link-input');
-            let previewContainer = document.getElementById('rules-preview-container');
-            let externalLink = document.getElementById('rules-external-link');
-            let promoArea = document.getElementById('promo-text-area'); 
-
-            if(product.rulesUrl && product.rulesUrl.trim() !== "") {
-                linkInput.value = product.rulesUrl;
-                externalLink.href = product.rulesUrl;
-                previewContainer.style.display = 'block';
-            } else {
-                linkInput.value = "ยังไม่ได้ระบุลิงก์กฎกลุ่มในชีต (คอลัมน์ L) ครับ";
-                previewContainer.style.display = 'none';
-            }
-
-            if(product.promoText && product.promoText.trim() !== "") {
-                promoArea.value = product.promoText;
-            } else {
-                promoArea.value = "ยังไม่ได้ระบุคำโปรยในชีต (คอลัมน์ M) ครับ";
-            }
-
-            var rulesModal = new bootstrap.Modal(document.getElementById('rulesModal'));
-            rulesModal.show();
-        }
-
-        function copyRulesLink() {
-            let copyText = document.getElementById("rules-link-input");
-            copyText.select(); 
-            copyText.setSelectionRange(0, 99999); 
-            navigator.clipboard.writeText(copyText.value); 
-            alert("✅ คัดลอกลิ้งก์กฎกลุ่มเรียบร้อยแล้ว! นำไปส่งให้ลูกค้าอ่านได้เลยครับ");
-        }
-
-        function copyPromoText() {
-            let copyText = document.getElementById("promo-text-area");
-            copyText.select(); 
-            copyText.setSelectionRange(0, 99999); 
-            navigator.clipboard.writeText(copyText.value); 
-            alert("✅ คัดลอกคำโปรยเรียบร้อยแล้ว! นำไปโพสต์ขายได้เลยครับ");
-        }
-
-        let currentProduct = null;
-        let currentBase64Slip = null; 
-
-        function openPaymentModal(sku) {
-            currentProduct = allProducts.find(p => p.sku === sku);
-            if(!currentProduct) return;
-
-            document.getElementById('payment-form-section').style.display = 'block';
-            document.getElementById('payment-success-section').style.display = 'none';
-
-            document.getElementById('modal-product-img').src = currentProduct.imgUrl;
-            document.getElementById('modal-product-name').innerText = currentProduct.name;
-            document.getElementById('modal-product-fullprice').innerText = `ราคาเต็ม: ฿${currentProduct.fullPrice}`;
-            document.getElementById('modal-product-agentcut').innerText = `เก็บเอง: ฿${currentProduct.agentCut}`;
-            document.getElementById('modal-product-net').innerText = `ยอดที่ต้องโอนให้ร้าน: ฿${currentProduct.netRevenue}`;
-
-            document.getElementById('modal-customer-email').value = "";
-            document.getElementById('modal-customer-line').value = "";
-            document.getElementById('modal-slip-upload').value = "";
-            currentBase64Slip = null;
-            
-            document.getElementById('upload-text').innerHTML = "คลิกเพื่อเลือกไฟล์สลิป";
-            
-            let btnSubmit = document.getElementById('modal-btn-submit');
-            btnSubmit.innerHTML = '<i class="fa-solid fa-lock me-2"></i> กรุณาอัปโหลดสลิปที่ถูกต้อง';
-            btnSubmit.classList.remove('ready');
-            btnSubmit.disabled = true;
-
-            var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-            paymentModal.show();
-        }
-
-        document.getElementById('modal-slip-upload').addEventListener('change', function(event) {
-            var file = event.target.files[0];
-            if(file) {
-                document.getElementById('upload-text').innerHTML = `<span class="text-green"><i class="fa-solid fa-check-circle"></i> เลือกไฟล์แล้ว: ${file.name}</span>`;
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    currentBase64Slip = e.target.result; 
-                    let btnSubmit = document.getElementById('modal-btn-submit');
-                    btnSubmit.innerHTML = 'ยืนยันการสั่งซื้อ / แจ้งโอน';
-                    btnSubmit.disabled = false;
-                    btnSubmit.classList.add('ready'); 
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('modal-btn-submit').addEventListener('click', function() {
-            let email = document.getElementById('modal-customer-email').value.trim();
-            let line = document.getElementById('modal-customer-line').value.trim();
-
-            if(!email || !line) { alert("กรุณากรอก Gmail และ Line ID ของลูกค้าให้ครบถ้วน"); return; }
-            if(!currentBase64Slip) { alert("กรุณาแนบภาพสลิป"); return; }
-
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> ระบบกำลังตรวจสอบสลิป และส่งไดร์ฟ...';
-            this.disabled = true;
-
-            var payload = {
-                action: 'submitOrder',
-                agentId: currentAgent.agentId,
-                email: email,
-                lineId: line,
-                sku: currentProduct.sku,
-                netRevenue: currentProduct.netRevenue, 
-                workFileUrl: currentProduct.workFileUrl, 
-                slipBase64: currentBase64Slip
-            };
-
-            fetch(apiURL, { method: "POST", body: JSON.stringify(payload) })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) {
-                    document.getElementById('payment-form-section').style.display = 'none';
-                    document.getElementById('payment-success-section').style.display = 'block';
-                    
-                    let lineContainer = document.getElementById('line-link-container');
-                    let lineInput = document.getElementById('success-line-input');
-                    
-                    if(currentProduct.lineGroupUrl && currentProduct.lineGroupUrl.trim() !== "") {
-                        lineInput.value = currentProduct.lineGroupUrl; 
-                        lineContainer.style.display = 'block'; 
-                    } else {
-                        lineContainer.style.display = 'none'; 
-                    }
-                } else {
-                    alert("❌ เกิดข้อผิดพลาด: " + data.message);
-                    this.innerHTML = 'ลองใหม่อีกครั้ง';
-                    this.disabled = false;
-                }
-            })
-            .catch(err => {
-                alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
-                this.innerHTML = 'ยืนยันการสั่งซื้อ / แจ้งโอน';
-                this.disabled = false;
-            });
-        });
-
-        function copyLineLink() {
-            let copyText = document.getElementById("success-line-input");
-            copyText.select(); 
-            copyText.setSelectionRange(0, 99999); 
-            navigator.clipboard.writeText(copyText.value); 
-            alert("✅ คัดลอกลิ้งก์เรียบร้อยแล้ว! นำไปส่งให้ลูกค้าได้เลยครับ");
         }
     </script>
 </body>
