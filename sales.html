@@ -59,6 +59,7 @@
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
+        /* 🌟 Topbar Style แบบใหม่ */
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
@@ -67,19 +68,19 @@
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
-        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
+        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; border: 2px solid var(--bg-main); }
 
         .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
         .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-        
+
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
+        /* Custom UI */
         .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
-        
         .metric-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; transition: 0.3s; }
         
@@ -92,6 +93,9 @@
         .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
         .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
         
+        .table-category td { padding: 12px 0; border-bottom: 1px dashed var(--border-color); }
+        .table-category tr:last-child td { border-bottom: none; }
+        
         .top-product-img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-color); background: rgba(255,255,255,0.05); padding: 2px; }
         .slim-progress { height: 6px; background-color: var(--border-color); border-radius: 10px; overflow: hidden; margin-top: 8px;}
         .slim-progress-bar { background: linear-gradient(90deg, #8950fc 0%, #f64e60 100%); height: 100%; border-radius: 10px; }
@@ -101,7 +105,7 @@
 
     <div id="login-screen">
         <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
+            <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
             <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
@@ -128,7 +132,7 @@
                     </a>
                     <ul class="collapse show sidebar-submenu" id="dashboardsSubmenu">
                         <li><a href="sales.html" class="active" onclick="window.location.href='sales.html';">Sales</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <!-- 🌟 เอา Analytics ออกไปแล้ว -->
                     </ul>
                 </li>
 
@@ -145,9 +149,10 @@
                 
                 <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
-                <div class="menu-title">Apps</div>
-                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
+                <!-- 🌟 เปลี่ยนเป็น OTHER และใช้ Projects แทน Kanban Board -->
+                <div class="menu-title">OTHER</div>
+                <li><a href="calendar.html" onclick="window.location.href='calendar.html';"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="projects.html" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
@@ -155,7 +160,8 @@
                     <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <!-- 🌟 ดึงสถานะตัวแทนมาแสดง -->
+                        <small class="text-muted" id="sidebar-role" style="font-size: 0.75rem; text-transform: uppercase;">LOADING...</small>
                     </div>
                 </div>
                 <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
@@ -163,38 +169,69 @@
         </nav>
 
         <div id="page-content">
+            <!-- 🌟 Topbar แบบใหม่ ตรงตามที่ขอเป๊ะ -->
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
                     <div class="search-bar d-none d-md-flex">
-                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        <i class="fa-solid fa-magnifying-glass text-muted" style="cursor: pointer;"></i>
+                        <!-- 🌟 ลบ ⌘K ออกแล้ว -->
                         <input type="text" placeholder="Search anything...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
                     </div>
                 </div>
                 <div class="topbar-actions">
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                    
+                    <!-- 🌟 กระดิ่งแจ้งเตือนโชว์ข่าวสาร -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu p-2" style="width: 300px;">
+                            <li class="border-bottom pb-2 mb-2"><h6 class="fw-bold text-light mb-0 px-2">ข่าวสารโปรโมชั่น</h6></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-bullhorn text-warning mt-1"></i> 
+                                    <div><strong class="d-block">อัปเดตงานใหม่!</strong><small class="text-muted">คลังงานตูนเดือนนี้เพิ่ม 25 เซ็ตแล้ว</small></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-gift text-success mt-1"></i> 
+                                    <div><strong class="d-block">โปร 1 แถม 1</strong><small class="text-muted">เฉพาะกลุ่มบล็อก วันนี้เท่านั้น</small></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px; object-fit:cover;">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
+                                <img src="" id="dropdown-avatar" class="profile-img-circle mx-auto d-block mb-2" style="width:60px; height:60px; object-fit:cover;">
+                                <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
+                                <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
+                            </div>
                             <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item text-warning" href="#" onclick="localStorage.removeItem('memphis_agent'); location.reload();"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
+                            <li><a class="dropdown-item text-warning" href="#" onclick="clearOldData()"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
                             <li><hr class="dropdown-divider border-secondary"></li>
-                            <li><a class="dropdown-item signout-btn" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- 🌟 เอากากบาทออกแล้วให้ดูกระชับ -->
-            <div class="mb-4">
-                <h2 class="fw-bold mb-1">Sales Dashboard</h2>
-                <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1">Sales Dashboard</h2>
+                    <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
+                </div>
+                <div class="mt-3 mt-md-0 d-flex gap-2">
+                    <button class="btn btn-outline-secondary text-light" style="border-color: var(--border-color);"><i class="fa-regular fa-calendar me-2"></i> This Month <i class="fa-solid fa-chevron-down ms-2" style="font-size:0.7rem;"></i></button>
+                    <button class="btn btn-create" style="background: var(--primary-color); color:#fff;"><i class="fa-solid fa-download me-1"></i> Export</button>
+                </div>
             </div>
 
             <div class="row">
@@ -229,7 +266,6 @@
                             <small class="text-muted d-block text-start">Revenue share this month</small>
                         </div>
                         <div id="donutChart" class="my-4 d-flex justify-content-center w-100"></div>
-                        <!-- 🌟 เปลี่ยนตารางตรงวงสีเหลืองเป็น Div ที่โชว์เนียนๆ -->
                         <div class="mt-auto w-100" id="category-legend">
                             <div class="text-center text-muted py-4">Loading categories...</div>
                         </div>
@@ -242,10 +278,8 @@
                     <div class="custom-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div><h5 class="mb-0 fw-bold">Top Products</h5><small class="text-muted">Best sellers this month</small></div>
-                            <!-- 🌟 ปุ่ม View All ที่กดแล้วเด้ง Modal โชว์ของทั้งหมด -->
                             <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#allProductsModal">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
                         </div>
-                        <!-- 🌟 รูปตรงวงสีน้ำเงินจะมาขึ้นตรงนี้แล้ว -->
                         <div id="top-products-list">
                             <div class="text-center text-muted py-4">Loading products...</div>
                         </div>
@@ -256,7 +290,7 @@
         </div>
     </div>
 
-    <!-- 🌟 Modal สำหรับโชว์สินค้าทั้งหมดพอกด View All -->
+    <!-- Modal สำหรับโชว์สินค้าทั้งหมดพอกด View All -->
     <div class="modal fade" id="allProductsModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content" style="background-color: var(--bg-card); border: 1px solid var(--border-color);">
@@ -275,8 +309,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 🚨 นำ API URL ของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbzKNcZ4KiAVJz_R2YwRvSTfMQ7kW76C1rIimkCm0vLEvIRsW3p6i3UWlyDEwAghotl52g/exec"; 
+        // 🚨 นำ API URL ของคุณมาวางให้ตรง
+        const apiURL = "https://script.google.com/macros/s/AKfycbzFMvNXzv9h0aNjZJjA7ejjxyFWHRV2E4EI3TElFyXyKeNUnRTQ9GnT90Wy0S5e8cu-nA/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -287,6 +321,13 @@
             else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
         });
         overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
+        });
 
         var chartDataCache = { week: null, month: null, year: null };
         var timeChart = new ApexCharts(document.querySelector("#timeChart"), {
@@ -325,11 +366,25 @@
 
         let currentAgent = null;
 
+        function clearOldData() {
+            localStorage.removeItem('memphis_agent');
+            alert("ล้างข้อมูลเก่าเรียบร้อย! กรุณาล็อคอินใหม่อีกครั้งครับ");
+            location.reload();
+        }
+
+        // 🌟 อัปเดต UI ด้วย Profile + ดึงสถานะมาโชว์
         function updateUIWithAgent(agent) {
             try {
                 document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
                 document.getElementById('topbar-name').innerText = agent.name || "Unknown";
                 
+                let dn = document.getElementById('dropdown-name');
+                if (dn) dn.innerText = agent.name || "Unknown";
+                
+                // โชว์สถานะที่ดึงมาจากชีต
+                let roleEl = document.getElementById('sidebar-role');
+                if (roleEl) roleEl.innerText = agent.role || "ตัวแทนจำหน่าย";
+
                 let safeName = encodeURIComponent(agent.name || 'User');
                 let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
                 let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
@@ -356,6 +411,7 @@
         }
 
         document.getElementById('btn-logout-sidebar').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+        document.getElementById('btn-logout-dropdown').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
 
         function setTrendBadge(elementId, value) {
             let el = document.getElementById(elementId);
@@ -426,7 +482,6 @@
                         } else {
                             let maxOrd = data.topProducts[0].orders;
                             
-                            // โชว์ 4 อันดับแรกในหน้าหลัก
                             let top4 = data.topProducts.slice(0, 4);
                             top4.forEach(prod => {
                                 let pct = Math.round((prod.orders / maxOrd) * 100);
@@ -443,7 +498,6 @@
                                 </div>`;
                             });
 
-                            // โชว์ทั้งหมดใน Modal
                             data.topProducts.forEach(prod => {
                                 let pct = Math.round((prod.orders / maxOrd) * 100);
                                 modalHTML += `
