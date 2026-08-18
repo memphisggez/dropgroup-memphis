@@ -35,13 +35,11 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* Sidebar */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -69,9 +67,10 @@
 
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
-        .user-profile-bottom img { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); }
+        
+        /* 🌟 ปรับรูปโปรไฟล์ให้วงกลมเนียนๆ */
+        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); }
 
-        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
@@ -84,9 +83,6 @@
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
-        
-        .btn-create { background: var(--primary-light); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-        .btn-create:hover { background: var(--primary-color); color: #fff; }
 
         .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
@@ -97,10 +93,8 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* Metric Cards */
         .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
-        
         .metric-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; }
         
@@ -125,7 +119,7 @@
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
-            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
+            <h3 class="fw-bold text-light mb-1">MemphisGroup</h3>
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
@@ -160,7 +154,10 @@
                         <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                <li><a href="product.html"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
+                
+                <!-- 🌟 บังคับใส่ onClick ให้ลิ้งก์ชัวร์ 100% -->
+                <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
+                
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
@@ -168,7 +165,7 @@
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="" id="sidebar-avatar" alt="User">
+                    <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
                         <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
@@ -194,7 +191,7 @@
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
@@ -279,7 +276,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbw3QZHDtUR3hoTj7K_0kBlh8l_UafkpKLpxhZx2_j4bkf1MGTiKcGxOiPbb_Gst6278oA/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbw9Op6Wmm-OIw9887tan186rOJfn-BUOBkqSIRaRhPY5VTot59zBG7Zkhtm7PF8OI0m1g/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -324,18 +321,23 @@
         
         let currentAgent = null;
 
-        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์
+        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์ (ดักจับ Error กรณีลิ้งก์เสีย)
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
+            document.getElementById('dropdown-name').innerText = agent.name; 
             
-            // เช็คว่ามีรูปโปรไฟล์จากชีตไหม ถ้าไม่มีให้สร้างรูปตัวอักษรแทน
-            let avatarUrl = agent.profileImg && agent.profileImg.trim() !== "" 
-                            ? agent.profileImg 
-                            : `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-                            
+            let defaultAvatar = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
+            let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
+            
             document.getElementById('sidebar-avatar').src = avatarUrl; 
             document.getElementById('topbar-avatar').src = avatarUrl; 
+            document.getElementById('dropdown-avatar').src = avatarUrl; 
+            
+            // 🌟 ถ้าลิ้งก์รูปไดร์ฟเสีย (เช่น ไม่ได้เปิดสาธารณะ) ให้กลับไปใช้รูปตัวอักษรแทนอัตโนมัติ
+            document.getElementById('sidebar-avatar').onerror = function() { this.src = defaultAvatar; };
+            document.getElementById('topbar-avatar').onerror = function() { this.src = defaultAvatar; };
+            document.getElementById('dropdown-avatar').onerror = function() { this.src = defaultAvatar; };
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
