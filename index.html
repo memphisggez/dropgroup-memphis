@@ -9,89 +9,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           1. ตั้งค่าตัวแปรสีและธีม
-        ========================================= */
         :root {
             --bg-main: #151521;      
             --bg-card: #1e1e2d;      
             --bg-sidebar: #1e1e2d;   
-            
             --primary-color: #8950fc; 
             --primary-light: rgba(137, 80, 252, 0.15);
             --primary-hover: #733ee6; 
-            
             --success-color: #1bc5bd; 
             --success-light: rgba(27, 197, 189, 0.15);
-            
             --info-color: #3699ff;    
             --info-light: rgba(54, 153, 255, 0.15);
-            
             --warning-color: #ffa800; 
             --warning-light: rgba(255, 168, 0, 0.15);
-
             --danger-color: #f64e60;
             --danger-light: rgba(246, 78, 96, 0.15);
-            
             --text-light: #ffffff; 
             --text-muted: #a1a5b7;    
             --border-color: #2b2b40;  
-            
-            --sidebar-width: 280px; /* 🌟 ขยาย Sidebar ให้กว้างขึ้นนิดนึง เพื่อความสมดุล */
+            --sidebar-width: 280px; 
         }
 
-        body.light-mode {
-            --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff;  
-            --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea;
-        }
-
+        body.light-mode { --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff; --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea; }
         body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* =========================================
-           🌟 หน้าจอล็อคอิน
-        ========================================= */
+        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* =========================================
-           🌟 2. แถบเมนูด้านซ้าย (ปรับดีไซน์สวยงามขึ้น)
-        ========================================= */
-        #sidebar { 
-            width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; 
-            border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; 
-            display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1); /* 🌟 เพิ่มแสงเงาให้ Sidebar ดูมีมิติแยกจากพื้นหลัง */
-        }
+        /* Sidebar */
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
         
         .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
-        
         .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
         .sidebar-menu::-webkit-scrollbar { width: 4px; }
         .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
         
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
-        
-        /* 🌟 สไตล์เมนูหลัก (ปรับขอบมน เพิ่มระยะห่าง) */
-        .sidebar-menu > li > a { 
-            display: flex; align-items: center; padding: 12px 18px; 
-            color: var(--text-muted); text-decoration: none !important; border-radius: 12px; 
-            margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500;
-        }
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
         .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
-        
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
 
-        /* สไตล์เมนูย่อย */
         .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
         .sidebar-submenu li { position: relative; }
         .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
@@ -99,20 +67,15 @@
         .sidebar-submenu li a:hover { color: var(--primary-color); }
         .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
 
-        /* 🌟 สไตล์กล่องโปรไฟล์ด้านล่างสุด (กว้างขึ้น เนียนตาขึ้น) */
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
-        .user-profile-bottom img { width: 45px; border-radius: 50%; border: 2px solid var(--border-color); }
+        .user-profile-bottom img { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); }
 
-        /* =========================================
-           3. โซนเนื้อหา (Main Content)
-        ========================================= */
+        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
-        
-        /* 🌟 ปรับกล่องค้นหาให้กว้างและสวยงามขึ้น */
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
@@ -134,9 +97,7 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* =========================================
-           4. การ์ดสถิติ (Trendy Metric Cards)
-        ========================================= */
+        /* Metric Cards */
         .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
         
@@ -161,10 +122,9 @@
 </head>
 <body>
 
-    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem;"><i class="fa-solid fa-bolt"></i></div>
+            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
             <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
@@ -177,38 +137,30 @@
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- Sidebar (อัปเดตสวยงาม) -->
         <nav id="sidebar">
-            <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
+            <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             <ul class="sidebar-menu mt-2">
                 <div class="menu-title">Overview</div>
-                <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
                 <li>
                     <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">CRM</a></li>
+                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
                     </ul>
                 </li>
-
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-users"></i> <span>Users</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <li><a href="#">User List</a></li>
-                        <li><a href="#">Add New User</a></li>
+                        <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                
                 <li><a href="product.html"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
-
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
@@ -216,7 +168,7 @@
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="https://ui-avatars.com/api/?name=User&background=random" id="sidebar-avatar" alt="User">
+                    <img src="" id="sidebar-avatar" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
                         <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
@@ -226,7 +178,6 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <div id="page-content">
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
@@ -241,10 +192,9 @@
                     <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
-                    
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" id="topbar-avatar" style="width:38px; height:38px; border-radius:50%; border: 2px solid var(--border-color);">
+                            <img src="" id="topbar-avatar" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
@@ -258,7 +208,6 @@
                 </div>
             </div>
 
-            <!-- Page Title -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
                 <div>
                     <h2 class="fw-bold mb-1">Sales Dashboard</h2>
@@ -270,78 +219,26 @@
                 </div>
             </div>
 
-            <!-- การ์ด 4 กล่อง -->
             <div class="row">
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-start mb-4">
-                            <div class="metric-icon bg-purple-light"><i class="fa-solid fa-dollar-sign"></i></div>
-                            <span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 18.2%</span>
-                        </div>
-                        <h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3>
-                        <span class="text-muted" style="font-size: 0.85rem;">Total Revenue</span>
-                    </div>
-                </div>
-                
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-start mb-4">
-                            <div class="metric-icon bg-green-light"><i class="fa-solid fa-bag-shopping"></i></div>
-                            <span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span>
-                        </div>
-                        <h3 class="fw-bold mb-1" id="data-orders">Loading...</h3>
-                        <span class="text-muted" style="font-size: 0.85rem;">Total Orders</span>
-                    </div>
-                </div>
-                
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-start mb-4">
-                            <div class="metric-icon bg-blue-light"><i class="fa-solid fa-receipt"></i></div>
-                            <span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 5.3%</span>
-                        </div>
-                        <h3 class="fw-bold mb-1" id="data-sales">Loading...</h3>
-                        <span class="text-muted" style="font-size: 0.85rem;">Total Sales Value</span>
-                    </div>
-                </div>
-                
-                <div class="col-xl-3 col-md-6 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-start mb-4">
-                            <div class="metric-icon bg-orange-light"><i class="fa-solid fa-users"></i></div>
-                            <span class="metric-badge" style="background: var(--danger-light); color: var(--danger-color);"><i class="fa-solid fa-arrow-trend-down"></i> 2.1%</span>
-                        </div>
-                        <h3 class="fw-bold mb-1" id="data-customers">Loading...</h3>
-                        <span class="text-muted" style="font-size: 0.85rem;">Active Customers</span>
-                    </div>
-                </div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light"><i class="fa-solid fa-dollar-sign"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 18.2%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Revenue</span></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light"><i class="fa-solid fa-bag-shopping"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Orders</span></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light"><i class="fa-solid fa-receipt"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 5.3%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Sales Value</span></div></div>
+                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light"><i class="fa-solid fa-users"></i></div><span class="metric-badge" style="background: var(--danger-light); color: var(--danger-color);"><i class="fa-solid fa-arrow-trend-down"></i> 2.1%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Active Customers</span></div></div>
             </div>
 
-            <!-- กราฟรายเดือน และ กราฟเป้าหมาย -->
             <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="custom-card">
                         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4">
-                            <div>
-                                <h5 class="mb-0 fw-bold">Sales Over Time</h5>
-                                <small class="text-muted">Revenue and order volume</small>
-                            </div>
-                            <div class="mt-2 mt-sm-0">
-                                <span class="badge bg-dark border border-secondary text-muted px-3 py-2 me-1">Week</span>
-                                <span class="badge" style="background: var(--primary-light); color: var(--primary-color); padding: 8px 15px;">Month</span>
-                                <span class="badge bg-dark border border-secondary text-muted px-3 py-2 ms-1">Year</span>
-                            </div>
+                            <div><h5 class="mb-0 fw-bold">Sales Over Time</h5><small class="text-muted">Revenue and order volume</small></div>
+                            <div class="mt-2 mt-sm-0"><span class="badge bg-dark border border-secondary text-muted px-3 py-2 me-1">Week</span><span class="badge" style="background: var(--primary-light); color: var(--primary-color); padding: 8px 15px;">Month</span><span class="badge bg-dark border border-secondary text-muted px-3 py-2 ms-1">Year</span></div>
                         </div>
                         <div id="revenueChart" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
-                
                 <div class="col-xl-4 col-12">
                     <div class="custom-card text-center d-flex flex-column justify-content-between">
-                        <div>
-                            <h5 class="mb-0 text-start fw-bold">Sales Target</h5>
-                            <small class="text-muted d-block text-start">Monthly goal progress (฿6,000)</small>
-                        </div>
+                        <div><h5 class="mb-0 text-start fw-bold">Sales Target</h5><small class="text-muted d-block text-start">Monthly goal progress (฿6,000)</small></div>
                         <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
                         <div class="d-flex justify-content-between text-start mt-2 px-3">
                             <div><small class="text-muted d-block">TARGET</small><strong class="fs-5" id="data-target">Loading...</strong></div>
@@ -351,7 +248,6 @@
                 </div>
             </div>
 
-            <!-- ตารางออเดอร์ล่าสุด และ จัดอันดับตัวแทน -->
             <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="custom-card">
@@ -361,34 +257,21 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-borderless mb-0 align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>ORDER</th>
-                                        <th>CUSTOMER</th>
-                                        <th>PRODUCT</th>
-                                        <th>STATUS</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="recent-orders-table">
-                                    <tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr>
-                                </tbody>
+                                <thead><tr><th>ORDER</th><th>CUSTOMER</th><th>PRODUCT</th><th>STATUS</th></tr></thead>
+                                <tbody id="recent-orders-table"><tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-4 col-12">
                     <div class="custom-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div><h5 class="fw-bold mb-0">Top Agents</h5><small class="text-muted d-block">Best sellers this month</small></div>
                         </div>
-                        <div id="agent-leaderboard-list">
-                            <div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div>
-                        </div>
+                        <div id="agent-leaderboard-list"><div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div></div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -396,8 +279,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        // 🚨 นำ API URL ล่าสุดของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbx5G8sAYHqsKo9ksTwqeKsNJrkeGWqTM2pcppLWToi0lqz9FvbWoIOzTXKRqcBKufrI/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbw3QZHDtUR3hoTj7K_0kBlh8l_UafkpKLpxhZx2_j4bkf1MGTiKcGxOiPbb_Gst6278oA/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -419,29 +301,16 @@
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Orders', data: [] }], 
             chart: { height: 300, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#a1a5b7', fontFamily: 'Segoe UI' },
-            colors: ['#1bc5bd', '#8950fc'], 
-            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
+            colors: ['#1bc5bd', '#8950fc'], fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
             dataLabels: { enabled: false }, stroke: { curve: 'smooth', width: 3 },
             xaxis: { categories: [], axisBorder: { show: false }, axisTicks: { show: false } },
-            grid: { borderColor: '#2b2b40', strokeDashArray: 4 }, 
-            legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#a1a5b7' } }, 
-            tooltip: { theme: 'dark' }
+            grid: { borderColor: '#2b2b40', strokeDashArray: 4 }, legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#a1a5b7' } }, tooltip: { theme: 'dark' }
         });
         revenueChart.render();
 
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), {
-            series: [0], 
-            chart: { height: 260, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135, endAngle: 135, hollow: { size: '60%' },
-                    track: { background: '#2b2b40', strokeWidth: '100%' }, 
-                    dataLabels: {
-                        name: { show: true, color: '#a1a5b7', fontSize: '12px', offsetY: 25 },
-                        value: { offsetY: -10, fontSize: '38px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } }
-                    }
-                }
-            },
+            series: [0], chart: { height: 260, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
+            plotOptions: { radialBar: { startAngle: -135, endAngle: 135, hollow: { size: '60%' }, track: { background: '#2b2b40', strokeWidth: '100%' }, dataLabels: { name: { show: true, color: '#a1a5b7', fontSize: '12px', offsetY: 25 }, value: { offsetY: -10, fontSize: '38px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } } } } },
             fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#8950fc' }, { offset: 100, color: '#f64e60' }] } },
             stroke: { lineCap: 'round' }, labels: ['of monthly target'],
         });
@@ -455,11 +324,18 @@
         
         let currentAgent = null;
 
+        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์
         function updateUIWithAgent(agent) {
             document.getElementById('sidebar-name').innerText = agent.name;
             document.getElementById('topbar-name').innerText = agent.name;
-            let avatarUrl = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-            document.getElementById('sidebar-avatar').src = avatarUrl; document.getElementById('topbar-avatar').src = avatarUrl; 
+            
+            // เช็คว่ามีรูปโปรไฟล์จากชีตไหม ถ้าไม่มีให้สร้างรูปตัวอักษรแทน
+            let avatarUrl = agent.profileImg && agent.profileImg.trim() !== "" 
+                            ? agent.profileImg 
+                            : `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
+                            
+            document.getElementById('sidebar-avatar').src = avatarUrl; 
+            document.getElementById('topbar-avatar').src = avatarUrl; 
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -488,7 +364,6 @@
                 .catch(err => { loginError.innerText = "Network error"; loginError.style.display = 'block'; loginBtn.innerText = "Login"; });
         });
 
-        // ฟังก์ชัน Logout (ทำได้ทั้งปุ่มในเมนูขวาบน และไอคอนด้านซ้ายล่าง)
         const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); };
         document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
         document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
@@ -496,7 +371,6 @@
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
 
-            // 🌟 แก้ไขบัค Loading: ระบุ action=getDashboard ให้ชัดเจน
             fetch(apiURL + "?action=getDashboard")
                 .then(response => {
                     if (!response.ok) throw new Error("Network Error");
@@ -528,7 +402,6 @@
                             data.leaderboard.forEach((agent, index) => {
                                 let percent = Math.round((agent.sales / maxSales) * 100);
                                 let barColor = index === 0 ? '#8950fc' : (index === 1 ? '#1bc5bd' : (index === 2 ? '#3699ff' : '#2b2b40'));
-                                
                                 lbHTML += `
                                 <div class="mb-4">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -549,42 +422,27 @@
 
                     if(data.recentOrders) {
                         let tableHTML = ""; let validCount = 0;
-
                         data.recentOrders.forEach((order, index) => {
                             if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid")) return; 
-                            
                             validCount++;
                             let avatarUrl = `https://ui-avatars.com/api/?name=${order.customer}&background=random&color=fff`;
-                            
                             tableHTML += `
                             <tr>
                                 <td class="text-purple" style="font-size: 0.9rem;">#${order.id}</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="${avatarUrl}" class="rounded-circle" width="30">
-                                        <div style="line-height: 1.2;">
-                                            <span class="text-light d-block" style="font-size: 0.9rem;">${order.customer}</span>
-                                            <small class="text-muted" style="font-size: 0.75rem;">Credit Card</small>
-                                        </div>
-                                    </div>
-                                </td>
+                                <td><div class="d-flex align-items-center gap-2"><img src="${avatarUrl}" class="rounded-circle" width="30"><div style="line-height: 1.2;"><span class="text-light d-block" style="font-size: 0.9rem;">${order.customer}</span><small class="text-muted" style="font-size: 0.75rem;">Credit Card</small></div></div></td>
                                 <td><span class="text-light fw-bold" style="font-size: 0.9rem;">${order.product}</span></td>
                                 <td><span class="badge-status bg-green-light"><i class="fa-solid fa-circle text-success me-1" style="font-size:0.5rem;"></i> Paid</span></td>
                             </tr>`;
                         });
-
                         if (validCount === 0) tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
                     }
-                })
-                .catch(error => { 
-                    // 🚨 แจ้งเตือนเมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
+                }).catch(error => { 
                     console.error('Error:', error); 
                     document.getElementById('data-sales').innerHTML = '<span class="text-danger fs-5">API Error</span>';
                     document.getElementById('data-revenue').innerHTML = '<span class="text-danger fs-5">API Error</span>';
                     document.getElementById('data-orders').innerHTML = '<span class="text-danger fs-5">API Error</span>';
                     document.getElementById('data-customers').innerHTML = '<span class="text-danger fs-5">API Error</span>';
-                    alert("⚠️ เชื่อมต่อข้อมูลไม่สำเร็จ:\nกรุณาตรวจสอบการตั้งค่า Deploy (New Version) ใน Google Apps Script ครับ");
                 });
         }
     </script>
