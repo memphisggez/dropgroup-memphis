@@ -48,20 +48,35 @@
         .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
         .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
+        .toggle-arrow { transition: transform 0.3s ease; }
+        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
+
+        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
+        .sidebar-submenu li { position: relative; }
+        .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
+        .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
+        .sidebar-submenu li a:hover, .sidebar-submenu li a.active { color: var(--primary-color); }
+        .sidebar-submenu li a:hover::before, .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
 
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
+        .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
         .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
         /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
+        /* 🌟 Topbar */
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
+        .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
-        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;}
+        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
+        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; border: 2px solid var(--bg-main); }
+
+        /* Profile Dropdown */
         .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
         .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
@@ -70,12 +85,12 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* 🌟 Custom UI สำหรับหน้า Calendar */
+        /* 🌟 Custom UI Calendar */
         .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); }
         .btn-create-event { background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; border: none; transition: 0.3s; }
         .btn-create-event:hover { background: var(--primary-hover); }
 
-        /* 🌟 แต่ง FullCalendar ให้เข้าธีมมืด */
+        /* FullCalendar CSS */
         .fc-theme-standard td, .fc-theme-standard th { border-color: var(--border-color); }
         .fc .fc-col-header-cell-cushion { color: var(--text-muted); padding: 10px; font-weight: normal; text-decoration: none;}
         .fc .fc-daygrid-day-number { color: var(--text-light); padding: 10px; text-decoration: none;}
@@ -104,6 +119,7 @@
 </head>
 <body>
 
+    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
@@ -134,7 +150,7 @@
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
                         <li><a href="sales.html" onclick="window.location.href='sales.html';">Sales</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <!-- 🌟 ตัด Analytics ออกตามที่ขอ -->
                     </ul>
                 </li>
 
@@ -152,6 +168,7 @@
                 <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
                 <div class="menu-title">OTHER</div>
+                <!-- 🌟 เปลี่ยนให้เข้ากับดีไซน์ -->
                 <li><a href="calendar.html" class="active" onclick="window.location.href='calendar.html';"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="projects.html" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
             </ul>
@@ -161,20 +178,48 @@
                     <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <!-- 🌟 ตรงนี้จะแสดงสถานะจากชีตแทนคำว่า ADMINISTRATOR -->
+                        <small class="text-muted" id="sidebar-role" style="font-size: 0.75rem; text-transform: uppercase;">LOADING...</small>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" id="btn-logout-sidebar"></i>
+                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
             </div>
         </nav>
 
         <div id="page-content">
+            <!-- 🌟 Topbar -->
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
+                    <!-- 🌟 Search bar แบบกดแว่นขยาย (ลบ ⌘K ออก) -->
+                    <div class="search-bar d-none d-md-flex">
+                        <i class="fa-solid fa-magnifying-glass text-muted" style="cursor: pointer;" onclick="alert('ฟังก์ชันค้นหาในปฏิทินกำลังพัฒนาครับ!')"></i>
+                        <input type="text" placeholder="Search anything...">
+                    </div>
                 </div>
                 <div class="topbar-actions">
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
+                    
+                    <!-- 🌟 แจ้งเตือนโปรโมชั่นที่กดใช้ได้จริง -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu p-2" style="width: 300px;">
+                            <li class="border-bottom pb-2 mb-2"><h6 class="fw-bold text-light mb-0 px-2">ข่าวสารโปรโมชั่น</h6></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-bullhorn text-warning mt-1"></i> 
+                                    <div><strong class="d-block">อัปเดตงานใหม่!</strong><small class="text-muted">คลังงานตูนเดือนนี้เพิ่ม 25 เซ็ตแล้ว</small></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-gift text-success mt-1"></i> 
+                                    <div><strong class="d-block">โปร 1 แถม 1</strong><small class="text-muted">เฉพาะกลุ่มบล็อก วันนี้เท่านั้น</small></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
                             <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
@@ -182,6 +227,9 @@
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item text-warning" href="#" onclick="localStorage.removeItem('memphis_agent'); location.reload();"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
+                            <li><hr class="dropdown-divider border-secondary"></li>
                             <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
@@ -191,11 +239,11 @@
             <!-- Page Title -->
             <div class="mb-4">
                 <h2 class="fw-bold mb-1">Calendar</h2>
-                <!-- 🌟 เอา Home/Apps/Calendar ออกแล้วครับ -->
+                <!-- 🌟 เอาคำว่า Home / Apps / Calendar ออกตามที่ขอ -->
             </div>
 
             <div class="row">
-                <!-- 🌟 คอลัมน์ซ้าย: ปุ่มเพิ่มโปร และรายการวันนี้ -->
+                <!-- คอลัมน์ซ้าย: ปุ่มเพิ่มโปร และรายการวันนี้ -->
                 <div class="col-xl-3 col-lg-4 mb-4">
                     <button class="btn-create-event mb-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#createPromoModal">
                         <i class="fa-solid fa-plus me-2"></i> Create Event
@@ -209,7 +257,7 @@
                     </div>
                 </div>
 
-                <!-- 🌟 คอลัมน์ขวา: ปฏิทิน FullCalendar -->
+                <!-- คอลัมน์ขวา: ปฏิทิน FullCalendar (ปุ่ม Day/Week/Month กดได้จริง) -->
                 <div class="col-xl-9 col-lg-8">
                     <div class="custom-card p-3">
                         <div id="calendar"></div>
@@ -220,7 +268,7 @@
         </div>
     </div>
 
-    <!-- 🌟 Modal สำหรับเพิ่มโปรโมชั่นใหม่ -->
+    <!-- 🌟 Modal สำหรับเพิ่มโปรโมชั่นใหม่ (ปรับให้เข้ากับสภาพงาน) -->
     <div class="modal fade" id="createPromoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -292,7 +340,7 @@
 
     <script>
         // 🚨 นำ API URL ของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbzlsqLBT5Co_q_0GXCdCPqABeVcdTR_f4wCrx7C8nkcT7isvsoRKLdYa5y1DHYcY5xh/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbzFMvNXzv9h0aNjZJjA7ejjxyFWHRV2E4EI3TElFyXyKeNUnRTQ9GnT90Wy0S5e8cu-nA/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -314,21 +362,30 @@
         let currentAgent = null;
         let calendar = null;
 
+        // 🌟 อัปเดต UI ให้ดึง Role (สถานะ) มาจากหลังบ้าน
         function updateUIWithAgent(agent) {
             try {
                 document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
                 document.getElementById('topbar-name').innerText = agent.name || "Unknown";
+                
+                // 🌟 โชว์สถานะที่ดึงมาจากชีต (คอลัมน์ G)
+                document.getElementById('sidebar-role').innerText = agent.role || "ตัวแทนจำหน่าย";
+
                 let safeName = encodeURIComponent(agent.name || 'User');
                 let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
                 let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
                 
                 let sAvatar = document.getElementById('sidebar-avatar');
                 let tAvatar = document.getElementById('topbar-avatar');
+                let dAvatar = document.getElementById('dropdown-avatar');
+                
                 if(sAvatar) { sAvatar.onerror = function() { this.src = defaultAvatar; }; sAvatar.src = avatarUrl; }
                 if(tAvatar) { tAvatar.onerror = function() { this.src = defaultAvatar; }; tAvatar.src = avatarUrl; }
+                if(dAvatar) { dAvatar.onerror = function() { this.src = defaultAvatar; }; dAvatar.src = avatarUrl; }
             } catch (e) {}
         }
 
+        // 🌟 ต้องล็อคอินใหม่ถึงจะได้ค่า role นะครับ ถ้าของเก่าค้างอยู่จะขึ้น undefined ให้กดล้างแคชก่อน
         const savedAgent = localStorage.getItem('memphis_agent');
         if (!savedAgent) { alert("กรุณาเข้าสู่ระบบ"); window.location.href = "index.html"; } 
         else {
@@ -336,14 +393,13 @@
                 currentAgent = JSON.parse(savedAgent);
                 document.getElementById('login-screen').style.display = 'none';
                 updateUIWithAgent(currentAgent);    
-                initCalendar(); // เรียกปฏิทินก่อน แล้วค่อยดึงข้อมูล          
+                initCalendar();          
             } catch(e) { localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; }
         }
 
         document.getElementById('btn-logout-sidebar').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
         document.getElementById('btn-logout-dropdown').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
 
-        // 🌟 ระบบเปลี่ยนสีตอนกดสร้าง Event
         let selectedColor = "#8950fc";
         document.querySelectorAll('.color-circle').forEach(circle => {
             circle.addEventListener('click', function() {
@@ -353,7 +409,7 @@
             });
         });
 
-        // 🌟 สร้างปฏิทินเปล่ารอรับข้อมูล
+        // 🌟 สร้างปฏิทิน FullCalendar (ปุ่ม Day/Week/Month สามารถกดได้จริง 100%)
         function initCalendar() {
             var calendarEl = document.getElementById('calendar');
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -366,37 +422,31 @@
                 buttonText: { today: 'Today', month: 'Month', week: 'Week', day: 'Day' },
                 themeSystem: 'standard',
                 height: 600,
-                events: [], // จะใส่ข้อมูลทีหลัง
+                events: [], 
                 eventClick: function(info) {
-                    // เวลากดที่ป้ายโปร จะเด้ง Modal มาโชว์
                     document.getElementById('view-title').innerText = info.event.title;
                     document.getElementById('view-title').style.color = info.event.backgroundColor;
-                    
                     let s = info.event.start ? info.event.start.toLocaleDateString('th-TH') : '';
                     let e = info.event.end ? " - " + info.event.end.toLocaleDateString('th-TH') : '';
                     document.getElementById('view-date').innerText = s + e;
-                    
                     document.getElementById('view-sku').innerText = "รหัส: " + (info.event.extendedProps.sku || '-');
                     document.getElementById('view-desc').innerText = info.event.extendedProps.description || 'ไม่มีรายละเอียด';
-                    
                     var myModal = new bootstrap.Modal(document.getElementById('viewPromoModal'));
                     myModal.show();
                 }
             });
             calendar.render();
-            fetchPromotions(); // ดึงข้อมูลมาใส่ปฏิทิน
+            fetchPromotions(); 
         }
 
-        // 🌟 ดึงข้อมูลจากชีต Promotions
         function fetchPromotions() {
             fetch(apiURL + "?action=getPromotions")
                 .then(res => res.json())
                 .then(data => {
                     if (data.success && data.promotions) {
-                        calendar.removeAllEvents(); // ล้างของเก่า
-                        calendar.addEventSource(data.promotions); // โยนของใหม่ใส่เข้าไป
-                        
-                        renderTodayPromos(data.promotions); // สร้างเมนูซ้ายมือ
+                        calendar.removeAllEvents(); 
+                        calendar.addEventSource(data.promotions); 
+                        renderTodayPromos(data.promotions); 
                     }
                 })
                 .catch(err => {
@@ -405,7 +455,6 @@
                 });
         }
 
-        // 🌟 สร้างรายการ "โปรโมชั่นวันนี้" แถบซ้ายมือ
         function renderTodayPromos(promos) {
             let todayHtml = "";
             let todayObj = new Date();
@@ -415,7 +464,6 @@
                 let start = new Date(p.start); start.setHours(0,0,0,0);
                 let end = new Date(p.end); end.setHours(23,59,59,999);
                 
-                // เช็คว่าโปรโมชั่นครอบคลุมถึงวันนี้ไหม
                 if (todayObj >= start && todayObj <= end) {
                     todayHtml += `
                         <div class="promo-list-item border-start border-4" style="border-left-color: ${p.color} !important;">
@@ -433,7 +481,6 @@
             document.getElementById('today-promos-list').innerHTML = todayHtml;
         }
 
-        // 🌟 ระบบส่งข้อมูลโปรโมชั่นใหม่กลับไปเซฟที่หลังบ้าน
         document.getElementById('btn-submit-promo').addEventListener('click', function() {
             let title = document.getElementById('promo-title').value.trim();
             let start = document.getElementById('promo-start').value;
@@ -449,43 +496,22 @@
             this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Saving...';
             this.disabled = true;
 
-            var payload = {
-                action: 'addPromotion',
-                title: title,
-                start: start,
-                end: end,
-                sku: sku,
-                color: selectedColor,
-                description: desc
-            };
+            var payload = { action: 'addPromotion', title: title, start: start, end: end, sku: sku, color: selectedColor, description: desc };
 
             fetch(apiURL, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    // ปิด Modal
                     bootstrap.Modal.getInstance(document.getElementById('createPromoModal')).hide();
-                    
-                    // ล้างฟอร์ม
-                    document.getElementById('promo-title').value = "";
-                    document.getElementById('promo-start').value = "";
-                    document.getElementById('promo-end').value = "";
-                    document.getElementById('promo-sku').value = "";
+                    document.getElementById('promo-title').value = ""; document.getElementById('promo-start').value = "";
+                    document.getElementById('promo-end').value = ""; document.getElementById('promo-sku').value = "";
                     document.getElementById('promo-desc').value = "";
-                    
-                    // โหลดปฏิทินใหม่ให้มันอัปเดต
                     fetchPromotions();
-                } else {
-                    alert("❌ เกิดข้อผิดพลาด: " + data.message);
-                }
+                } else { alert("❌ เกิดข้อผิดพลาด: " + data.message); }
             })
             .catch(err => { alert("Error connecting to server."); })
-            .finally(() => {
-                this.innerHTML = 'Create Event';
-                this.disabled = false;
-            });
+            .finally(() => { this.innerHTML = 'Create Event'; this.disabled = false; });
         });
-
     </script>
 </body>
 </html>
