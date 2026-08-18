@@ -63,23 +63,19 @@
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
+        /* 🌟 Topbar Style แบบใหม่ */
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
-        
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
-        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
-        
-        .btn-create { background: var(--primary-light); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-        .btn-create:hover { background: var(--primary-color); color: #fff; }
+        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; border: 2px solid var(--bg-main); }
 
-        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; }
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
         .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-        .signout-btn { color: var(--danger-color) !important; }
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
@@ -107,13 +103,13 @@
 
     <div id="login-screen">
         <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem;"><i class="fa-solid fa-bolt"></i></div>
+            <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
             <h3 class="fw-bold text-light mb-1">MemphisGroup</h3>
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
             <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
-            <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="localStorage.removeItem('memphis_agent'); location.reload();">ล้างแคชเก่า (ถ้าค้าง)</button>
+            <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="clearOldData()">ล้างแคชเก่า (ถ้าค้าง)</button>
             <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
         </div>
     </div>
@@ -133,11 +129,10 @@
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
+                        <li><a href="sales.html" onclick="window.location.href='sales.html';">Sales</a></li>
                     </ul>
                 </li>
 
-                <!-- 🌟 เมนูหลักเปลี่ยนเป็น Users and Customers -->
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="active">
                         <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
@@ -145,16 +140,17 @@
                     </a>
                     <ul class="collapse show sidebar-submenu" id="usersSubmenu">
                         <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li>
-                        <!-- 🌟 ไฮไลท์เมนู Customers ให้ทำงานอยู่ -->
+                        <!-- 🌟 ไฮไลท์ Customers เป็น Active -->
                         <li><a href="customers.html" class="active" onclick="window.location.href='customers.html';">Customers</a></li>
                     </ul>
                 </li>
                 
                 <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
-                <div class="menu-title">Apps</div>
-                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
+                <!-- 🌟 อัปเดตเมนูเป็น OTHER เหมือนหน้าอื่นๆ -->
+                <div class="menu-title">OTHER</div>
+                <li><a href="calendar.html" onclick="window.location.href='calendar.html';"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="projects.html" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
@@ -162,7 +158,8 @@
                     <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <!-- 🌟 ดึงสถานะตัวแทนมาแสดง -->
+                        <small class="text-muted" id="sidebar-role" style="font-size: 0.75rem; text-transform: uppercase;">LOADING...</small>
                     </div>
                 </div>
                 <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
@@ -170,18 +167,38 @@
         </nav>
 
         <div id="page-content">
+            <!-- 🌟 Topbar แบบใหม่ ตรงตามสเปก -->
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
                     <div class="search-bar d-none d-md-flex">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        <input type="text" id="search-customer" placeholder="Search customer by Email or Line ID...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
+                        <input type="text" id="global-search" placeholder="Search customer by Email or Line ID...">
                     </div>
                 </div>
                 <div class="topbar-actions">
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                    
+                    <!-- 🌟 กระดิ่งแจ้งเตือน -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu p-2" style="width: 300px;">
+                            <li class="border-bottom pb-2 mb-2"><h6 class="fw-bold text-light mb-0 px-2">ข่าวสารโปรโมชั่น</h6></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-bullhorn text-warning mt-1"></i> 
+                                    <div><strong class="d-block">อัปเดตงานใหม่!</strong><small class="text-muted">คลังงานตูนเดือนนี้เพิ่ม 25 เซ็ตแล้ว</small></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-gift text-success mt-1"></i> 
+                                    <div><strong class="d-block">โปร 1 แถม 1</strong><small class="text-muted">เฉพาะกลุ่มบล็อก วันนี้เท่านั้น</small></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
                             <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
@@ -189,9 +206,15 @@
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
+                                <img src="" id="dropdown-avatar" class="profile-img-circle mx-auto d-block mb-2" style="width:60px; height:60px;">
+                                <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
+                                <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
+                            </div>
                             <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item text-warning" href="#" onclick="clearOldData()"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
                             <li><hr class="dropdown-divider border-secondary"></li>
-                            <li><a class="dropdown-item signout-btn" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -205,14 +228,13 @@
                 </div>
             </div>
 
-            <!-- 🌟 สถิติย่อด้านบน -->
             <div class="row">
                 <div class="col-xl-4 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div></div><h3 class="fw-bold mb-1" id="stat-total-users">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Customers</span></div></div>
                 <div class="col-xl-4 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-trend-up"></i></div></div><h3 class="fw-bold mb-1" id="stat-total-spent">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Lifetime Value</span></div></div>
                 <div class="col-xl-4 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-gift"></i></div></div><h3 class="fw-bold mb-1" id="stat-total-redeemable">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Rewards Ready to Claim</span></div></div>
             </div>
 
-            <!-- 🌟 ตารางรายชื่อลูกค้าและหลอดสะสมแต้ม -->
+            <!-- ตารางรายชื่อลูกค้า -->
             <div class="row">
                 <div class="col-12">
                     <div class="custom-card p-0" style="overflow: hidden;">
@@ -242,8 +264,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // 🚨 นำ API URL ล่าสุดของคุณมาวางให้ตรงกันทุกหน้า
-        const apiURL = "https://script.google.com/macros/s/AKfycbzKNcZ4KiAVJz_R2YwRvSTfMQ7kW76C1rIimkCm0vLEvIRsW3p6i3UWlyDEwAghotl52g/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbzFMvNXzv9h0aNjZJjA7ejjxyFWHRV2E4EI3TElFyXyKeNUnRTQ9GnT90Wy0S5e8cu-nA/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -265,21 +286,34 @@
         let currentAgent = null;
         let allCustomersData = [];
 
+        function clearOldData() {
+            localStorage.removeItem('memphis_agent');
+            alert("ล้างข้อมูลเก่าเรียบร้อย! กรุณาล็อคอินใหม่อีกครั้งครับ");
+            location.reload();
+        }
+
         function updateUIWithAgent(agent) {
             try {
                 document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
                 document.getElementById('topbar-name').innerText = agent.name || "Unknown";
                 
+                let dn = document.getElementById('dropdown-name');
+                if(dn) dn.innerText = agent.name || "Unknown";
+
+                let roleEl = document.getElementById('sidebar-role');
+                if(roleEl) roleEl.innerText = agent.role || "ตัวแทนจำหน่าย";
+
                 let safeName = encodeURIComponent(agent.name || 'User');
                 let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
                 let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
                 
                 let sAvatar = document.getElementById('sidebar-avatar');
                 let tAvatar = document.getElementById('topbar-avatar');
+                let dAvatar = document.getElementById('dropdown-avatar');
 
-                sAvatar.src = avatarUrl; tAvatar.src = avatarUrl;
-                sAvatar.onerror = function() { this.src = defaultAvatar; };
-                tAvatar.onerror = function() { this.src = defaultAvatar; };
+                if(sAvatar) { sAvatar.onerror = function() { this.src = defaultAvatar; }; sAvatar.src = avatarUrl; }
+                if(tAvatar) { tAvatar.onerror = function() { this.src = defaultAvatar; }; tAvatar.src = avatarUrl; }
+                if(dAvatar) { dAvatar.onerror = function() { this.src = defaultAvatar; }; dAvatar.src = avatarUrl; }
             } catch (e) { console.error(e); }
         }
 
@@ -297,11 +331,9 @@
             }
         }
 
-        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; };
-        document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
-        document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
+        document.getElementById('btn-logout-dropdown').addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+        document.getElementById('btn-logout-sidebar').addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
 
-        // 🌟 ฟังก์ชันดึงและสร้างตารางรายชื่อลูกค้า พร้อมหลอดพลังแต้ม
         function fetchCustomersData() {
             fetch(apiURL + "?action=getCustomers")
                 .then(res => {
@@ -310,7 +342,6 @@
                 })
                 .then(data => {
                     if(data.success && data.customers) {
-                        // เรียงตามยอดแต้มสะสมจากมากไปน้อย
                         allCustomersData = data.customers.sort((a,b) => b.points - a.points);
                         renderCustomerTable(allCustomersData);
                         calculateMetrics(allCustomersData);
@@ -335,13 +366,11 @@
                 let avatarBg = bgColors[index % bgColors.length];
                 let initial = user.email.charAt(0).toUpperCase();
 
-                // 🌟 ระบบคำนวณแต้ม (9 แต้มแลกได้ 1 สิทธิ์)
                 let points = parseInt(user.points) || 0;
-                let currentProgress = points % 9; // เศษแต้มที่กำลังเก็บรอบใหม่
+                let currentProgress = points % 9; 
                 let progressPercent = (currentProgress / 9) * 100;
-                let redeemable = Math.floor(points / 9); // จำนวนสิทธิ์แลกของที่ทำได้
+                let redeemable = Math.floor(points / 9); 
 
-                // UI ป้ายสถานะแลกของ
                 let statusHtml = "";
                 if (redeemable > 0) {
                     statusHtml = `<span class="badge-status bg-green-light" style="box-shadow: 0 0 10px rgba(27, 197, 189, 0.4); border: 1px solid var(--success-color);"><i class="fa-solid fa-gift me-1"></i> แลกของได้ (${redeemable} สิทธิ์)</span>`;
@@ -382,7 +411,7 @@
 
         function calculateMetrics(customersArray) {
             let totalSpent = 0;
-            let totalRedeemable = 0; // นับรวมสิทธิ์แลกของทั้งหมดที่มี
+            let totalRedeemable = 0; 
 
             customersArray.forEach(u => {
                 totalSpent += parseFloat(u.totalSpent) || 0;
@@ -394,8 +423,8 @@
             document.getElementById('stat-total-redeemable').innerText = Number(totalRedeemable).toLocaleString();
         }
 
-        // ระบบค้นหาเบื้องต้น
-        document.getElementById('search-customer').addEventListener('input', function(e) {
+        // 🌟 ระบบค้นหาแบบ Real-time
+        document.getElementById('global-search').addEventListener('input', function(e) {
             let keyword = e.target.value.toLowerCase();
             let filtered = allCustomersData.filter(u => 
                 u.email.toLowerCase().includes(keyword) || u.lineId.toLowerCase().includes(keyword)
