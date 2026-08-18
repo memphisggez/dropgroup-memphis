@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Progress - Memphis Group</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #151521; --bg-card: #1e1e2d; --bg-sidebar: #1e1e2d;   
+            --primary-color: #8950fc; --primary-light: rgba(137, 80, 252, 0.15); --primary-hover: #733ee6; 
+            --success-color: #1bc5bd; --success-light: rgba(27, 197, 189, 0.15);
+            --info-color: #3699ff; --info-light: rgba(54, 153, 255, 0.15);
+            --warning-color: #ffa800; --warning-light: rgba(255, 168, 0, 0.15);
+            --danger-color: #f64e60; --danger-light: rgba(246, 78, 96, 0.15);
+            --text-light: #ffffff; --text-muted: #a1a5b7; --border-color: #2b2b40;  
+            --sidebar-width: 280px; 
+        }
+
+        body.light-mode { --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff; --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea; }
+        body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+        .text-muted { color: var(--text-muted) !important; }
+        #wrapper { display: flex; width: 100%; position: relative; }
+
+        /* Login Screen */
+        #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
+        .login-input:focus { border-color: var(--primary-color); }
+
+        /* Sidebar Style */
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+        #sidebar.toggled { width: 70px; }
+        #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
+        #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
+        .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
+        .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
+        .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
+        .sidebar-menu::-webkit-scrollbar { width: 4px; }
+        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
+        .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
+        .toggle-arrow { transition: transform 0.3s ease; }
+        .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
+
+        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
+        .sidebar-submenu li { position: relative; }
+        .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
+        .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
+        .sidebar-submenu li a:hover, .sidebar-submenu li a.active { color: var(--primary-color); }
+        .sidebar-submenu li a:hover::before, .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
+
+        .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
+        .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
+        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
+
+        /* Main Content */
+        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
+        #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
+
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
+        .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
+        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
+        
+        .topbar-actions { display: flex; align-items: center; gap: 15px; }
+        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
+        .icon-btn:hover { color: var(--primary-color); }
+        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
+        
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
+        .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
+
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
+        .sidebar-overlay.active { display: block; }
+        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
+
+        /* 🌟 Custom UI สำหรับหน้า Projects */
+        .project-card { background-color: var(--bg-card); border-radius: 15px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); border-color: rgba(137, 80, 252, 0.4); }
+        .project-img { height: 160px; object-fit: cover; width: 100%; border-top-left-radius: 15px; border-top-right-radius: 15px; background: rgba(255,255,255,0.02); }
+        
+        .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
+        .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
+        .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
+    </style>
+</head>
+<body>
+
+    <!-- ล็อคอิน -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
+            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
+            <p class="text-muted mb-4">Sign in to your account</p>
+            <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
+            <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
+            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
+            <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="localStorage.removeItem('memphis_agent'); location.reload();">ล้างแคชเก่า (ถ้าค้าง)</button>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
+        </div>
+    </div>
+
+    <!-- Sidebar & Content -->
+    <div id="wrapper">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <nav id="sidebar">
+            <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
+            <ul class="sidebar-menu mt-2">
+                <div class="menu-title">Overview</div>
+                <li><a href="index.html" onclick="window.location.href='index.html';"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                
+                <li>
+                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
+                        <li><a href="sales.html" onclick="window.location.href='sales.html';">Sales</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
+                        <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li>
+                        <li><a href="customers.html" onclick="window.location.href='customers.html';">Customers</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
+
+                <!-- 🌟 อัปเดตเมนู OTHER และ Projects -->
+                <div class="menu-title">OTHER</div>
+                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="projects.html" class="active" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
+            </ul>
+
+            <div class="user-profile-bottom" id="sidebar-user-zone">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
+                    <div class="user-info">
+                        <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
+                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
+            </div>
+        </nav>
+
+        <div id="page-content">
+            <div class="topbar d-flex justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
+                    <div class="search-bar d-none d-md-flex">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        <input type="text" placeholder="Search projects...">
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
+                    <div class="dropdown">
+                        <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
+                            <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
+                            <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item text-warning" href="#" onclick="localStorage.removeItem('memphis_agent'); location.reload();"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
+                            <li><hr class="dropdown-divider border-secondary"></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Title -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5">
+                <div>
+                    <h2 class="fw-bold mb-1">Projects & Progress</h2>
+                    <p class="text-muted mb-0">ติดตามสถานะความคืบหน้าของกลุ่มงานต่างๆ แบบ Real-time</p>
+                </div>
+            </div>
+
+            <!-- 🌟 โซน: กลุ่มที่กำลังทยอยอัปเดตงาน -->
+            <div class="mb-5">
+                <h5 class="fw-bold mb-3 border-start border-4 border-success ps-2 text-light">🚀 กลุ่มที่เปิดแล้ว (กำลังทยอยอัปเดต)</h5>
+                <div class="row" id="ongoing-projects-grid">
+                    <div class="col-12 text-center text-muted py-4"><i class="fa-solid fa-spinner fa-spin fs-3 mb-2"></i><br>กำลังโหลดข้อมูลโปรเจกต์...</div>
+                </div>
+            </div>
+
+            <!-- 🌟 โซน: กลุ่มในอนาคต (กำลังรวบรวมงาน) -->
+            <div class="mb-5">
+                <h5 class="fw-bold mb-3 border-start border-4 border-warning ps-2 text-light">⏳ กลุ่มในอนาคต (กำลังรวบรวมงาน)</h5>
+                <div class="row" id="upcoming-projects-grid">
+                    <div class="col-12 text-center text-muted py-4"><i class="fa-solid fa-spinner fa-spin fs-3 mb-2"></i><br>กำลังโหลดข้อมูลโปรเจกต์...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 🚨 นำ API URL ของคุณมาวาง
+        const apiURL = "https://script.google.com/macros/s/AKfycbzASIDAWspN1TRJI54FBcGYw7oFcTVC2ZNSe2cRDIxjWTULqYK6M14U0Rxn7DM3rGK1jQ/exec"; 
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const pageContent = document.getElementById('page-content');
+        const overlay = document.getElementById('sidebar-overlay');
+        menuToggle.addEventListener('click', function() {
+            if (window.innerWidth <= 991.98) { sidebar.classList.toggle('mobile-show'); overlay.classList.toggle('active'); } 
+            else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
+        });
+        overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
+        });
+
+        let currentAgent = null;
+
+        function updateUIWithAgent(agent) {
+            try {
+                document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
+                document.getElementById('topbar-name').innerText = agent.name || "Unknown";
+                let safeName = encodeURIComponent(agent.name || 'User');
+                let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
+                let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
+                
+                let sAvatar = document.getElementById('sidebar-avatar');
+                let tAvatar = document.getElementById('topbar-avatar');
+                if(sAvatar) { sAvatar.onerror = function() { this.src = defaultAvatar; }; sAvatar.src = avatarUrl; }
+                if(tAvatar) { tAvatar.onerror = function() { this.src = defaultAvatar; }; tAvatar.src = avatarUrl; }
+            } catch (e) {}
+        }
+
+        const savedAgent = localStorage.getItem('memphis_agent');
+        if (!savedAgent) { alert("กรุณาเข้าสู่ระบบ"); window.location.href = "index.html"; } 
+        else {
+            try {
+                currentAgent = JSON.parse(savedAgent);
+                document.getElementById('login-screen').style.display = 'none';
+                updateUIWithAgent(currentAgent);    
+                fetchProjects();          
+            } catch(e) { localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; }
+        }
+
+        document.getElementById('btn-logout-sidebar').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+        document.getElementById('btn-logout-dropdown').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+
+        // 🌟 ดึงข้อมูลและสร้างการ์ดโปรเจกต์
+        function fetchProjects() {
+            fetch(apiURL + "?action=getProjects")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.projects) {
+                        let ongoingHtml = "";
+                        let upcomingHtml = "";
+                        
+                        data.projects.forEach(p => {
+                            let pct = p.total > 0 ? Math.round((p.uploaded / p.total) * 100) : 0;
+                            if (pct > 100) pct = 100;
+
+                            let cardHtml = `
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                    <div class="project-card d-flex flex-column h-100">
+                                        <img src="${p.img}" class="project-img">
+                                        <div class="p-4 d-flex flex-column flex-grow-1">
+                                            <span class="badge bg-purple-light mb-3 w-auto" style="align-self: flex-start; padding: 6px 12px;">${p.type}</span>
+                                            <h5 class="fw-bold mb-4 text-light">${p.name}</h5>
+                                            
+                                            <div class="mt-auto">
+                                                <div class="d-flex justify-content-between text-muted mb-2" style="font-size: 0.85rem;">
+                                                    <span>ความคืบหน้า</span>
+                                                    <span class="fw-bold text-light">${p.uploaded} / ${p.total}</span>
+                                                </div>
+                                                <div class="progress mb-4" style="height: 6px; background-color: var(--border-color); border-radius: 10px;">
+                                                    <div class="progress-bar" style="width: ${pct}%; background-color: var(--success-color); border-radius: 10px;"></div>
+                                                </div>
+                                                
+                                                <div class="pt-3 border-top" style="border-color: var(--border-color) !important; font-size: 0.85rem;">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span class="text-muted">เหลืออีก:</span>
+                                                        <span class="text-danger fw-bold">${p.remaining} งาน</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="text-muted">อัปเดตล่าสุด:</span>
+                                                        <span style="color: var(--info-color);">${p.lastUpdate}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            if (p.status === "ทยอยอัปเดต") {
+                                ongoingHtml += cardHtml;
+                            } else if (p.status === "กำลังรวบรวมงาน") {
+                                upcomingHtml += cardHtml;
+                            }
+                        });
+
+                        document.getElementById('ongoing-projects-grid').innerHTML = ongoingHtml || '<div class="col-12 text-muted">ยังไม่มีกลุ่มในสถานะนี้</div>';
+                        document.getElementById('upcoming-projects-grid').innerHTML = upcomingHtml || '<div class="col-12 text-muted">ยังไม่มีกลุ่มในสถานะนี้</div>';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('ongoing-projects-grid').innerHTML = '<div class="col-12 text-danger">ดึงข้อมูลล้มเหลว กรุณาลองใหม่</div>';
+                    document.getElementById('upcoming-projects-grid').innerHTML = '<div class="col-12 text-danger">ดึงข้อมูลล้มเหลว กรุณาลองใหม่</div>';
+                });
+        }
+    </script>
+</body>
+</html>
