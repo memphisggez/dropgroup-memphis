@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion Calendar - Memphis Group</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- นำเข้าไลบรารี FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+    <style>
+        :root {
+            --bg-main: #151521; --bg-card: #1e1e2d; --bg-sidebar: #1e1e2d;   
+            --primary-color: #8950fc; --primary-light: rgba(137, 80, 252, 0.15); --primary-hover: #733ee6; 
+            --success-color: #1bc5bd; --success-light: rgba(27, 197, 189, 0.15);
+            --info-color: #3699ff; --info-light: rgba(54, 153, 255, 0.15);
+            --warning-color: #ffa800; --warning-light: rgba(255, 168, 0, 0.15);
+            --danger-color: #f64e60; --danger-light: rgba(246, 78, 96, 0.15);
+            --text-light: #ffffff; --text-muted: #a1a5b7; --border-color: #2b2b40;  
+            --sidebar-width: 280px; 
+        }
+
+        body.light-mode { --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff; --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea; }
+        body { background-color: var(--bg-main); color: var(--text-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+        .text-muted { color: var(--text-muted) !important; }
+        #wrapper { display: flex; width: 100%; position: relative; }
+
+        /* Login Screen */
+        #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
+        .login-input:focus { border-color: var(--primary-color); }
+
+        /* Sidebar Style */
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+        #sidebar.toggled { width: 70px; }
+        #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
+        #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
+        .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
+        .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
+        .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
+        .sidebar-menu::-webkit-scrollbar { width: 4px; }
+        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
+        .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
+
+        .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
+        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
+
+        /* Main Content */
+        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
+        #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
+
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
+        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
+        .topbar-actions { display: flex; align-items: center; gap: 15px; }
+        .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;}
+        .icon-btn:hover { color: var(--primary-color); }
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
+        .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
+
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
+        .sidebar-overlay.active { display: block; }
+        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
+
+        /* 🌟 Custom UI สำหรับหน้า Calendar */
+        .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); }
+        .btn-create-event { background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; border: none; transition: 0.3s; }
+        .btn-create-event:hover { background: var(--primary-hover); }
+
+        /* 🌟 แต่ง FullCalendar ให้เข้าธีมมืด */
+        .fc-theme-standard td, .fc-theme-standard th { border-color: var(--border-color); }
+        .fc .fc-col-header-cell-cushion { color: var(--text-muted); padding: 10px; font-weight: normal; text-decoration: none;}
+        .fc .fc-daygrid-day-number { color: var(--text-light); padding: 10px; text-decoration: none;}
+        .fc .fc-button-primary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-muted); text-transform: capitalize; border-radius: 8px;}
+        .fc .fc-button-primary:hover { background-color: var(--primary-light); color: var(--primary-color); border-color: var(--primary-color); }
+        .fc .fc-button-primary:not(:disabled).fc-button-active { background-color: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+        .fc-day-today { background-color: rgba(137, 80, 252, 0.05) !important; }
+        .fc-event { border: none; padding: 3px 6px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600;}
+        .fc-toolbar-title { font-weight: bold; font-size: 1.4rem !important; color: var(--text-light); }
+        .fc-view-harness { background-color: var(--bg-main); border-radius: 10px; overflow: hidden;}
+
+        /* รายการโปรโมชั่นวันนี้ใน Sidebar ซ้าย */
+        .promo-list-item { background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 10px; padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center;}
+        .promo-list-img { width: 40px; height: 40px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color);}
+
+        /* 🌟 Custom Modal */
+        .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
+        .modal-header { border-bottom: 1px dashed var(--border-color); }
+        .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
+        .custom-input:focus { border-color: var(--primary-color); }
+        
+        .color-selector { display: flex; gap: 10px; margin-top: 5px; }
+        .color-circle { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.2s;}
+        .color-circle.selected { border-color: #fff; transform: scale(1.1); box-shadow: 0 0 10px rgba(255,255,255,0.3);}
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
+            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
+            <p class="text-muted mb-4">Sign in to your account</p>
+            <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
+            <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
+            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
+            <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="localStorage.removeItem('memphis_agent'); location.reload();">ล้างแคชเก่า (ถ้าค้าง)</button>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
+        </div>
+    </div>
+
+    <!-- Sidebar & Content -->
+    <div id="wrapper">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <nav id="sidebar">
+            <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
+            <ul class="sidebar-menu mt-2">
+                <div class="menu-title">Overview</div>
+                <li><a href="index.html" onclick="window.location.href='index.html';"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                
+                <li>
+                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
+                        <li><a href="sales.html" onclick="window.location.href='sales.html';">Sales</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
+                        <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
+                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
+                    </a>
+                    <ul class="collapse sidebar-submenu" id="usersSubmenu">
+                        <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li>
+                        <li><a href="customers.html" onclick="window.location.href='customers.html';">Customers</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
+
+                <div class="menu-title">OTHER</div>
+                <li><a href="calendar.html" class="active" onclick="window.location.href='calendar.html';"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="projects.html" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
+            </ul>
+
+            <div class="user-profile-bottom" id="sidebar-user-zone">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
+                    <div class="user-info">
+                        <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
+                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" id="btn-logout-sidebar"></i>
+            </div>
+        </nav>
+
+        <div id="page-content">
+            <div class="topbar d-flex justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
+                    <div class="dropdown">
+                        <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
+                            <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
+                            <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Title -->
+            <div class="mb-4">
+                <h2 class="fw-bold mb-1">Calendar</h2>
+                <!-- 🌟 เอา Home/Apps/Calendar ออกแล้วครับ -->
+            </div>
+
+            <div class="row">
+                <!-- 🌟 คอลัมน์ซ้าย: ปุ่มเพิ่มโปร และรายการวันนี้ -->
+                <div class="col-xl-3 col-lg-4 mb-4">
+                    <button class="btn-create-event mb-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#createPromoModal">
+                        <i class="fa-solid fa-plus me-2"></i> Create Event
+                    </button>
+                    
+                    <div class="custom-card p-3">
+                        <h6 class="fw-bold mb-3 text-light border-bottom border-secondary pb-2">รายการที่จัดโปรอยู่ (วันนี้)</h6>
+                        <div id="today-promos-list">
+                            <div class="text-center text-muted py-4"><i class="fa-solid fa-circle-notch fa-spin"></i><br>กำลังโหลด...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🌟 คอลัมน์ขวา: ปฏิทิน FullCalendar -->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="custom-card p-3">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🌟 Modal สำหรับเพิ่มโปรโมชั่นใหม่ -->
+    <div class="modal fade" id="createPromoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold text-light">Create Event (เพิ่มโปรโมชั่น)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 py-4">
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">ชื่อโปรโมชั่น / Event Title</label>
+                        <input type="text" id="promo-title" class="custom-input" placeholder="เช่น 1 แถม 1 วันแม่">
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">วันที่เริ่ม (Start)</label>
+                            <input type="date" id="promo-start" class="custom-input">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">วันสิ้นสุด (End)</label>
+                            <input type="date" id="promo-end" class="custom-input">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">รหัสสินค้า (SKU) ที่ร่วมรายการ</label>
+                        <input type="text" id="promo-sku" class="custom-input" placeholder="เช่น P001 (เพื่อดึงรูปโชว์ด้านซ้าย)">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">สีป้ายบนปฏิทิน (Color)</label>
+                        <div class="color-selector">
+                            <div class="color-circle selected" style="background-color: #8950fc;" data-color="#8950fc"></div>
+                            <div class="color-circle" style="background-color: #1bc5bd;" data-color="#1bc5bd"></div>
+                            <div class="color-circle" style="background-color: #ffa800;" data-color="#ffa800"></div>
+                            <div class="color-circle" style="background-color: #f64e60;" data-color="#f64e60"></div>
+                            <div class="color-circle" style="background-color: #3699ff;" data-color="#3699ff"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">รายละเอียด (Description)</label>
+                        <textarea id="promo-desc" class="custom-input" rows="3" placeholder="ระบุรายละเอียดโปรโมชั่น..."></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-outline-secondary text-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-create-event w-auto px-4" id="btn-submit-promo">Create Event</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ไว้โชว์รายละเอียดตอนกดที่ป้ายบนปฏิทิน -->
+    <div class="modal fade" id="viewPromoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center py-4 px-3">
+                <h4 class="fw-bold mb-2 text-primary" id="view-title">Title</h4>
+                <p class="text-muted mb-2" id="view-date">Date</p>
+                <div class="badge bg-secondary mb-3 w-auto mx-auto" id="view-sku">SKU</div>
+                <p class="text-light" style="font-size: 0.9rem;" id="view-desc">Desc</p>
+                <button type="button" class="btn btn-outline-light mt-3 mx-auto" data-bs-dismiss="modal" style="width: 100px;">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 🚨 นำ API URL ของคุณมาวาง
+        const apiURL = "https://script.google.com/macros/s/AKfycbzlsqLBT5Co_q_0GXCdCPqABeVcdTR_f4wCrx7C8nkcT7isvsoRKLdYa5y1DHYcY5xh/exec"; 
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const pageContent = document.getElementById('page-content');
+        const overlay = document.getElementById('sidebar-overlay');
+        menuToggle.addEventListener('click', function() {
+            if (window.innerWidth <= 991.98) { sidebar.classList.toggle('mobile-show'); overlay.classList.toggle('active'); } 
+            else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
+        });
+        overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            themeIcon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-lightbulb' : 'fa-regular fa-lightbulb';
+        });
+
+        let currentAgent = null;
+        let calendar = null;
+
+        function updateUIWithAgent(agent) {
+            try {
+                document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
+                document.getElementById('topbar-name').innerText = agent.name || "Unknown";
+                let safeName = encodeURIComponent(agent.name || 'User');
+                let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
+                let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
+                
+                let sAvatar = document.getElementById('sidebar-avatar');
+                let tAvatar = document.getElementById('topbar-avatar');
+                if(sAvatar) { sAvatar.onerror = function() { this.src = defaultAvatar; }; sAvatar.src = avatarUrl; }
+                if(tAvatar) { tAvatar.onerror = function() { this.src = defaultAvatar; }; tAvatar.src = avatarUrl; }
+            } catch (e) {}
+        }
+
+        const savedAgent = localStorage.getItem('memphis_agent');
+        if (!savedAgent) { alert("กรุณาเข้าสู่ระบบ"); window.location.href = "index.html"; } 
+        else {
+            try {
+                currentAgent = JSON.parse(savedAgent);
+                document.getElementById('login-screen').style.display = 'none';
+                updateUIWithAgent(currentAgent);    
+                initCalendar(); // เรียกปฏิทินก่อน แล้วค่อยดึงข้อมูล          
+            } catch(e) { localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; }
+        }
+
+        document.getElementById('btn-logout-sidebar').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+        document.getElementById('btn-logout-dropdown').addEventListener('click', function(){ localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; });
+
+        // 🌟 ระบบเปลี่ยนสีตอนกดสร้าง Event
+        let selectedColor = "#8950fc";
+        document.querySelectorAll('.color-circle').forEach(circle => {
+            circle.addEventListener('click', function() {
+                document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedColor = this.getAttribute('data-color');
+            });
+        });
+
+        // 🌟 สร้างปฏิทินเปล่ารอรับข้อมูล
+        function initCalendar() {
+            var calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,today,next',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: { today: 'Today', month: 'Month', week: 'Week', day: 'Day' },
+                themeSystem: 'standard',
+                height: 600,
+                events: [], // จะใส่ข้อมูลทีหลัง
+                eventClick: function(info) {
+                    // เวลากดที่ป้ายโปร จะเด้ง Modal มาโชว์
+                    document.getElementById('view-title').innerText = info.event.title;
+                    document.getElementById('view-title').style.color = info.event.backgroundColor;
+                    
+                    let s = info.event.start ? info.event.start.toLocaleDateString('th-TH') : '';
+                    let e = info.event.end ? " - " + info.event.end.toLocaleDateString('th-TH') : '';
+                    document.getElementById('view-date').innerText = s + e;
+                    
+                    document.getElementById('view-sku').innerText = "รหัส: " + (info.event.extendedProps.sku || '-');
+                    document.getElementById('view-desc').innerText = info.event.extendedProps.description || 'ไม่มีรายละเอียด';
+                    
+                    var myModal = new bootstrap.Modal(document.getElementById('viewPromoModal'));
+                    myModal.show();
+                }
+            });
+            calendar.render();
+            fetchPromotions(); // ดึงข้อมูลมาใส่ปฏิทิน
+        }
+
+        // 🌟 ดึงข้อมูลจากชีต Promotions
+        function fetchPromotions() {
+            fetch(apiURL + "?action=getPromotions")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.promotions) {
+                        calendar.removeAllEvents(); // ล้างของเก่า
+                        calendar.addEventSource(data.promotions); // โยนของใหม่ใส่เข้าไป
+                        
+                        renderTodayPromos(data.promotions); // สร้างเมนูซ้ายมือ
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('today-promos-list').innerHTML = '<div class="text-center text-danger py-4">ดึงข้อมูลล้มเหลว</div>';
+                });
+        }
+
+        // 🌟 สร้างรายการ "โปรโมชั่นวันนี้" แถบซ้ายมือ
+        function renderTodayPromos(promos) {
+            let todayHtml = "";
+            let todayObj = new Date();
+            todayObj.setHours(0,0,0,0);
+
+            promos.forEach(p => {
+                let start = new Date(p.start); start.setHours(0,0,0,0);
+                let end = new Date(p.end); end.setHours(23,59,59,999);
+                
+                // เช็คว่าโปรโมชั่นครอบคลุมถึงวันนี้ไหม
+                if (todayObj >= start && todayObj <= end) {
+                    todayHtml += `
+                        <div class="promo-list-item border-start border-4" style="border-left-color: ${p.color} !important;">
+                            <img src="${p.img}" class="promo-list-img" onerror="this.src='https://placehold.co/100x100/1c1b2f/9d4edd?text=?'">
+                            <div>
+                                <h6 class="mb-0 text-light fw-bold" style="font-size: 0.9rem;">${p.title}</h6>
+                                <small class="text-muted" style="font-size: 0.75rem;">${p.productName}</small>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            if (todayHtml === "") todayHtml = '<div class="text-center text-muted py-4">ไม่มีโปรโมชั่นในวันนี้</div>';
+            document.getElementById('today-promos-list').innerHTML = todayHtml;
+        }
+
+        // 🌟 ระบบส่งข้อมูลโปรโมชั่นใหม่กลับไปเซฟที่หลังบ้าน
+        document.getElementById('btn-submit-promo').addEventListener('click', function() {
+            let title = document.getElementById('promo-title').value.trim();
+            let start = document.getElementById('promo-start').value;
+            let end = document.getElementById('promo-end').value;
+            let sku = document.getElementById('promo-sku').value.trim();
+            let desc = document.getElementById('promo-desc').value.trim();
+
+            if(!title || !start || !end) {
+                alert("กรุณากรอกชื่อโปรโมชั่น และวันที่ให้ครบถ้วนครับ!");
+                return;
+            }
+
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Saving...';
+            this.disabled = true;
+
+            var payload = {
+                action: 'addPromotion',
+                title: title,
+                start: start,
+                end: end,
+                sku: sku,
+                color: selectedColor,
+                description: desc
+            };
+
+            fetch(apiURL, { method: "POST", body: JSON.stringify(payload) })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    // ปิด Modal
+                    bootstrap.Modal.getInstance(document.getElementById('createPromoModal')).hide();
+                    
+                    // ล้างฟอร์ม
+                    document.getElementById('promo-title').value = "";
+                    document.getElementById('promo-start').value = "";
+                    document.getElementById('promo-end').value = "";
+                    document.getElementById('promo-sku').value = "";
+                    document.getElementById('promo-desc').value = "";
+                    
+                    // โหลดปฏิทินใหม่ให้มันอัปเดต
+                    fetchPromotions();
+                } else {
+                    alert("❌ เกิดข้อผิดพลาด: " + data.message);
+                }
+            })
+            .catch(err => { alert("Error connecting to server."); })
+            .finally(() => {
+                this.innerHTML = 'Create Event';
+                this.disabled = false;
+            });
+        });
+
+    </script>
+</body>
+</html>
