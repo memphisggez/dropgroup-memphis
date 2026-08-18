@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เลือกสินค้าให้ลูกค้า - Memphis Group</title>
+    <title>Store Catalog - Memphis Group</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,7 +44,7 @@
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* 🌟 Sidebar Style เหมือนหน้า index */
+        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -74,7 +74,7 @@
 
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
-        .user-profile-bottom img { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); }
+        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
         /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
@@ -121,7 +121,6 @@
         .select-btn { background: var(--primary-color); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px; }
         .select-btn:hover { background: var(--primary-hover); }
 
-        /* 🌟 ปุ่มกฎกลุ่มแก้ไขเป็น กฎและคำโปรย */
         .rules-btn { background: var(--primary-light); color: #d8b4fe; border: 1px solid rgba(157, 78, 221, 0.4); padding: 8px; border-radius: 10px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 5px; font-size: 0.9rem; }
         .rules-btn:hover { background: rgba(157, 78, 221, 0.3); color: #fff; }
 
@@ -158,6 +157,7 @@
 </head>
 <body>
 
+    <!-- ล็อคอินหน้าสินค้า -->
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
@@ -173,13 +173,11 @@
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- 🌟 Sidebar รูปแบบใหม่ -->
         <nav id="sidebar">
             <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             <ul class="sidebar-menu mt-2">
                 <div class="menu-title">Overview</div>
                 <li><a href="index.html"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                
                 <li>
                     <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
@@ -189,7 +187,6 @@
                         <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
                     </ul>
                 </li>
-
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-users"></i> <span>Users</span>
@@ -200,6 +197,7 @@
                     </ul>
                 </li>
                 
+                <!-- เลือกเมนูสินค้าให้ขึ้น Active อัตโนมัติ -->
                 <li><a href="product.html" class="active"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
                 <div class="menu-title">Apps</div>
@@ -209,7 +207,7 @@
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="" id="sidebar-avatar" alt="User">
+                    <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
                         <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
@@ -219,7 +217,6 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <div id="page-content">
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
@@ -237,7 +234,7 @@
                     
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
@@ -251,7 +248,6 @@
                 </div>
             </div>
 
-            <!-- Page Title -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
                 <div>
                     <h2 class="fw-bold mb-1">Store Catalog</h2>
@@ -285,9 +281,7 @@
         </div>
     </div>
 
-    <!-- =========================================
-         🌟 หน้าต่าง ชำระเงิน / แจ้งโอน (Modal)
-    ========================================= -->
+    <!-- หน้าต่างชำระเงิน (Modal) -->
     <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -375,9 +369,7 @@
         </div>
     </div>
 
-    <!-- =========================================
-         🌟 Modal สำหรับแสดงกฎและคำโปรยสินค้า (อัปเดตใหม่)
-    ========================================= -->
+    <!-- Modal กฎและคำโปรย -->
     <div class="modal fade" id="rulesModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -387,7 +379,6 @@
                 </div>
                 <div class="modal-body px-4 pb-4">
                     
-                    <!-- 🌟 ส่วนของคำโปรยสำหรับโพสต์ขาย -->
                     <div class="mb-4">
                         <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
                             <i class="fa-solid fa-align-left text-info me-1"></i> คำโปรย (สำหรับก๊อปปี้ไปโพสต์ขาย)
@@ -400,7 +391,6 @@
 
                     <hr style="border-color: var(--border-color); border-style: dashed;">
 
-                    <!-- 🌟 ส่วนของลิงก์กฎกลุ่ม -->
                     <div>
                         <label class="form-label text-light fw-bold" style="font-size: 0.9rem;">
                             <i class="fa-solid fa-link text-success me-1"></i> ลิ้งก์กฎกลุ่ม (ส่งให้ลูกค้าอ่านก่อนซื้อ)
@@ -429,7 +419,7 @@
     
     <script>
         // 🚨 นำ API URL ล่าสุดของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbw3QZHDtUR3hoTj7K_0kBlh8l_UafkpKLpxhZx2_j4bkf1MGTiKcGxOiPbb_Gst6278oA/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbw9Op6Wmm-OIw9887tan186rOJfn-BUOBkqSIRaRhPY5VTot59zBG7Zkhtm7PF8OI0m1g/exec";
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -450,26 +440,44 @@
 
         let currentAgent = null;
 
-        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์มาแสดงบนหน้าเว็บ (จากชีต)
+        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์มาแสดง
         function updateUIWithAgent(agent) {
-            document.getElementById('sidebar-name').innerText = agent.name;
-            document.getElementById('topbar-name').innerText = agent.name;
-            
-            // เช็คว่ามีรูปโปรไฟล์ที่ดึงมาจากชีตไหม ถ้าไม่มีให้สร้างรูปตัวอักษร
-            let avatarUrl = agent.profileImg && agent.profileImg.trim() !== "" 
-                            ? agent.profileImg 
-                            : `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-                            
-            document.getElementById('sidebar-avatar').src = avatarUrl; 
-            document.getElementById('topbar-avatar').src = avatarUrl; 
+            try {
+                document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
+                document.getElementById('topbar-name').innerText = agent.name || "Unknown";
+                
+                let safeName = encodeURIComponent(agent.name || 'User');
+                let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
+                let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
+                                
+                let sAvatar = document.getElementById('sidebar-avatar');
+                let tAvatar = document.getElementById('topbar-avatar');
+                
+                sAvatar.src = avatarUrl;
+                tAvatar.src = avatarUrl;
+                
+                sAvatar.onerror = function() { this.src = defaultAvatar; };
+                tAvatar.onerror = function() { this.src = defaultAvatar; };
+
+            } catch(e) {
+                console.error("UI Update Error:", e);
+            }
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
         if (!savedAgent) {
             alert("กรุณาเข้าสู่ระบบก่อนใช้งาน"); window.location.href = "index.html"; 
         } else {
-            currentAgent = JSON.parse(savedAgent);
-            updateUIWithAgent(currentAgent); 
+            try {
+                currentAgent = JSON.parse(savedAgent);
+                // 🌟 ปิดบังหน้าล็อคอิน
+                document.getElementById('login-screen').style.display = 'none';
+                updateUIWithAgent(currentAgent); 
+                fetchProducts(); 
+            } catch(e) {
+                localStorage.removeItem('memphis_agent');
+                window.location.href = "index.html";
+            }
         }
 
         const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; };
@@ -508,7 +516,6 @@
                                 <div class="product-price">฿${p.fullPrice}</div>
                             </div>
                             
-                            <!-- 🌟 เปลี่ยนชื่อปุ่มเป็น กฎและคำโปรย -->
                             <button class="rules-btn" onclick="openRulesModal('${p.sku}')">
                                 <i class="fa-solid fa-book-open me-1"></i> กฎและคำโปรย
                             </button>
@@ -519,7 +526,6 @@
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
         }
-        fetchProducts(); 
 
         const mainCategory = document.getElementById('main-category');
         const subCategory = document.getElementById('sub-category');
@@ -546,9 +552,6 @@
             renderProducts(filtered); 
         }
 
-        /* =========================================
-           🌟 3. ระบบ Modal กฎและคำโปรย (อัปเดตใหม่)
-        ========================================= */
         function openRulesModal(sku) {
             let product = allProducts.find(p => p.sku === sku);
             if(!product) return;
@@ -557,9 +560,8 @@
             let linkInput = document.getElementById('rules-link-input');
             let previewContainer = document.getElementById('rules-preview-container');
             let externalLink = document.getElementById('rules-external-link');
-            let promoArea = document.getElementById('promo-text-area'); // ช่องคำโปรย
+            let promoArea = document.getElementById('promo-text-area'); 
 
-            // เช็คและแสดงลิ้งก์กฎ
             if(product.rulesUrl && product.rulesUrl.trim() !== "") {
                 linkInput.value = product.rulesUrl;
                 externalLink.href = product.rulesUrl;
@@ -569,7 +571,6 @@
                 previewContainer.style.display = 'none';
             }
 
-            // เช็คและแสดงคำโปรย
             if(product.promoText && product.promoText.trim() !== "") {
                 promoArea.value = product.promoText;
             } else {
@@ -580,7 +581,6 @@
             rulesModal.show();
         }
 
-        // ฟังก์ชันคัดลอกกฎกลุ่ม
         function copyRulesLink() {
             let copyText = document.getElementById("rules-link-input");
             copyText.select(); 
@@ -589,7 +589,6 @@
             alert("✅ คัดลอกลิ้งก์กฎกลุ่มเรียบร้อยแล้ว! นำไปส่งให้ลูกค้าอ่านได้เลยครับ");
         }
 
-        // 🌟 ฟังก์ชันคัดลอกคำโปรยสินค้า
         function copyPromoText() {
             let copyText = document.getElementById("promo-text-area");
             copyText.select(); 
@@ -598,9 +597,6 @@
             alert("✅ คัดลอกคำโปรยเรียบร้อยแล้ว! นำไปโพสต์ขายได้เลยครับ");
         }
 
-        /* =========================================
-           🌟 4. ระบบหน้าต่างชำระเงิน (Modal)
-        ========================================= */
         let currentProduct = null;
         let currentBase64Slip = null; 
 
