@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* =========================================
+           1. ตั้งค่าตัวแปรสี (TrendyAdmin Premium Theme)
+        ========================================= */
         :root {
             --bg-main: #151521;      
             --bg-card: #1e1e2d;      
@@ -35,11 +38,13 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
+        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
+        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -62,41 +67,37 @@
         .sidebar-submenu li { position: relative; }
         .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
         .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
-        .sidebar-submenu li a:hover { color: var(--primary-color); }
-        .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
-        
-        /* 🌟 สีไฮไลท์ให้เมนูย่อย Active */
-        .sidebar-submenu li a.active { color: var(--primary-color); }
-        .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
+        .sidebar-submenu li a:hover, .sidebar-submenu li a.active { color: var(--primary-color); }
+        .sidebar-submenu li a:hover::before, .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
 
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
         .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
+        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
+        /* 🌟 Topbar */
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
+        
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
-        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
-        
-        .btn-create { background: var(--primary-light); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-        .btn-create:hover { background: var(--primary-color); color: #fff; }
+        .badge-dot { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; border: 2px solid var(--bg-main); }
 
-        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; }
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
         .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-        .signout-btn { color: var(--danger-color) !important; }
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
+        /* การ์ดสินค้าและตัวกรอง */
         .search-filter-card { background-color: var(--bg-card); border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
         .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
         .custom-input:focus { border-color: var(--primary-color); }
@@ -125,17 +126,23 @@
         /* Modal Payment */
         .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
         .modal-header { border-bottom: 1px dashed var(--border-color); }
+        
         .order-summary-box { background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
         .order-summary-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; background: var(--bg-main); }
+        
         .payment-qr-box { text-align: center; margin-bottom: 20px; }
         .payment-qr-img { width: 200px; max-width: 100%; border-radius: 15px; border: 2px dashed var(--border-color); padding: 5px; }
+        
         .custom-file-upload { border: 1px dashed var(--text-muted); background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; }
         .custom-file-upload:hover { border-color: var(--primary-color); background: var(--primary-light); }
+        
         .btn-submit-order { background: rgba(255,255,255,0.1); color: var(--text-muted); border: none; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.3s; width: 100%; }
         .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(137, 80, 252, 0.4); }
         .btn-submit-order.ready:hover { background: var(--primary-hover); }
+
         .success-box { text-align: center; padding: 30px 10px; }
         .success-icon { font-size: 4.5rem; color: var(--success-color); margin-bottom: 20px; animation: popIn 0.5s ease; }
+        
         .line-link-box { background: rgba(0,0,0,0.2); border: 1px dashed var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; }
         .copy-btn { background-color: var(--success-color); color: #fff; border: none; transition: 0.3s; font-weight: bold; }
         .copy-btn:hover { background-color: #15a9a0; color: #fff; }
@@ -147,7 +154,7 @@
 
     <div id="login-screen">
         <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
+            <div class="metric-icon bg-purple-light mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
             <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
@@ -173,11 +180,10 @@
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
+                        <li><a href="sales.html" onclick="window.location.href='sales.html';">Sales</a></li>
                     </ul>
                 </li>
 
-                <!-- 🌟 อัปเดตเมนู Users and Customers -->
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
@@ -191,9 +197,9 @@
                 
                 <li><a href="product.html" class="active" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
-                <div class="menu-title">Apps</div>
-                <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
+                <div class="menu-title">OTHER</div>
+                <li><a href="calendar.html" onclick="window.location.href='calendar.html';"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
+                <li><a href="projects.html" onclick="window.location.href='projects.html';"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
@@ -201,7 +207,7 @@
                     <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
                         <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <small class="text-muted" id="sidebar-role" style="font-size: 0.75rem; text-transform: uppercase;">LOADING...</small>
                     </div>
                 </div>
                 <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
@@ -209,30 +215,55 @@
         </nav>
 
         <div id="page-content">
+            <!-- 🌟 Topbar ใหม่ (ค้นหาใช้งานได้ + กระดิ่งแจ้งเตือน) -->
             <div class="topbar d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
                     <div class="search-bar d-none d-md-flex">
                         <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        <input type="text" placeholder="Search anything...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
+                        <!-- 🌟 เปลี่ยน Placeholder ให้เข้ากับหน้าสินค้า -->
+                        <input type="text" id="global-search" placeholder="ค้นหาสินค้า (ชื่อ, รหัส)...">
                     </div>
                 </div>
                 <div class="topbar-actions">
-                    <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
-                    <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                    <button class="icon-btn ms-2" id="theme-toggle" title="สลับโหมดสี"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
+                    
+                    <!-- 🌟 กระดิ่งแจ้งเตือน -->
+                    <div class="dropdown">
+                        <button class="icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu p-2" style="width: 300px;">
+                            <li class="border-bottom pb-2 mb-2"><h6 class="fw-bold text-light mb-0 px-2">ข่าวสารโปรโมชั่น</h6></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-bullhorn text-warning mt-1"></i> 
+                                    <div><strong class="d-block">อัปเดตงานใหม่!</strong><small class="text-muted">คลังงานตูนเดือนนี้เพิ่ม 25 เซ็ตแล้ว</small></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start gap-2" href="#" style="white-space: normal;">
+                                    <i class="fa-solid fa-gift text-success mt-1"></i> 
+                                    <div><strong class="d-block">โปร 1 แถม 1</strong><small class="text-muted">เฉพาะกลุ่มบล็อก วันนี้เท่านั้น</small></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px; object-fit:cover;">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                            <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
+                                <img src="" id="dropdown-avatar" class="profile-img-circle mx-auto d-block mb-2" style="width:60px; height:60px; object-fit:cover;">
+                                <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
+                                <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
+                            </div>
                             <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item text-warning" href="#" onclick="localStorage.removeItem('memphis_agent'); location.reload();"><i class="fa-solid fa-rotate-right me-2"></i> ล้างแคช (Clear Cache)</a></li>
                             <li><hr class="dropdown-divider border-secondary"></li>
-                            <li><a class="dropdown-item signout-btn" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -407,7 +438,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbzKNcZ4KiAVJz_R2YwRvSTfMQ7kW76C1rIimkCm0vLEvIRsW3p6i3UWlyDEwAghotl52g/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbzFMvNXzv9h0aNjZJjA7ejjxyFWHRV2E4EI3TElFyXyKeNUnRTQ9GnT90Wy0S5e8cu-nA/exec";
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -433,16 +464,25 @@
                 document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
                 document.getElementById('topbar-name').innerText = agent.name || "Unknown";
                 
+                let dn = document.getElementById('dropdown-name');
+                if (dn) dn.innerText = agent.name || "Unknown";
+                
+                // 🌟 โชว์สถานะ
+                let roleEl = document.getElementById('sidebar-role');
+                if (roleEl) roleEl.innerText = agent.role || "ตัวแทนจำหน่าย";
+
                 let safeName = encodeURIComponent(agent.name || 'User');
                 let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
                 let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
                                 
                 let sAvatar = document.getElementById('sidebar-avatar');
                 let tAvatar = document.getElementById('topbar-avatar');
+                let dAvatar = document.getElementById('dropdown-avatar');
                 
-                sAvatar.src = avatarUrl; tAvatar.src = avatarUrl;
-                sAvatar.onerror = function() { this.src = defaultAvatar; };
-                tAvatar.onerror = function() { this.src = defaultAvatar; };
+                if(sAvatar) { sAvatar.onerror = function() { this.src = defaultAvatar; }; sAvatar.src = avatarUrl; }
+                if(tAvatar) { tAvatar.onerror = function() { this.src = defaultAvatar; }; tAvatar.src = avatarUrl; }
+                if(dAvatar) { dAvatar.onerror = function() { this.src = defaultAvatar; }; dAvatar.src = avatarUrl; }
+
             } catch(e) { console.error("UI Update Error:", e); }
         }
 
@@ -460,17 +500,38 @@
             }
         }
 
-        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); window.location.href = "index.html"; };
+        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); };
         document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
         document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
 
         let allProducts = []; 
+        let searchKeyword = ""; // 🌟 ตัวแปรเก็บคำค้นหา
+
         function fetchProducts() {
             fetch(apiURL + "?action=getProducts")
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) { allProducts = data.products; renderProducts(allProducts); }
                 }).catch(err => { document.getElementById('product-grid').innerHTML = '<div class="col-12 text-center text-danger">โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่</div>'; });
+        }
+
+        // 🌟 เพิ่ม Event Listener ให้ช่องค้นหาทำงาน
+        document.getElementById('global-search').addEventListener('input', function(e) {
+            searchKeyword = e.target.value.toLowerCase();
+            filterProducts();
+        });
+
+        function filterProducts() {
+            const filtered = allProducts.filter(p => {
+                let matchMain = mainCategory.value === "" || p.mainCat === mainCategory.value;
+                let matchSub = subCategory.value === "" || p.subCat === subCategory.value;
+                // 🌟 เพิ่มเงื่อนไขให้กรองด้วย Keyword จากช่องค้นหาด้วย
+                let matchSearch = searchKeyword === "" || 
+                                  p.name.toLowerCase().includes(searchKeyword) || 
+                                  p.sku.toLowerCase().includes(searchKeyword);
+                return matchMain && matchSub && matchSearch;
+            });
+            renderProducts(filtered); 
         }
 
         function renderProducts(productsToRender) {
@@ -522,15 +583,6 @@
             filterProducts(); 
         });
         subCategory.addEventListener('change', filterProducts);
-
-        function filterProducts() {
-            const filtered = allProducts.filter(p => {
-                let matchMain = mainCategory.value === "" || p.mainCat === mainCategory.value;
-                let matchSub = subCategory.value === "" || p.subCat === subCategory.value;
-                return matchMain && matchSub;
-            });
-            renderProducts(filtered); 
-        }
 
         function openRulesModal(sku) {
             let product = allProducts.find(p => p.sku === sku);
