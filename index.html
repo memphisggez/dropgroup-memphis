@@ -27,7 +27,7 @@
             --text-light: #ffffff; 
             --text-muted: #a1a5b7;    
             --border-color: #2b2b40;  
-            --sidebar-width: 280px; 
+            --sidebar-width: 260px;
         }
 
         body.light-mode { --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-sidebar: #ffffff; --text-light: #2b2b36; --text-muted: #79788f; --border-color: #eaeaea; }
@@ -35,239 +35,261 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
+        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+        /* Sidebar & Topbar */
+        #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
         #sidebar.toggled .sidebar-menu li > a { justify-content: center; padding: 12px 0; }
-        
-        .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
-        .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
-        .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
-        .sidebar-menu::-webkit-scrollbar { width: 4px; }
-        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        
-        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
-        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
+        .sidebar-brand { padding: 20px 25px; font-size: 1.25rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; }
+        .sidebar-brand i { color: var(--primary-color); font-size: 1.5rem; }
+        .sidebar-menu { list-style: none !important; padding: 0 15px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
+        .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; }
+        .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 15px; color: var(--text-muted); text-decoration: none !important; border-radius: 8px; margin-bottom: 5px; transition: all 0.3s; font-size: 0.95rem; }
         .sidebar-menu > li > a i:first-child { width: 30px; font-size: 1.1rem; }
-        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
+        .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); }
+        
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
-        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
+        .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 5px 30px !important; border-left: 1px dashed var(--border-color); }
         .sidebar-submenu li { position: relative; }
-        .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
+        .sidebar-submenu li a { display: flex; align-items: center; padding: 8px 15px 8px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
         .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
         .sidebar-submenu li a:hover { color: var(--primary-color); }
         .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
 
-        .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
-        .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
-        
-        /* 🌟 ปรับรูปโปรไฟล์ให้วงกลมเนียนๆ */
-        .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); }
+        .user-profile-bottom { padding: 15px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        /* 🌟 ปรับรูปโปรไฟล์ให้เป็นวงกลมพอดีเป๊ะ */
+        .profile-img-circle { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
-        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
+        #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 20px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
-
-        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
-        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
-        .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
-        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
-        
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: transparent; margin-bottom: 25px; }
+        .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 8px 15px; display: flex; align-items: center; width: 250px; }
+        .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; }
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
+        
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
-        .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
+        .badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #ff4757; border-radius: 50%; }
 
-        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; }
-        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
-        .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-        .signout-btn { color: var(--danger-color) !important; }
+        .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 15px 0; min-width: 250px; margin-top: 15px !important; }
+        .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 12px 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; }
+        .profile-dropdown-menu .dropdown-item i { font-size: 1.1rem; color: var(--text-muted); width: 20px; text-align: center; }
+        .profile-dropdown-menu .dropdown-item:hover { background-color: rgba(157, 78, 221, 0.1); color: var(--primary-color); }
+        .signout-btn-wrap { padding: 10px 20px 0 20px; margin-top: 10px; border-top: 1px solid var(--border-color); }
+        .signout-btn { display: block; width: 100%; padding: 10px; text-align: center; background-color: rgba(255, 118, 117, 0.1); color: #ff7675; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .signout-btn:hover { background-color: #ff7675; color: #fff; }
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
-        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
+        @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 10px; } .search-bar, .user-name-text { display: none !important; } }
 
-        .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
-        .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
-        .metric-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; }
+        /* การ์ดสถิติ (Cards) */
+        .banner-card { background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%); border-radius: 20px; margin-bottom: 25px; color: #ffffff; position: relative; overflow: hidden; }
+        .banner-circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.06); }
+        .banner-circle-1 { width: 450px; height: 450px; top: -150px; right: -50px; }
+        .banner-circle-2 { width: 250px; height: 250px; bottom: -80px; right: 300px; }
+        .glass-stat-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 20px 15px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; justify-content: center; }
+
+        .custom-card { background-color: var(--bg-card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; height: calc(100% - 25px); }
+        .custom-card:hover { transform: translateY(-5px); border-color: rgba(137, 80, 252, 0.3); }
+        .metric-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 0; }
         
         .table { color: var(--text-light); margin-bottom: 0; }
-        .table td, .table th { border-bottom: 1px dashed var(--border-color); background: transparent; padding: 15px 10px; vertical-align: middle; white-space: nowrap; }
-        .table th { font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; color: var(--text-muted); }
-        .badge-status { padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .table td, .table th { border-bottom: 1px dashed var(--border-color); background: transparent; padding: 12px 10px; vertical-align: middle; white-space: nowrap; }
+        .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
         
-        .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
-        .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
-        .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
-        .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
-        
-        .timeline { border-left: 1px dashed var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
+        .timeline { border-left: 2px dashed var(--border-color); padding-left: 20px; margin-left: 10px; margin-top: 20px; }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot { position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
+        .timeline-dot { position: absolute; left: -27px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-card); border: 2px solid; }
+
+        .text-purple { color: #a55eea; } .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
+        .text-green { color: #2ed573; } .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
+        .text-orange { color: #ffa502; } .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
+        .text-blue { color: #1e90ff; } .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
+        .bg-completed { background-color: rgba(46, 213, 115, 0.15); color: #2ed573; }
     </style>
 </head>
 <body>
 
+    <!-- ล็อคอิน -->
     <div id="login-screen">
         <div class="login-card">
-            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
-            <h3 class="fw-bold text-light mb-1">MemphisGroup</h3>
-            <p class="text-muted mb-4">Sign in to your account</p>
-            <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
-            <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
-            <button id="btn-login" class="btn w-100 mt-3" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
-            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
+            <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.8rem;"><i class="fa-solid fa-user-lock"></i></div>
+            <h3 class="fw-bold text-light mb-1">TrendyAdmin</h3>
+            <p class="text-muted mb-4">กรุณาเข้าสู่ระบบ</p>
+            <input type="text" id="agent-input" class="login-input" placeholder="รหัสตัวแทน (เช่น AG01)" autocomplete="off">
+            <input type="password" id="password-input" class="login-input" placeholder="รหัสผ่าน" autocomplete="off">
+            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">เข้าสู่ระบบ</button>
+            <button id="btn-force-clear" class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="clearOldData()">ล้างแคชเก่า (ถ้าค้าง)</button>
+            <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง</p>
         </div>
     </div>
 
+    <!-- แดชบอร์ดหลัก -->
     <div id="wrapper">
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
         <nav id="sidebar">
-            <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
-            <ul class="sidebar-menu mt-2">
+            <a href="#" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
+            <ul class="sidebar-menu mt-3">
                 <div class="menu-title">Overview</div>
-                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-                <li>
-                    <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
+                <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                <li><a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed"><i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span><i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i></a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
+                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
-                        <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
-                    </a>
+                <li><a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed"><i class="fa-solid fa-users"></i> <span>Users</span><i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i></a>
                     <ul class="collapse sidebar-submenu" id="usersSubmenu">
                         <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
                     </ul>
                 </li>
-                
-                <!-- 🌟 บังคับใส่ onClick ให้ลิ้งก์ชัวร์ 100% -->
+                <!-- ลิ้งก์สินค้า -->
                 <li><a href="product.html" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
-                
+
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
                 <li><a href="#"><i class="fa-solid fa-table-columns"></i> <span>Kanban Board</span></a></li>
             </ul>
 
             <div class="user-profile-bottom" id="sidebar-user-zone">
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2">
                     <img src="" id="sidebar-avatar" class="profile-img-circle" alt="User">
                     <div class="user-info">
-                        <h6 class="mb-0 text-light fw-bold" id="sidebar-name" style="font-size: 0.95rem;">Loading...</h6>
-                        <small class="text-muted" style="font-size: 0.75rem; text-transform: uppercase;">ADMINISTRATOR</small>
+                        <h6 class="mb-0 text-light" id="sidebar-name" style="font-size: 0.9rem;">Loading...</h6>
+                        <small class="text-muted" style="font-size: 0.7rem;">ตัวแทนจำหน่าย</small>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-right-from-bracket text-muted" style="cursor: pointer;" title="Logout" id="btn-logout-sidebar"></i>
             </div>
         </nav>
 
         <div id="page-content">
-            <div class="topbar d-flex justify-content-between">
+            <div class="topbar">
                 <div class="d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-bars icon-btn d-lg-none" id="menu-toggle"></i>
-                    <div class="search-bar d-none d-md-flex">
-                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
-                        <input type="text" placeholder="Search anything...">
-                        <span class="badge bg-dark border border-secondary text-muted ms-auto px-2 py-1">⌘K</span>
-                    </div>
+                    <i class="fa-solid fa-bars icon-btn" id="menu-toggle"></i>
+                    <div class="search-bar d-none d-md-flex"><i class="fa-solid fa-magnifying-glass text-muted"></i><input type="text" placeholder="Search anything..."></div>
                 </div>
                 <div class="topbar-actions">
-                    <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
-                    <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
+                    <button class="icon-btn" id="theme-toggle" title="สลับโหมดสี"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
                     <div class="dropdown">
-                        <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
+                        <div class="d-flex align-items-center gap-2 ms-1 ms-md-3" style="cursor: pointer;" data-bs-toggle="dropdown">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:35px; height:35px;">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
-                            <li><hr class="dropdown-divider border-secondary"></li>
-                            <li><a class="dropdown-item signout-btn" href="#" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            <div class="text-center px-4 py-3 mb-2 border-bottom" style="border-color: var(--border-color) !important;">
+                                <img src="" id="dropdown-avatar" class="profile-img-circle mx-auto d-block mb-2" style="width:60px; height:60px;">
+                                <h6 class="fw-bold text-light mb-1" id="dropdown-name">Loading...</h6>
+                                <span class="badge bg-purple-light text-purple rounded-pill px-3 py-1">Memphis Group</span>
+                            </div>
+                            <div class="signout-btn-wrap"><a href="#" class="signout-btn" id="btn-logout-dropdown"><i class="fa-solid fa-right-from-bracket me-2"></i> ออกจากระบบ</a></div>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-                <div>
-                    <h2 class="fw-bold mb-1">Sales Dashboard</h2>
-                    <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
+            <div class="container-fluid p-0">
+                
+                <div class="banner-card p-4 p-md-5">
+                    <div class="banner-circle banner-circle-1"></div>
+                    <div class="banner-circle banner-circle-2"></div>
+                    <div class="position-relative z-1 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 w-100">
+                        <div>
+                            <span class="badge bg-light bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill" style="font-size: 0.75rem;">DASHBOARD</span>
+                            <h2 id="welcome-heading" class="fw-bold mb-2" style="font-size: 2.2rem;">Good morning 👋</h2>
+                            <p id="welcome-text" class="mb-4" style="color: rgba(255,255,255,0.8); font-size: 1.05rem;">Here's what's happening with your store today.</p>
+                        </div>
+                        <div class="d-flex gap-3 w-100 justify-content-xl-end" style="max-width: 500px;">
+                            <div class="glass-stat-box flex-fill">
+                                <h3 class="mb-1 fw-bold" id="banner-today-revenue">...</h3>
+                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Today's Revenue</small>
+                            </div>
+                            <div class="glass-stat-box flex-fill">
+                                <h3 class="mb-1 fw-bold" id="banner-today-orders">...</h3>
+                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">New Orders</small>
+                            </div>
+                            <div class="glass-stat-box flex-fill">
+                                <h3 class="mb-1 fw-bold" id="banner-visitors">...</h3>
+                                <small style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Visitors</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-3 mt-md-0 d-flex gap-2">
-                    <button class="btn btn-outline-secondary text-light" style="border-color: var(--border-color);"><i class="fa-regular fa-calendar me-2"></i> Last 30 days <i class="fa-solid fa-chevron-down ms-2" style="font-size:0.7rem;"></i></button>
-                    <button class="btn btn-create" style="background: var(--primary-color); color:#fff;"><i class="fa-solid fa-download me-1"></i> Export</button>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light"><i class="fa-solid fa-dollar-sign"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 18.2%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Revenue</span></div></div>
-                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light"><i class="fa-solid fa-bag-shopping"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Orders</span></div></div>
-                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light"><i class="fa-solid fa-receipt"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 5.3%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Total Sales Value</span></div></div>
-                <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light"><i class="fa-solid fa-users"></i></div><span class="metric-badge" style="background: var(--danger-light); color: var(--danger-color);"><i class="fa-solid fa-arrow-trend-down"></i> 2.1%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><span class="text-muted" style="font-size: 0.85rem;">Active Customers</span></div></div>
-            </div>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-cart-shopping"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 18.2%</span></div><h3 class="fw-bold mb-1" id="data-sales">Loading...</h3><small class="text-muted">Total Sales</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-money-bill-wave"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Net Revenue</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-orange-light text-orange"><i class="fa-solid fa-box"></i></div><span class="metric-badge bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i> 5.3%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
+                    <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div><span class="metric-badge" style="background: var(--danger-light); color: var(--danger-color);"><i class="fa-solid fa-arrow-trend-down"></i> 2.1%</span></div><h3 class="fw-bold mb-1" id="data-customers">Loading...</h3><small class="text-muted">Total Customers</small></div></div>
+                </div>
 
-            <div class="row">
-                <div class="col-xl-8 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4">
-                            <div><h5 class="mb-0 fw-bold">Sales Over Time</h5><small class="text-muted">Revenue and order volume</small></div>
-                            <div class="mt-2 mt-sm-0"><span class="badge bg-dark border border-secondary text-muted px-3 py-2 me-1">Week</span><span class="badge" style="background: var(--primary-light); color: var(--primary-color); padding: 8px 15px;">Month</span><span class="badge bg-dark border border-secondary text-muted px-3 py-2 ms-1">Year</span></div>
-                        </div>
-                        <div id="revenueChart" style="height: 300px; width: 100%;"></div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-12">
-                    <div class="custom-card text-center d-flex flex-column justify-content-between">
-                        <div><h5 class="mb-0 text-start fw-bold">Sales Target</h5><small class="text-muted d-block text-start">Monthly goal progress (฿6,000)</small></div>
-                        <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
-                        <div class="d-flex justify-content-between text-start mt-2 px-3">
-                            <div><small class="text-muted d-block">TARGET</small><strong class="fs-5" id="data-target">Loading...</strong></div>
-                            <div class="text-end"><small class="text-muted d-block">ACHIEVED</small><strong class="fs-5 text-light" id="data-earned">Loading...</strong></div>
+                <div class="row">
+                    <div class="col-xl-8 col-12">
+                        <div class="custom-card">
+                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-2">
+                                <div><h5 class="mb-0 fw-bold">Sales Over Time</h5><small class="text-muted">Income vs expenses this year</small></div>
+                            </div>
+                            <div id="revenueChart" style="height: 320px; width: 100%;"></div>
                         </div>
                     </div>
+                    
+                    <div class="col-xl-4 col-12">
+                        <div class="custom-card text-center d-flex flex-column justify-content-between">
+                            <div><h5 class="mb-0 text-start fw-bold">Sales Goal (This Month)</h5><small class="text-muted d-block text-start">Monthly target ฿6,000 progress</small></div>
+                            <div id="goalChart" class="my-3 d-flex justify-content-center w-100"></div>
+                            <div class="d-flex justify-content-around mt-2">
+                                <div><small class="text-muted">Target</small><br><strong class="fs-5" id="data-target">...</strong></div>
+                                <div><small class="text-muted">Earned</small><br><strong class="fs-5" id="data-earned">...</strong></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xl-8 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div><h5 class="mb-0 fw-bold">Recent Orders</h5><small class="text-muted">Latest transactions from your store</small></div>
-                            <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                <div class="row">
+                    <div class="col-xl-6 col-12">
+                        <div class="custom-card">
+                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i> Top Agents</h5>
+                            <small class="text-muted d-block mb-4">จัดอันดับยอดขายตัวแทนเดือนปัจจุบัน</small>
+                            <div id="agent-leaderboard-list"><div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div></div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-borderless mb-0 align-middle">
-                                <thead><tr><th>ORDER</th><th>CUSTOMER</th><th>PRODUCT</th><th>STATUS</th></tr></thead>
-                                <tbody id="recent-orders-table"><tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr></tbody>
-                            </table>
+                    </div>
+
+                    <div class="col-xl-6 col-12">
+                        <div class="custom-card">
+                            <h5 class="fw-bold mb-1">Live Activity</h5>
+                            <small class="text-muted d-block mb-3">What's happening right now</small>
+                            <div class="timeline" id="live-activity-timeline">
+                                <div class="timeline-item"><small class="text-muted">Loading activity...</small></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-12">
-                    <div class="custom-card">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div><h5 class="fw-bold mb-0">Top Agents</h5><small class="text-muted d-block">Best sellers this month</small></div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div><h5 class="mb-0 fw-bold">Recent Orders</h5><small class="text-muted">Latest valid transactions from your store</small></div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-borderless mb-0 align-middle">
+                                    <thead><tr><th class="text-muted">ORDER</th><th class="text-muted">CUSTOMER</th><th class="text-muted">PRODUCT</th><th class="text-muted">STATUS</th></tr></thead>
+                                    <tbody id="recent-orders-table"><tr><td colspan="4" class="text-center text-muted">Loading orders...</td></tr></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div id="agent-leaderboard-list"><div class="text-center text-muted py-3">กำลังโหลดข้อมูล...</div></div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -276,6 +298,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        // 🚨 นำ API URL ล่าสุดของคุณมาวางให้ตรงกันทุกหน้า
         const apiURL = "https://script.google.com/macros/s/AKfycbw9Op6Wmm-OIw9887tan186rOJfn-BUOBkqSIRaRhPY5VTot59zBG7Zkhtm7PF8OI0m1g/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
@@ -287,7 +310,7 @@
             else { sidebar.classList.toggle('toggled'); pageContent.classList.toggle('toggled'); }
         });
         overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
-
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         themeToggleBtn.addEventListener('click', function() {
@@ -296,20 +319,32 @@
         });
 
         var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), {
-            series: [{ name: 'Revenue', data: [] }, { name: 'Orders', data: [] }], 
-            chart: { height: 300, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#a1a5b7', fontFamily: 'Segoe UI' },
-            colors: ['#1bc5bd', '#8950fc'], fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
+            series: [{ name: 'Revenue', data: [] }, { name: 'Expenses', data: [] }],
+            chart: { height: 320, width: "100%", type: 'area', toolbar: { show: false }, foreColor: '#8b8a9e', fontFamily: 'Segoe UI' },
+            colors: ['#1bc5bd', '#8950fc'],
+            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.0, stops: [0, 90, 100] } },
             dataLabels: { enabled: false }, stroke: { curve: 'smooth', width: 3 },
             xaxis: { categories: [], axisBorder: { show: false }, axisTicks: { show: false } },
-            grid: { borderColor: '#2b2b40', strokeDashArray: 4 }, legend: { position: 'top', horizontalAlign: 'right', labels: { colors: '#a1a5b7' } }, tooltip: { theme: 'dark' }
+            grid: { borderColor: 'rgba(139, 138, 158, 0.1)', strokeDashArray: 4 },
+            legend: { position: 'top', horizontalAlign: 'right' }, tooltip: { theme: 'dark' }
         });
         revenueChart.render();
 
         var goalChart = new ApexCharts(document.querySelector("#goalChart"), {
-            series: [0], chart: { height: 260, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
-            plotOptions: { radialBar: { startAngle: -135, endAngle: 135, hollow: { size: '60%' }, track: { background: '#2b2b40', strokeWidth: '100%' }, dataLabels: { name: { show: true, color: '#a1a5b7', fontSize: '12px', offsetY: 25 }, value: { offsetY: -10, fontSize: '38px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } } } } },
+            series: [0], 
+            chart: { height: 280, width: "100%", type: 'radialBar', fontFamily: 'Segoe UI' },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -120, endAngle: 120, hollow: { size: '65%' },
+                    track: { background: 'rgba(139, 138, 158, 0.1)', strokeWidth: '100%' }, 
+                    dataLabels: {
+                        name: { show: true, color: '#8b8a9e', fontSize: '13px', offsetY: 25 },
+                        value: { offsetY: -10, fontSize: '35px', color: '#ffffff', fontWeight: 'bold', formatter: function (val) { return val + "%"; } }
+                    }
+                }
+            },
             fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', colorStops: [{ offset: 0, color: '#8950fc' }, { offset: 100, color: '#f64e60' }] } },
-            stroke: { lineCap: 'round' }, labels: ['of monthly target'],
+            stroke: { lineCap: 'round' }, labels: ['of monthly goal'],
         });
         goalChart.render();
 
@@ -318,26 +353,47 @@
         const agentInput = document.getElementById('agent-input');
         const passwordInput = document.getElementById('password-input');
         const loginError = document.getElementById('login-error');
+        const logoutBtnDropdown = document.getElementById('btn-logout-dropdown'); 
         
         let currentAgent = null;
 
-        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์ (ดักจับ Error กรณีลิ้งก์เสีย)
+        // ฟังก์ชันล้างแคชเก่าทิ้ง (ให้ User กดถ้าระบบค้าง)
+        function clearOldData() {
+            localStorage.removeItem('memphis_agent');
+            alert("ล้างข้อมูลเก่าเรียบร้อย! กรุณาล็อคอินใหม่อีกครั้งครับ");
+            location.reload();
+        }
+
+        // 🌟 อัปเดตการแสดงผลรูปโปรไฟล์ (ดักจับ Error และกันรูปแตก)
         function updateUIWithAgent(agent) {
-            document.getElementById('sidebar-name').innerText = agent.name;
-            document.getElementById('topbar-name').innerText = agent.name;
-            document.getElementById('dropdown-name').innerText = agent.name; 
-            
-            let defaultAvatar = `https://ui-avatars.com/api/?name=${agent.name.replace(/ /g, '+')}&background=random`;
-            let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
-            
-            document.getElementById('sidebar-avatar').src = avatarUrl; 
-            document.getElementById('topbar-avatar').src = avatarUrl; 
-            document.getElementById('dropdown-avatar').src = avatarUrl; 
-            
-            // 🌟 ถ้าลิ้งก์รูปไดร์ฟเสีย (เช่น ไม่ได้เปิดสาธารณะ) ให้กลับไปใช้รูปตัวอักษรแทนอัตโนมัติ
-            document.getElementById('sidebar-avatar').onerror = function() { this.src = defaultAvatar; };
-            document.getElementById('topbar-avatar').onerror = function() { this.src = defaultAvatar; };
-            document.getElementById('dropdown-avatar').onerror = function() { this.src = defaultAvatar; };
+            try {
+                document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
+                document.getElementById('topbar-name').innerText = agent.name || "Unknown";
+                document.getElementById('dropdown-name').innerText = agent.name || "Unknown"; 
+                document.getElementById('welcome-heading').innerHTML = `Good morning, ${agent.name} 👋`;
+
+                let safeName = encodeURIComponent(agent.name || 'User');
+                let defaultAvatar = `https://ui-avatars.com/api/?name=${safeName}&background=random`;
+                
+                // ถ้ารูปโปรไฟล์จากชีตมีปัญหา ให้ใช้รูปตัวอักษรแทน
+                let avatarUrl = (agent.profileImg && agent.profileImg.trim() !== "") ? agent.profileImg : defaultAvatar;
+                
+                let sAvatar = document.getElementById('sidebar-avatar');
+                let tAvatar = document.getElementById('topbar-avatar');
+                let dAvatar = document.getElementById('dropdown-avatar');
+
+                sAvatar.src = avatarUrl;
+                tAvatar.src = avatarUrl;
+                dAvatar.src = avatarUrl;
+
+                // กันเหนียว! ถ้ารูปจาก Google Drive โหลดไม่ขึ้นบนมือถือ ให้สลับไปใช้รูปตัวอักษรแทนทันที
+                sAvatar.onerror = function() { this.src = defaultAvatar; };
+                tAvatar.onerror = function() { this.src = defaultAvatar; };
+                dAvatar.onerror = function() { this.src = defaultAvatar; };
+
+            } catch (e) {
+                console.error("UI Update Error:", e);
+            }
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -350,7 +406,7 @@
 
         loginBtn.addEventListener('click', function() {
             const agentId = agentInput.value.trim(); const password = passwordInput.value.trim();
-            if(!agentId || !password) { loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่าน"; loginError.style.display = 'block'; return; }
+            if(!agentId || !password) { loginError.innerText = "กรุณากรอกรหัสตัวแทนและรหัสผ่านให้ครบถ้วน"; loginError.style.display = 'block'; return; }
             loginBtn.innerText = "กำลังตรวจสอบ..."; loginError.style.display = 'none';
 
             fetch(apiURL + "?action=login&agentId=" + agentId + "&password=" + password)
@@ -363,19 +419,21 @@
                         loginError.innerText = data.message || "รหัสตัวแทน หรือ รหัสผ่าน ไม่ถูกต้อง"; loginError.style.display = 'block'; loginBtn.innerText = "Login";
                     }
                 })
-                .catch(err => { loginError.innerText = "Network error"; loginError.style.display = 'block'; loginBtn.innerText = "Login"; });
+                .catch(err => { loginError.innerText = "เครือข่ายมีปัญหา กรุณาลองใหม่"; loginError.style.display = 'block'; loginBtn.innerText = "Login"; });
         });
 
-        const logoutFunction = function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); };
-        document.getElementById('btn-logout-dropdown').addEventListener('click', logoutFunction);
-        document.getElementById('btn-logout-sidebar').addEventListener('click', logoutFunction);
+        logoutBtnDropdown.addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('memphis_agent'); location.reload(); });
 
+        /* =========================================
+           🌟 4. ฟังก์ชันดึงข้อมูล Dashboard (แก้ปัญหาโหลดค้าง)
+        ========================================= */
         function loadDataFromGoogleSheet() {
             if(!currentAgent) return;
 
+            // ส่งคำขอแบบระบุ action ให้ชัดเจน
             fetch(apiURL + "?action=getDashboard")
                 .then(response => {
-                    if (!response.ok) throw new Error("Network Error");
+                    if(!response.ok) throw new Error("Network response was not ok");
                     return response.json();
                 })
                 .then(data => {
@@ -385,13 +443,19 @@
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
                         document.getElementById('data-customers').innerText = Number(data.kpi.customers || 5000).toLocaleString();
                     }
+                    if(data.banner) {
+                        document.getElementById('banner-today-revenue').innerText = "฿" + Number(data.banner.todayRevenue).toLocaleString();
+                        document.getElementById('banner-today-orders').innerText = Number(data.banner.todayOrders).toLocaleString();
+                        document.getElementById('banner-visitors').innerText = Number(data.banner.visitors).toLocaleString();
+                    }
+                    
                     if(data.goal) {
                         document.getElementById('data-target').innerText = "฿" + Number(data.goal.target).toLocaleString();
                         document.getElementById('data-earned').innerText = "฿" + Number(data.goal.earned).toLocaleString();
                         goalChart.updateSeries([data.goal.percent]); 
                     }
                     if(data.charts) {
-                        revenueChart.updateSeries([{ name: 'Revenue', data: data.charts.revenue }, { name: 'Orders/Expenses', data: data.charts.expenses }]);
+                        revenueChart.updateSeries([{ name: 'Revenue', data: data.charts.revenue }, { name: 'Expenses', data: data.charts.expenses }]);
                         revenueChart.updateOptions({ xaxis: { categories: data.charts.labels } });
                     }
 
@@ -400,21 +464,22 @@
                         if(data.leaderboard.length === 0) {
                             lbHTML = '<div class="text-center text-muted py-3">ยังไม่มียอดขายในเดือนนี้</div>';
                         } else {
-                            let maxSales = data.leaderboard[0].sales; 
                             data.leaderboard.forEach((agent, index) => {
-                                let percent = Math.round((agent.sales / maxSales) * 100);
-                                let barColor = index === 0 ? '#8950fc' : (index === 1 ? '#1bc5bd' : (index === 2 ? '#3699ff' : '#2b2b40'));
+                                let rankColor = index === 0 ? '#ffd700' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-muted)'));
                                 lbHTML += `
-                                <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="rounded bg-dark text-muted d-flex justify-content-center align-items-center" style="width:30px; height:30px;"><i class="fa-solid fa-user-tie"></i></div>
-                                            <span class="text-light fw-semibold" style="font-size: 0.9rem;">${agent.id}</span>
+                                <div class="d-flex justify-content-between align-items-center mb-3 p-3 rounded" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="fw-bold fs-5 text-center" style="color: ${rankColor}; width: 30px;">#${index+1}</div>
+                                        <div class="rounded-circle bg-purple-light text-purple d-flex align-items-center justify-content-center" style="width:40px; height:40px; font-size: 1.1rem;">
+                                            <i class="fa-solid fa-user-tie"></i>
                                         </div>
-                                        <span class="text-muted" style="font-size: 0.8rem;">฿${Number(agent.sales).toLocaleString()}</span>
+                                        <div>
+                                            <h6 class="mb-0 fw-bold text-light">${agent.id}</h6>
+                                            <small class="text-muted">Agent</small>
+                                        </div>
                                     </div>
-                                    <div class="progress" style="height: 6px; background-color: var(--border-color);">
-                                        <div class="progress-bar" role="progressbar" style="width: ${percent}%; background-color: ${barColor}; border-radius: 10px;"></div>
+                                    <div class="text-end">
+                                        <h5 class="mb-0 fw-bold text-green">฿${Number(agent.sales).toLocaleString()}</h5>
                                     </div>
                                 </div>`;
                             });
@@ -423,28 +488,35 @@
                     }
 
                     if(data.recentOrders) {
-                        let tableHTML = ""; let validCount = 0;
+                        let tableHTML = ""; let timelineHTML = "";
+                        let validCount = 0;
+
                         data.recentOrders.forEach((order, index) => {
                             if(!order.id || order.id === "#N/A" || order.customer === "Unknown" || order.time.includes("Invalid")) return; 
+                            
                             validCount++;
-                            let avatarUrl = `https://ui-avatars.com/api/?name=${order.customer}&background=random&color=fff`;
-                            tableHTML += `
-                            <tr>
-                                <td class="text-purple" style="font-size: 0.9rem;">#${order.id}</td>
-                                <td><div class="d-flex align-items-center gap-2"><img src="${avatarUrl}" class="rounded-circle" width="30"><div style="line-height: 1.2;"><span class="text-light d-block" style="font-size: 0.9rem;">${order.customer}</span><small class="text-muted" style="font-size: 0.75rem;">Credit Card</small></div></div></td>
-                                <td><span class="text-light fw-bold" style="font-size: 0.9rem;">${order.product}</span></td>
-                                <td><span class="badge-status bg-green-light"><i class="fa-solid fa-circle text-success me-1" style="font-size:0.5rem;"></i> Paid</span></td>
-                            </tr>`;
+                            let bgColors = ['primary', 'success', 'warning', 'danger', 'info'];
+                            let avatarBg = bgColors[index % bgColors.length];
+                            tableHTML += `<tr><td class="text-purple fw-semibold">${order.id}</td><td><div class="d-flex align-items-center"><div class="rounded-circle bg-${avatarBg} text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; font-size:12px;">${order.customer.charAt(0).toUpperCase()}</div> ${order.customer}</div></td><td><span class="text-muted">${order.product}</span></td><td><span class="badge-status bg-completed">${order.status}</span></td></tr>`;
+                            let dotColors = ['#2ed573', '#9d4edd', '#ffa502', '#1e90ff', '#ff7675'];
+                            let dotColor = dotColors[index % dotColors.length];
+                            timelineHTML += `<div class="timeline-item"><div class="timeline-dot" style="border-color: ${dotColor};"></div><span class="d-block" style="font-size: 0.95rem;">ออเดอร์ใหม่จาก <strong>${order.customer}</strong></span><small class="text-muted">${order.time}</small></div>`;
                         });
-                        if (validCount === 0) tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
+
+                        if (validCount === 0) {
+                            tableHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ยังไม่มีรายการสั่งซื้อสมบูรณ์ล่าสุด</td></tr>`;
+                            timelineHTML = `<div class="timeline-item"><small class="text-muted">ยังไม่มีกิจกรรมที่สมบูรณ์</small></div>`;
+                        }
                         document.getElementById('recent-orders-table').innerHTML = tableHTML;
+                        document.getElementById('live-activity-timeline').innerHTML = timelineHTML;
                     }
-                }).catch(error => { 
-                    console.error('Error:', error); 
-                    document.getElementById('data-sales').innerHTML = '<span class="text-danger fs-5">API Error</span>';
-                    document.getElementById('data-revenue').innerHTML = '<span class="text-danger fs-5">API Error</span>';
-                    document.getElementById('data-orders').innerHTML = '<span class="text-danger fs-5">API Error</span>';
-                    document.getElementById('data-customers').innerHTML = '<span class="text-danger fs-5">API Error</span>';
+                })
+                .catch(error => { 
+                    console.error('Fetch Error:', error); 
+                    document.getElementById('data-sales').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
+                    document.getElementById('data-revenue').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
+                    document.getElementById('data-orders').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
+                    document.getElementById('data-customers').innerHTML = '<span class="text-danger fs-6">เชื่อมต่อล้มเหลว</span>';
                 });
         }
     </script>
