@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           1. ตั้งค่าตัวแปรสี (TrendyAdmin Premium Theme)
-        ========================================= */
         :root {
             --bg-main: #151521;      
             --bg-card: #1e1e2d;      
@@ -38,13 +35,11 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -52,11 +47,9 @@
         
         .sidebar-brand { padding: 25px 25px 15px 25px; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-light); text-decoration: none; margin-bottom: 10px; }
         .sidebar-brand i { color: var(--primary-color); font-size: 1.6rem; }
-        
         .sidebar-menu { list-style: none !important; padding: 0 20px !important; margin: 0; flex-grow: 1; overflow-y: auto; overflow-x: hidden;}
         .sidebar-menu::-webkit-scrollbar { width: 4px; }
         .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        
         .menu-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 10px; font-weight: 600;}
         
         .sidebar-menu > li > a { display: flex; align-items: center; padding: 12px 18px; color: var(--text-muted); text-decoration: none !important; border-radius: 12px; margin-bottom: 8px; transition: all 0.3s; font-size: 0.95rem; font-weight: 500; }
@@ -71,12 +64,15 @@
         .sidebar-submenu li a::before { content: ""; position: absolute; left: -1px; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background-color: transparent; transition: 0.3s; }
         .sidebar-submenu li a:hover { color: var(--primary-color); }
         .sidebar-submenu li a:hover::before { background-color: var(--primary-color); width: 14px; }
+        
+        /* 🌟 สีไฮไลท์ให้เมนูย่อย Active */
+        .sidebar-submenu li a.active { color: var(--primary-color); }
+        .sidebar-submenu li a.active::before { background-color: var(--primary-color); width: 14px; }
 
         .user-profile-bottom { padding: 20px 25px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: transparent; transition: 0.3s; }
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
         .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
-        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
@@ -84,7 +80,6 @@
         .search-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 25px; padding: 10px 20px; display: flex; align-items: center; width: 350px; transition: 0.3s; }
         .search-bar:focus-within { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-light); }
         .search-bar input { background: transparent; border: none; color: var(--text-light); outline: none; width: 100%; margin-left: 10px; font-size: 0.95rem; }
-        
         .topbar-actions { display: flex; align-items: center; gap: 15px; }
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
@@ -102,7 +97,6 @@
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* การ์ดสินค้าและตัวกรอง */
         .search-filter-card { background-color: var(--bg-card); border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
         .custom-input { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-light); outline: none; width: 100%; }
         .custom-input:focus { border-color: var(--primary-color); }
@@ -126,28 +120,22 @@
 
         .text-purple { color: #a55eea; } .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
         .text-green { color: #2ed573; } .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
-        .text-primary-custom { color: #3699ff; }
+        .text-info-custom { color: var(--info-color); }
 
-        /* Modal สไตล์ชำระเงิน */
+        /* Modal Payment */
         .modal-content { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-light); }
         .modal-header { border-bottom: 1px dashed var(--border-color); }
-        
         .order-summary-box { background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
         .order-summary-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; background: var(--bg-main); }
-        
         .payment-qr-box { text-align: center; margin-bottom: 20px; }
         .payment-qr-img { width: 200px; max-width: 100%; border-radius: 15px; border: 2px dashed var(--border-color); padding: 5px; }
-        
         .custom-file-upload { border: 1px dashed var(--text-muted); background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; }
         .custom-file-upload:hover { border-color: var(--primary-color); background: var(--primary-light); }
-        
         .btn-submit-order { background: rgba(255,255,255,0.1); color: var(--text-muted); border: none; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.3s; width: 100%; }
         .btn-submit-order.ready { background: var(--primary-color); color: #fff; box-shadow: 0 5px 15px rgba(137, 80, 252, 0.4); }
         .btn-submit-order.ready:hover { background: var(--primary-hover); }
-
         .success-box { text-align: center; padding: 30px 10px; }
         .success-icon { font-size: 4.5rem; color: var(--success-color); margin-bottom: 20px; animation: popIn 0.5s ease; }
-        
         .line-link-box { background: rgba(0,0,0,0.2); border: 1px dashed var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; }
         .copy-btn { background-color: var(--success-color); color: #fff; border: none; transition: 0.3s; font-weight: bold; }
         .copy-btn:hover { background-color: #15a9a0; color: #fff; }
@@ -157,7 +145,6 @@
 </head>
 <body>
 
-    <!-- ล็อคอินหน้าสินค้า -->
     <div id="login-screen">
         <div class="login-card">
             <div class="metric-icon bg-purple-light mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem; border-radius: 15px;"><i class="fa-solid fa-bolt text-purple"></i></div>
@@ -166,6 +153,7 @@
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
             <button id="btn-login" class="btn w-100 mt-3" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
+            <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="localStorage.removeItem('memphis_agent'); location.reload();">ล้างแคชเก่า (ถ้าค้าง)</button>
             <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
         </div>
     </div>
@@ -177,28 +165,31 @@
             <a href="index.html" class="sidebar-brand"><i class="fa-solid fa-bolt"></i> <span>MemphisGroup</span></a>
             <ul class="sidebar-menu mt-2">
                 <div class="menu-title">Overview</div>
-                <li><a href="index.html"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                <li><a href="index.html" onclick="window.location.href='index.html';"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                
                 <li>
                     <a href="#dashboardsSubmenu" data-bs-toggle="collapse" class="collapsed">
                         <i class="fa-solid fa-chart-pie"></i> <span>Dashboards</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="dashboardsSubmenu">
-                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li><li><a href="#">CRM</a></li>
+                        <li><a href="#">Sales</a></li><li><a href="#">Analytics</a></li>
                     </ul>
                 </li>
+
+                <!-- 🌟 อัปเดตเมนู Users and Customers -->
                 <li>
                     <a href="#usersSubmenu" data-bs-toggle="collapse" class="collapsed">
-                        <i class="fa-solid fa-users"></i> <span>Users</span>
+                        <i class="fa-solid fa-users"></i> <span>Users and Customers</span>
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse sidebar-submenu" id="usersSubmenu">
-                        <li><a href="#">User List</a></li><li><a href="#">Add New User</a></li>
+                        <li><a href="userlist.html" onclick="window.location.href='userlist.html';">User List</a></li>
+                        <li><a href="customers.html" onclick="window.location.href='customers.html';">Customers</a></li>
                     </ul>
                 </li>
                 
-                <!-- เลือกเมนูสินค้าให้ขึ้น Active อัตโนมัติ -->
-                <li><a href="product.html" class="active"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
+                <li><a href="product.html" class="active" onclick="window.location.href='product.html';"><i class="fa-solid fa-cart-shopping"></i> <span>Store (สินค้า)</span></a></li>
 
                 <div class="menu-title">Apps</div>
                 <li><a href="#"><i class="fa-regular fa-calendar"></i> <span>Calendar</span></a></li>
@@ -231,10 +222,9 @@
                     <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
-                    
                     <div class="dropdown">
                         <div class="d-flex align-items-center gap-2 ms-2" style="cursor: pointer;" data-bs-toggle="dropdown">
-                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px;">
+                            <img src="" id="topbar-avatar" class="profile-img-circle" style="width:38px; height:38px; object-fit:cover; border-radius:50%; border: 2px solid var(--border-color);">
                             <span class="user-name-text fw-semibold text-light d-none d-md-block" id="topbar-name" style="font-size: 0.95rem;">Loading...</span>
                             <i class="fa-solid fa-chevron-down text-muted d-none d-md-block" style="font-size: 0.8rem;"></i>
                         </div>
@@ -256,7 +246,6 @@
             </div>
 
             <div class="container-fluid p-0">
-                <!-- ตัวกรองสินค้า -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                     <h5 class="fw-bold mb-0">รายการสินค้า</h5>
                     <div class="d-flex flex-column flex-sm-row gap-2">
@@ -281,7 +270,7 @@
         </div>
     </div>
 
-    <!-- หน้าต่างชำระเงิน (Modal) -->
+    <!-- Modal ชำระเงิน -->
     <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -418,8 +407,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 🚨 นำ API URL ล่าสุดของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbyLnpIPgOPgBFdMVAvVrlsCZIPP7OZB6RmNqwEO-sULDMUxngHGx2FQ-i0UWeKh6vGKTg/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbxBIQCUTBI2--048Tb4vBn1oZBw4WK43AIDCQRBNbJQUvRgw9UTLbRno_TStIJgAPidvg/exec";
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -440,7 +428,6 @@
 
         let currentAgent = null;
 
-        // 🌟 อัปเดตฟังก์ชันดึงรูปโปรไฟล์มาแสดง
         function updateUIWithAgent(agent) {
             try {
                 document.getElementById('sidebar-name').innerText = agent.name || "Unknown";
@@ -453,15 +440,10 @@
                 let sAvatar = document.getElementById('sidebar-avatar');
                 let tAvatar = document.getElementById('topbar-avatar');
                 
-                sAvatar.src = avatarUrl;
-                tAvatar.src = avatarUrl;
-                
+                sAvatar.src = avatarUrl; tAvatar.src = avatarUrl;
                 sAvatar.onerror = function() { this.src = defaultAvatar; };
                 tAvatar.onerror = function() { this.src = defaultAvatar; };
-
-            } catch(e) {
-                console.error("UI Update Error:", e);
-            }
+            } catch(e) { console.error("UI Update Error:", e); }
         }
 
         const savedAgent = localStorage.getItem('memphis_agent');
@@ -470,13 +452,11 @@
         } else {
             try {
                 currentAgent = JSON.parse(savedAgent);
-                // 🌟 ปิดบังหน้าล็อคอิน
                 document.getElementById('login-screen').style.display = 'none';
                 updateUIWithAgent(currentAgent); 
                 fetchProducts(); 
             } catch(e) {
-                localStorage.removeItem('memphis_agent');
-                window.location.href = "index.html";
+                localStorage.removeItem('memphis_agent'); window.location.href = "index.html";
             }
         }
 
