@@ -25,13 +25,11 @@
         .text-muted { color: var(--text-muted) !important; }
         #wrapper { display: flex; width: 100%; position: relative; }
 
-        /* Login Screen */
         #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background-color: var(--bg-card); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .login-input { width: 100%; padding: 12px 20px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-light); outline: none; text-align: center; font-size: 1.1rem; }
         .login-input:focus { border-color: var(--primary-color); }
 
-        /* Sidebar Style */
         #sidebar { width: var(--sidebar-width); background-color: var(--bg-sidebar); height: 100vh; border-right: 1px solid var(--border-color); position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 1040; transition: all 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
         #sidebar.toggled { width: 70px; }
         #sidebar.toggled .sidebar-brand span, #sidebar.toggled .menu-title, #sidebar.toggled .sidebar-menu li a span, #sidebar.toggled .user-profile-bottom, #sidebar.toggled .toggle-arrow, #sidebar.toggled .sidebar-submenu { display: none !important; } 
@@ -47,7 +45,6 @@
         .sidebar-menu > li > a:hover, .sidebar-menu > li > a.active { background: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
         .toggle-arrow { transition: transform 0.3s ease; }
         .sidebar-menu > li > a:not(.collapsed) .toggle-arrow { transform: rotate(180deg); }
-
         .sidebar-submenu { list-style: none !important; padding: 0 !important; margin: 0 0 10px 30px !important; border-left: 1px dashed var(--border-color); }
         .sidebar-submenu li { position: relative; }
         .sidebar-submenu li a { display: flex; align-items: center; padding: 10px 15px 10px 20px; font-size: 0.9rem; color: var(--text-muted); text-decoration: none !important; transition: 0.3s; font-weight: 500; }
@@ -59,7 +56,6 @@
         .user-profile-bottom:hover { background: rgba(255,255,255,0.02); }
         .profile-img-circle { width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border-color); background-color: var(--bg-main); }
 
-        /* Main Content */
         #page-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; transition: all 0.3s ease; min-height: 100vh; }
         #page-content.toggled { margin-left: 70px; width: calc(100% - 70px); }
 
@@ -72,41 +68,31 @@
         .icon-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; position: relative; transition: color 0.3s ease;}
         .icon-btn:hover { color: var(--primary-color); }
         .badge-dot { position: absolute; top: 0px; right: -2px; width: 16px; height: 16px; background-color: var(--danger-color); border-radius: 50%; font-size: 0.6rem; color:#fff; display: flex; align-items:center; justify-content:center; }
-        
-        .btn-create { background: var(--primary-light); color: var(--primary-color); border: 1px solid var(--primary-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-        .btn-create:hover { background: var(--primary-color); color: #fff; }
 
         .profile-dropdown-menu { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; margin-top: 15px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .profile-dropdown-menu .dropdown-item { color: var(--text-light); padding: 10px 20px; font-size: 0.9rem; transition: 0.3s;}
         .profile-dropdown-menu .dropdown-item:hover { background-color: var(--primary-light); color: var(--primary-color); }
-
+        
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1030; display: none; backdrop-filter: blur(2px); }
         .sidebar-overlay.active { display: block; }
         @media (max-width: 991.98px) { #sidebar { left: calc(-1 * var(--sidebar-width)); } #sidebar.mobile-show { left: 0; } #page-content { margin-left: 0 !important; width: 100% !important; padding: 15px; } .search-bar, .user-name-text { display: none !important; } }
 
-        /* Custom Sales UI */
         .custom-card { background-color: var(--bg-card); border-radius: 12px; padding: 24px; margin-bottom: 25px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05); transition: 0.3s ease; height: calc(100% - 25px); }
         .custom-card:hover { transform: translateY(-3px); border-color: rgba(137, 80, 252, 0.3); }
         
         .metric-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .metric-badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; height: fit-content; transition: 0.3s; }
         
-        /* 🌟 ปุ่ม Toggle กราฟ Week / Month / Year */
         .chart-toggle-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 5px 15px; font-size: 0.85rem; border-radius: 20px; transition: 0.3s; margin-left: 5px; cursor: pointer; }
         .chart-toggle-btn:hover { border-color: var(--primary-color); color: var(--text-light); }
         .chart-toggle-btn.active { background: var(--primary-light); color: var(--primary-color); border-color: var(--primary-color); }
 
-        /* 🌟 สีสันเพิ่มเติม */
         .bg-purple-light { background-color: var(--primary-light); color: var(--primary-color); }
         .bg-green-light { background-color: var(--success-light); color: var(--success-color); }
         .bg-blue-light { background-color: var(--info-light); color: var(--info-color); }
         .bg-orange-light { background-color: var(--warning-light); color: var(--warning-color); }
         
-        .table-category td { padding: 12px 0; border-bottom: 1px dashed var(--border-color); }
-        .table-category tr:last-child td { border-bottom: none; }
-        
-        /* 🌟 สไตล์กล่อง Top Product */
-        .top-product-img { width: 50px; height: 50px; border-radius: 10px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 5px; }
+        .top-product-img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-color); background: rgba(255,255,255,0.05); padding: 2px; }
         .slim-progress { height: 6px; background-color: var(--border-color); border-radius: 10px; overflow: hidden; margin-top: 8px;}
         .slim-progress-bar { background: linear-gradient(90deg, #8950fc 0%, #f64e60 100%); height: 100%; border-radius: 10px; }
     </style>
@@ -120,7 +106,7 @@
             <p class="text-muted mb-4">Sign in to your account</p>
             <input type="text" id="agent-input" class="login-input" placeholder="Agent ID (e.g. AG01)" autocomplete="off">
             <input type="password" id="password-input" class="login-input" placeholder="Password" autocomplete="off">
-            <button id="btn-login" class="btn w-100 mt-2" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
+            <button id="btn-login" class="btn w-100 mt-3" style="background: var(--primary-color); color: #fff; padding: 12px; border-radius: 10px; font-weight: bold;">Login</button>
             <button class="btn w-100 mt-2" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 0.8rem;" onclick="localStorage.removeItem('memphis_agent'); location.reload();">ล้างแคชเก่า (ถ้าค้าง)</button>
             <p id="login-error" class="text-danger mt-3 mb-0" style="display: none; font-size: 0.9rem;">Invalid credentials</p>
         </div>
@@ -141,7 +127,6 @@
                         <i class="fa-solid fa-chevron-down ms-auto toggle-arrow" style="font-size: 0.8rem; width:auto;"></i>
                     </a>
                     <ul class="collapse show sidebar-submenu" id="dashboardsSubmenu">
-                        <!-- 🌟 ไฮไลท์ Sales เป็น Active -->
                         <li><a href="sales.html" class="active" onclick="window.location.href='sales.html';">Sales</a></li>
                         <li><a href="#">Analytics</a></li>
                     </ul>
@@ -188,7 +173,6 @@
                     </div>
                 </div>
                 <div class="topbar-actions">
-                    <button class="btn-create d-none d-sm-block"><i class="fa-solid fa-plus me-1"></i> Create</button>
                     <button class="icon-btn ms-2" id="theme-toggle"><i class="fa-regular fa-lightbulb" id="theme-icon"></i></button>
                     <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot" style="background:var(--warning-color);">3</span></button>
                     <div class="dropdown">
@@ -207,19 +191,12 @@
                 </div>
             </div>
 
-            <!-- Page Title -->
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-                <div>
-                    <h2 class="fw-bold mb-1">Sales Dashboard</h2>
-                    <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
-                </div>
-                <div class="mt-3 mt-md-0 d-flex gap-2">
-                    <button class="btn btn-outline-secondary text-light" style="border-color: var(--border-color);"><i class="fa-regular fa-calendar me-2"></i> This Month <i class="fa-solid fa-chevron-down ms-2" style="font-size:0.7rem;"></i></button>
-                    <button class="btn btn-create" style="background: var(--primary-color); color:#fff;"><i class="fa-solid fa-download me-1"></i> Export</button>
-                </div>
+            <!-- 🌟 เอากากบาทออกแล้วให้ดูกระชับ -->
+            <div class="mb-4">
+                <h2 class="fw-bold mb-1">Sales Dashboard</h2>
+                <p class="text-muted mb-0">Track revenue, orders and performance across your store.</p>
             </div>
 
-            <!-- 🌟 4 กล่อง KPIs -->
             <div class="row">
                 <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-purple-light text-purple"><i class="fa-solid fa-dollar-sign"></i></div><span class="metric-badge" id="trend-revenue">0%</span></div><h3 class="fw-bold mb-1" id="data-revenue">Loading...</h3><small class="text-muted">Total Revenue</small></div></div>
                 <div class="col-xl-3 col-md-6 col-12"><div class="custom-card"><div class="d-flex justify-content-between align-items-start mb-4"><div class="metric-icon bg-green-light text-green"><i class="fa-solid fa-bag-shopping"></i></div><span class="metric-badge" id="trend-orders">0%</span></div><h3 class="fw-bold mb-1" id="data-orders">Loading...</h3><small class="text-muted">Total Orders</small></div></div>
@@ -228,7 +205,6 @@
             </div>
 
             <div class="row">
-                <!-- 🌟 กราฟเส้นแบบเลือกเวลาได้ -->
                 <div class="col-xl-8 col-12">
                     <div class="custom-card">
                         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4">
@@ -246,7 +222,6 @@
                     </div>
                 </div>
                 
-                <!-- 🌟 กราฟโดนัทหมวดหมู่ -->
                 <div class="col-xl-4 col-12">
                     <div class="custom-card d-flex flex-column">
                         <div>
@@ -254,23 +229,23 @@
                             <small class="text-muted d-block text-start">Revenue share this month</small>
                         </div>
                         <div id="donutChart" class="my-4 d-flex justify-content-center w-100"></div>
-                        <div class="mt-auto w-100">
-                            <table class="table table-borderless table-category w-100 mb-0" id="category-legend">
-                                <tr><td class="text-center text-muted py-4">Loading categories...</td></tr>
-                            </table>
+                        <!-- 🌟 เปลี่ยนตารางตรงวงสีเหลืองเป็น Div ที่โชว์เนียนๆ -->
+                        <div class="mt-auto w-100" id="category-legend">
+                            <div class="text-center text-muted py-4">Loading categories...</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 🌟 สินค้าขายดี -->
             <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="custom-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div><h5 class="mb-0 fw-bold">Top Products</h5><small class="text-muted">Best sellers this month</small></div>
-                            <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                            <!-- 🌟 ปุ่ม View All ที่กดแล้วเด้ง Modal โชว์ของทั้งหมด -->
+                            <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#allProductsModal">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
                         </div>
+                        <!-- 🌟 รูปตรงวงสีน้ำเงินจะมาขึ้นตรงนี้แล้ว -->
                         <div id="top-products-list">
                             <div class="text-center text-muted py-4">Loading products...</div>
                         </div>
@@ -281,12 +256,27 @@
         </div>
     </div>
 
+    <!-- 🌟 Modal สำหรับโชว์สินค้าทั้งหมดพอกด View All -->
+    <div class="modal fade" id="allProductsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" style="background-color: var(--bg-card); border: 1px solid var(--border-color);">
+                <div class="modal-header border-bottom" style="border-color: var(--border-color)!important;">
+                    <h5 class="modal-title fw-bold text-light">สินค้าขายดีทั้งหมด (เดือนนี้)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 py-4" id="all-products-modal-list">
+                    <div class="text-center text-muted py-4">Loading products...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
         // 🚨 นำ API URL ของคุณมาวาง
-        const apiURL = "https://script.google.com/macros/s/AKfycbzG4tmCWNhWeMGjGimp87Dup2zeAdoghw3XOURDfqTytUk8Z5LBy7i1MaiKp2UO4-KRdw/exec"; 
+        const apiURL = "https://script.google.com/macros/s/AKfycbxkQoVU8YrQicp-rj-yatiUPvYloF_T5bDqepvjPU6T3ae9c_ZEg5d4PMk66Wns2QVzCw/exec"; 
 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
@@ -298,7 +288,6 @@
         });
         overlay.addEventListener('click', function() { sidebar.classList.remove('mobile-show'); overlay.classList.remove('active'); });
 
-        // 🌟 ตั้งค่าโครงกราฟ
         var chartDataCache = { week: null, month: null, year: null };
         var timeChart = new ApexCharts(document.querySelector("#timeChart"), {
             series: [{ name: 'Revenue', data: [] }, { name: 'Orders', data: [] }], 
@@ -375,12 +364,10 @@
             else { el.style.backgroundColor = "var(--danger-light)"; el.style.color = "var(--danger-color)"; el.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i> ${Math.abs(value)}%`; }
         }
 
-        // 🌟 ฟังก์ชันดึงข้อมูลเจาะลึก
         function fetchSalesData() {
             fetch(apiURL + "?action=getSalesData")
                 .then(res => { if(!res.ok) throw new Error("Net Error"); return res.json(); })
                 .then(data => {
-                    // ลงข้อมูล 4 กล่องบน
                     if(data.kpi) {
                         document.getElementById('data-revenue').innerText = "฿" + Number(data.kpi.revenue).toLocaleString();
                         document.getElementById('data-orders').innerText = Number(data.kpi.orders).toLocaleString();
@@ -391,17 +378,15 @@
                         setTrendBadge('trend-revenue', data.trends.revenue);
                         setTrendBadge('trend-orders', data.trends.orders);
                         setTrendBadge('trend-avg', data.trends.avgOrder);
-                        setTrendBadge('trend-conversion', data.trends.revenue > 0 ? 5 : -2); // Mockup
+                        setTrendBadge('trend-conversion', data.trends.revenue > 0 ? 5 : -2); 
                     }
 
-                    // อัปเดตกราฟหลัก (เปิดมาใช้ Week ก่อน)
                     if(data.charts) {
                         chartDataCache = data.charts;
                         timeChart.updateSeries([{ name: 'Revenue', data: data.charts.week.rev }, { name: 'Orders', data: data.charts.week.ord }]);
                         timeChart.updateOptions({ xaxis: { categories: data.charts.week.labels } });
                     }
 
-                    // อัปเดตกราฟโดนัท
                     if(data.categories && data.categories.series.length > 0) {
                         donutChart.updateSeries(data.categories.series);
                         donutChart.updateOptions({ labels: data.categories.labels });
@@ -415,25 +400,35 @@
                             let pct = totalRev > 0 ? ((val/totalRev)*100).toFixed(1) : 0;
                             let col = colors[idx % colors.length];
                             legHTML += `
-                            <tr>
-                                <td><div class="d-flex align-items-center gap-2"><i class="fa-solid fa-circle" style="color:${col}; font-size:10px;"></i><span class="text-light" style="font-size:0.9rem;">${cat}</span></div></td>
-                                <td class="text-end"><span class="text-light fw-bold" style="font-size:0.9rem;">฿${Number(val).toLocaleString()}</span></td>
-                                <td class="text-end" style="width:50px;"><span class="text-muted" style="font-size:0.8rem;">${pct}%</span></td>
-                            </tr>`;
+                            <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px dashed var(--border-color);">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa-solid fa-circle" style="color:${col}; font-size:10px;"></i>
+                                    <span class="text-light" style="font-size:0.95rem;">${cat}</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-light fw-bold me-3" style="font-size:0.95rem;">฿${Number(val).toLocaleString()}</span>
+                                    <span class="text-muted" style="font-size:0.85rem; display:inline-block; width:40px;">${pct}%</span>
+                                </div>
+                            </div>`;
                         });
                         document.getElementById('category-legend').innerHTML = legHTML;
                     } else {
-                        document.getElementById('category-legend').innerHTML = `<tr><td class="text-center text-muted">ไม่มียอดขายในหมวดหมู่</td></tr>`;
+                        document.getElementById('category-legend').innerHTML = `<div class="text-center text-muted">ไม่มียอดขายในหมวดหมู่</div>`;
                     }
 
-                    // อัปเดตสินค้าขายดี
                     if(data.topProducts) {
                         let tpHTML = "";
+                        let modalHTML = "";
+                        
                         if(data.topProducts.length === 0) {
-                            tpHTML = '<div class="text-center text-muted py-3">ยังไม่มียอดขาย</div>';
+                            tpHTML = '<div class="text-center text-muted py-3">ยังไม่มียอดขายในเดือนนี้</div>';
+                            modalHTML = tpHTML;
                         } else {
                             let maxOrd = data.topProducts[0].orders;
-                            data.topProducts.forEach(prod => {
+                            
+                            // โชว์ 4 อันดับแรกในหน้าหลัก
+                            let top4 = data.topProducts.slice(0, 4);
+                            top4.forEach(prod => {
                                 let pct = Math.round((prod.orders / maxOrd) * 100);
                                 tpHTML += `
                                 <div class="d-flex align-items-center mb-4">
@@ -447,8 +442,28 @@
                                     </div>
                                 </div>`;
                             });
+
+                            // โชว์ทั้งหมดใน Modal
+                            data.topProducts.forEach(prod => {
+                                let pct = Math.round((prod.orders / maxOrd) * 100);
+                                modalHTML += `
+                                <div class="d-flex align-items-center mb-4">
+                                    <img src="${prod.img}" class="top-product-img me-3">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span class="text-light fw-bold" style="font-size: 0.95rem;">${prod.name}</span>
+                                            <div>
+                                                <span class="text-success fw-bold me-2">฿${Number(prod.revenue).toLocaleString()}</span>
+                                                <span class="text-muted" style="font-size: 0.85rem;">(${Number(prod.orders).toLocaleString()} sold)</span>
+                                            </div>
+                                        </div>
+                                        <div class="slim-progress"><div class="slim-progress-bar" style="width: ${pct}%;"></div></div>
+                                    </div>
+                                </div>`;
+                            });
                         }
                         document.getElementById('top-products-list').innerHTML = tpHTML;
+                        document.getElementById('all-products-modal-list').innerHTML = modalHTML;
                     }
                 })
                 .catch(err => {
@@ -457,13 +472,9 @@
                 });
         }
 
-        // 🌟 ฟังก์ชันสลับกราฟ (Week / Month / Year)
         function switchChart(type, btnElement) {
-            // เปลียนปุ่ม
             document.querySelectorAll('.chart-toggle-btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
-
-            // เปลี่ยนข้อมูลกราฟ
             if(chartDataCache[type]) {
                 timeChart.updateSeries([{ name: 'Revenue', data: chartDataCache[type].rev }, { name: 'Orders', data: chartDataCache[type].ord }]);
                 timeChart.updateOptions({ xaxis: { categories: chartDataCache[type].labels } });
